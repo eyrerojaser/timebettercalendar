@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "Mi Calendario",
-  "short_name": "Mi Calendario",
-  "description": "Planea, enfoca, logra y disfruta: metas, propósitos diarios y fotos en un calendario visual.",
+  "name": "TIME · Better Calendar",
+  "short_name": "TIME",
+  "description": "TIME, Better Calendar: metas, propósitos diarios, recordatorios y fotos en un calendario visual.",
   "lang": "es",
   "dir": "ltr",
   "start_url": "./",

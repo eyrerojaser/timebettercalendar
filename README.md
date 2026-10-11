@@ -1,4 +1,4 @@
-# Mi Calendario — versión de venta
+# TIME · Better Calendar — versión de venta
 
 Calendario instalable (PWA) que se vende con un **código único por compra**.
 Funciona en tu cuenta de **GitHub → Netlify**, con **Stripe** para cobrar.
@@ -58,7 +58,8 @@ Cambia los archivos en GitHub y sube el número de `VERSION` en `sw.js` para que
 ## Importante
 - No hay que tocar `index.html` para poner tu enlace de compra: va en la variable `BUY_URL`.
 - La sincronización y los avisos usan Netlify Blobs y una función que corre cada minuto. Si vendes a muchas personas, revisa el uso de tu plan.
-- Cambiar el nombre del producto: busca "Mi Calendario" en `index.html`, `manifest.webmanifest` y `gracias.html`.
+- Cambiar el nombre del producto: busca "TIME" en `index.html`, `manifest.webmanifest`, `gracias.html` y `sw.js`. El nombre de los iconos (`icons/`) también hay que cambiarlo si trae texto.
+- Ojo: no cambies `mi-calendario` en `index.html` (nombre interno de la base de datos y de los respaldos), o las personas perderían sus datos al actualizar.
 
 ## Idiomas (Español / English)
 La app, la pantalla del código y la página de gracias tienen un selector **ES | EN** arriba. La elección se recuerda en cada dispositivo.

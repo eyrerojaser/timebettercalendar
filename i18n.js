@@ -1,4 +1,4 @@
-/* Mi Calendario · idiomas (Español / English)
+/* TIME · idiomas (Español / English)
    Traduce la pantalla al vuelo: cada texto en español se cambia por su versión en inglés
    (y se restaura al volver a español). Lo que la persona escribe (metas, notas…) nunca se traduce.
    Para agregar o corregir una frase en inglés, edita la lista EN de abajo. */
@@ -15,8 +15,6 @@
     'Activar mi calendario': 'Activate my calendar',
     '¿Aún no tienes código?': "Don't have a code yet?",
     'Compra tu calendario aquí': 'Get your calendar here',
-    'Planea · Enfoca · Logra · Disfruta': 'Plan · Focus · Achieve · Enjoy',
-    'PLANEA · ENFOCA · LOGRA · DISFRUTA': 'PLAN · FOCUS · ACHIEVE · ENJOY',
     'Idioma': 'Language',
     'Escribe tu código completo (12 letras y números).': 'Enter your full code (12 letters and numbers).',
     'Ese código no es válido. Revísalo y vuelve a escribirlo.': "That code isn't valid. Check it and type it again.",
@@ -37,7 +35,6 @@
     'Sueña · Planifica · Hazlo': 'Dream · Plan · Do it',
     'Disciplina hoy, la vida que amo mañana': 'Discipline today, the life I love tomorrow',
     'Disciplina hoy, la vida que amo mañana.': 'Discipline today, the life I love tomorrow.',
-    'Mi Calendario': 'My Calendar', 'Mi calendario': 'My calendar',
     // ---- Meses y días ----
     'enero': 'January', 'febrero': 'February', 'marzo': 'March', 'abril': 'April', 'mayo': 'May', 'junio': 'June',
     'julio': 'July', 'agosto': 'August', 'septiembre': 'September', 'octubre': 'October', 'noviembre': 'November', 'diciembre': 'December',
@@ -124,9 +121,10 @@
     'No se pudo sincronizar. Se reintentará en un momento.': 'Could not sync. It will retry in a moment.',
     'El código tiene 24 letras y números': 'The code has 24 letters and numbers',
     'Este navegador no permite guardar: tus cambios se perderán al cerrar': 'This browser does not allow saving: your changes will be lost when you close it',
+    'Guía': 'Guide', 'Guía rápida (PDF)': 'Quick guide (PDF)',
     'Respaldo': 'Backup', 'Descargar respaldo': 'Download backup', 'Importar respaldo': 'Import backup', 'Respaldo descargado': 'Backup downloaded',
     'Descarga una copia de todo (metas, días y fotos) o pasa tu calendario a otro dispositivo. Al importar, se reemplazan los meses que vengan en el archivo.': 'Download a copy of everything (goals, days and photos) or move your calendar to another device. When you import, the months in the file are replaced.',
-    'Ese archivo no es un respaldo de Mi Calendario': 'That file is not a My Calendar backup', 'Ese archivo no es un respaldo válido': 'That file is not a valid backup',
+    'Ese archivo no es un respaldo de TIME': 'That file is not a TIME backup', 'Ese archivo no es un respaldo válido': 'That file is not a valid backup',
     'Instalar app': 'Install app', 'Instalar en este dispositivo': 'Install on this device', '¡App instalada!': 'App installed!',
     'Ábrela como una app, con su propio ícono y sin la barra del navegador.': 'Open it like an app, with its own icon and no browser bar.',
     'En iPhone o iPad: toca el botón Compartir de Safari y elige “Agregar a pantalla de inicio”.': 'On iPhone or iPad: tap Safari’s Share button and choose “Add to Home Screen”.',
@@ -160,7 +158,7 @@
     [/^(\d{1,2}) de (enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)$/, function (m) { return monthEn(m[2]) + ' ' + m[1]; }],
     [/^(\d+) actividad(es)?$/, function (m) { return m[1] + (m[1] === '1' ? ' activity' : ' activities'); }],
     [/^(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre) (\d{4})$/, function (m) { return monthEn(m[1]) + ' ' + m[2]; }],
-    [/^Mi calendario · (\S+) (\d{4})$/, function (m) { return 'My calendar · ' + monthEn(m[1]) + ' ' + m[2]; }],
+    [/^TIME · (\S+) (\d{4})$/, function (m) { return 'TIME · ' + monthEn(m[1]) + ' ' + m[2]; }],
     [/^Meta (\d+): (.*)$/, function (m) { return 'Goal ' + m[1] + ': ' + tr(m[2]); }],
     [/^Quitar categoría (.*)$/, function (m) { return 'Remove category ' + m[1]; }],
     [/^Editar actividad (.*)$/, function (m) { return 'Edit activity ' + m[1]; }],

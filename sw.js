@@ -1,7 +1,7 @@
-/* Mi Calendario · service worker
+/* TIME · service worker
    Guarda la app en el dispositivo para que abra al instante y funcione sin Internet.
    Si cambias algún archivo de la app, sube el número de VERSION para que se actualice. */
-const VERSION = 'mi-calendario-venta-v2';
+const VERSION = 'time-v1';
 const ASSETS = [
   './', './index.html', './i18n.js', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png', './icons/apple-touch-icon.png', './icons/badge-96.png',
@@ -59,7 +59,7 @@ self.addEventListener('push', (e) => {
     data: { url: d.url || './' }
   };
   if (d.tag) opts.tag = d.tag;      // mismo "tag" = no se duplica si la app también lo avisó
-  e.waitUntil(self.registration.showNotification(d.title || 'Mi Calendario', opts));
+  e.waitUntil(self.registration.showNotification(d.title || 'TIME', opts));
 });
 
 self.addEventListener('notificationclick', (e) => {

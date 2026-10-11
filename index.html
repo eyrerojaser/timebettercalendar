@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mi calendario</title>
+<title>TIME · Better Calendar</title>
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#FCF3EC">
-<meta name="description" content="Mi calendario personal: metas, propósitos diarios y fotos.">
+<meta name="description" content="TIME, Better Calendar: metas, propósitos diarios y fotos en un calendario visual.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Mi Calendario">
+<meta name="apple-mobile-web-app-title" content="TIME">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
   @font-face { font-family: 'Great Vibes'; font-weight: 400; font-style: normal; font-display: swap; src: url(fonts/great-vibes-latin-400-normal.woff2) format('woff2'); }
@@ -94,7 +94,7 @@
   .top-deco { position: absolute; top: 0; right: 0; width: 112px; height: auto; pointer-events: none; }
   @media (min-width: 640px) { .top-deco { width: 150px; } }
   .brand { position: relative; z-index: 1; }
-  .logo { margin: 0; font-family: var(--font-logo); font-weight: 400; font-size: clamp(42px, 11vw, 60px); line-height: 1; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+  .logo { margin: 0; font-family: var(--font-serif); font-weight: 700; letter-spacing: .16em; font-size: clamp(36px, 10vw, 50px); line-height: 1; color: var(--accent); display: flex; align-items: center; gap: 8px; }
   .logo svg { width: .42em; height: .42em; }
   .tag { margin: 2px 0 0; font-size: 10.5px; letter-spacing: .14em; color: var(--ink-soft); font-weight: 600; }
   .phrase { position: relative; z-index: 1; margin: 0; font-family: var(--font-script); font-weight: 500; font-size: 18px; line-height: 1.15; color: var(--ink); }
@@ -327,7 +327,7 @@
   .langsw button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
   .gate-wrap { position: relative; width: 100%; max-width: 440px; margin: auto; }
   .gate-deco { position: absolute; top: -18px; right: -6px; width: 128px; height: auto; pointer-events: none; }
-  .gate-logo { margin: 0; font-family: var(--font-logo); font-weight: 400; font-size: clamp(40px, 11vw, 52px); color: var(--accent); }
+  .gate-logo { margin: 0; font-family: var(--font-serif); font-weight: 700; letter-spacing: .16em; font-size: clamp(36px, 10vw, 46px); color: var(--accent); }
   .gate-logo span { display: inline-block; width: 20px; height: 20px; margin-left: 4px; vertical-align: -2px; }
   .gate-kicker { margin: 2px 0 20px; font-size: 12.5px; font-weight: 800; letter-spacing: .08em; color: var(--ink-soft); text-transform: uppercase; }
   .gate-sheet { width: 100%; padding: 28px 22px calc(26px + env(safe-area-inset-bottom, 0px)); border-radius: 28px; background: var(--surface); border: 1px solid var(--line); text-align: center; }
@@ -384,8 +384,8 @@
   <div class="langsw" role="group" aria-label="Idioma"><button type="button" data-lang="es" aria-pressed="true">ES</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
   <div class="gate-wrap">
     <svg class="gate-deco" id="gateDeco" viewBox="0 0 220 130" aria-hidden="true"></svg>
-    <p class="gate-logo">Mi Calendario<span id="gateHeart"></span></p>
-    <p class="gate-kicker">Planea · Enfoca · Logra · Disfruta</p>
+    <p class="gate-logo">TIME<span id="gateHeart"></span></p>
+    <p class="gate-kicker">Better Calendar</p>
     <div class="gate-sheet">
       <h2 id="gateH">¡Bienvenida!</h2>
       <p class="gate-sub">Tu espacio para planear tus metas, cuidar tus días y soñar en grande.<br>Escribe el código de compra que te aparece al pagar para empezar.</p>
@@ -402,8 +402,8 @@
     <svg class="top-deco" id="topDeco" viewBox="0 0 220 130" aria-hidden="true"></svg>
     <div class="langsw" role="group" aria-label="Idioma"><button type="button" data-lang="es" aria-pressed="true">ES</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
     <div class="brand">
-      <h1 class="logo">Mi Calendario<span id="logoHeart"></span></h1>
-      <p class="tag">PLANEA · ENFOCA · LOGRA · DISFRUTA</p>
+      <h1 class="logo">TIME<span id="logoHeart"></span></h1>
+      <p class="tag">BETTER CALENDAR</p>
     </div>
     <p class="phrase" id="phrase"></p>
   </header>
@@ -590,6 +590,8 @@
       <p class="hint">Llenamos este mes con datos de ejemplo para que veas cómo funciona. Cuando quieras, bórralo: se borran solo los datos de ejemplo, no lo que tú agregues nuevo.</p>
       <button class="done-btn solid" id="demoClear" type="button" style="margin-top:0">Borrar el ejemplo y empezar</button>
     </div>
+    <p class="lbl sec-gap">Guía</p>
+    <a class="ghost-btn" id="guideLink" href="guias/guia-rapida.pdf" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none">Guía rápida (PDF)</a>
     <p class="lbl sec-gap">Respaldo</p>
     <p class="hint">Descarga una copia de todo (metas, días y fotos) o pasa tu calendario a otro dispositivo. Al importar, se reemplazan los meses que vengan en el archivo.</p>
     <div class="seg">
@@ -964,7 +966,7 @@
     $('#vDeco').innerHTML = CLUSTER[s]();
     $('#gateDeco').innerHTML = CLUSTER[s]();
     renderHeroParticles();
-    $('#gateHeart').innerHTML = svg('heart', 20, 2, 'currentColor');
+    $('#gateHeart').innerHTML = svg('sparkle', 20, 2, 'currentColor');
     $('#goalIco').innerHTML = svg(S.icon, 30, 1.8);
     setThemeColor();
   }
@@ -980,11 +982,11 @@
     $('#year').textContent = cur.y;
     $('#mquote').textContent = '“' + S.hero + '”';
     $('#phrase').textContent = '“' + prefs.phrase + '”';
-    $('#logoHeart').innerHTML = svg('heart', 20, 2);
-    $('#yearHeart').innerHTML = svg('heart', 20, 2, 'currentColor');
+    $('#logoHeart').innerHTML = svg('sparkle', 20, 2);
+    $('#yearHeart').innerHTML = svg('sparkle', 20, 2, 'currentColor');
     $('#footName').replaceChildren();
-    if (prefs.name) { $('#footName').append(document.createTextNode(prefs.name)); $('#footName').insertAdjacentHTML('beforeend', svg('heart', 20, 2)); }
-    document.title = 'Mi calendario · ' + MONTHS[cur.m] + ' ' + cur.y;
+    if (prefs.name) { $('#footName').append(document.createTextNode(prefs.name)); $('#footName').insertAdjacentHTML('beforeend', svg('sparkle', 20, 2)); }
+    document.title = 'TIME · ' + MONTHS[cur.m] + ' ' + cur.y;
   }
 
   /* ================= Render: metas ================= */
@@ -1029,7 +1031,7 @@
     if (trailing >= 2) {
       const q = el('div', { class: 'qb', 'aria-hidden': 'true' }, el('span', { text: '“' + SEASONS[season()].banner + '”' }));
       q.style.gridColumn = 'span ' + trailing;
-      q.insertAdjacentHTML('beforeend', svg('heart', 16, 2).replace('<svg', '<svg class="qh"'));
+      q.insertAdjacentHTML('beforeend', svg('sparkle', 16, 2).replace('<svg', '<svg class="qh"'));
       grid.append(q);
     }
   }
@@ -1323,7 +1325,7 @@
   async function importBackup(file) {
     let obj;
     try { obj = JSON.parse(await file.text()); } catch (e) { toast('Ese archivo no es un respaldo válido'); return; }
-    if (!obj || obj.app !== 'mi-calendario' || !obj.items) { toast('Ese archivo no es un respaldo de Mi Calendario'); return; }
+    if (!obj || obj.app !== 'mi-calendario' || !obj.items) { toast('Ese archivo no es un respaldo de TIME'); return; }
     await flush();
     let n = 0;
     for (const [k, v] of Object.entries(obj.items)) {
@@ -2020,6 +2022,9 @@
     $('#gateGo').disabled = false;
   });
   $('#gCode').addEventListener('keydown', e => { if (e.key === 'Enter') $('#gateGo').click(); });
+
+  const setGuide = () => { $('#guideLink').href = I18N.lang() === 'en' ? 'guias/quick-guide-en.pdf' : 'guias/guia-rapida.pdf'; };
+  setGuide(); I18N.onChange(setGuide);
 
   /* ================= Mes de ejemplo ================= */
   async function seedDemoIfNew(buyerName) {

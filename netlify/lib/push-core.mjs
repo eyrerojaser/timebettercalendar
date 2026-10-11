@@ -1,4 +1,4 @@
-// Avisos de Mi Calendario (notificaciones push).
+// Avisos de TIME (notificaciones push).
 //
 // Cada dispositivo que activa los recordatorios guarda aquí:
 //   · su suscripción push (la "dirección" a la que el navegador recibe avisos), y

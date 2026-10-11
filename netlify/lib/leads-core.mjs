@@ -1,4 +1,4 @@
-// Registro de personas que usan Mi Calendario + panel de administración.
+// Registro de personas que usan TIME + panel de administración.
 //
 // Guarda un solo documento con la lista de personas (nombre, apellido, correo, fecha).
 // El panel de administración se protege con una contraseña que la dueña elige la

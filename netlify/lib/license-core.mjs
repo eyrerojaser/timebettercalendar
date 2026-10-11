@@ -1,4 +1,4 @@
-// Licencias de Mi Calendario: un código único por compra.
+// Licencias de TIME: un código único por compra.
 //
 // Flujo:
 //  1) La persona paga con un Stripe Payment Link. Stripe la manda a /gracias.html?session_id=...

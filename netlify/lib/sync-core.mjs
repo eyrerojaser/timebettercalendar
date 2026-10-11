@@ -1,4 +1,4 @@
-// Lógica de sincronización de Mi Calendario.
+// Lógica de sincronización de TIME.
 // Guarda cada "elemento" (un mes, tus ajustes o una foto) en Netlify Blobs,
 // separado por un espacio privado que sale del código de sincronización.
 // El código nunca se guarda: solo se guarda su huella (SHA-256).
