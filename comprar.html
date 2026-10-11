@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TIME · Better Calendar</title>
+<meta name="description" content="TIME, Better Calendar: tu calendario con metas, actividades y recordatorios. Pago único, sin suscripción.">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+  @font-face { font-family:'Playfair Display'; font-weight:700; font-display:swap; src:url(fonts/playfair-display-latin-700-normal.woff2) format('woff2'); }
+  @font-face { font-family:'Nunito'; font-weight:400; font-display:swap; src:url(fonts/nunito-latin-400-normal.woff2) format('woff2'); }
+  @font-face { font-family:'Nunito'; font-weight:700; font-display:swap; src:url(fonts/nunito-latin-700-normal.woff2) format('woff2'); }
+  @font-face { font-family:'Nunito'; font-weight:800; font-display:swap; src:url(fonts/nunito-latin-800-normal.woff2) format('woff2'); }
+  :root { --bg:#FCF3EC; --surface:#fff; --ink:#3A2A22; --soft:#7A6358; --accent:#8C3520; --line:rgba(140,53,32,.16); }
+  @media (prefers-color-scheme: dark) { :root { --bg:#241A16; --surface:#2F231D; --ink:#F3E7DE; --soft:#C7B3A6; --accent:#E8955F; --line:rgba(232,149,95,.24); } }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:'Nunito',system-ui,sans-serif; line-height:1.55; padding-bottom:env(safe-area-inset-bottom,0); }
+  .wrap { max-width:1040px; margin:0 auto; padding:0 20px; }
+  header { display:flex; align-items:center; justify-content:space-between; padding:18px 0; }
+  .brand { font:700 26px 'Playfair Display',serif; letter-spacing:.16em; color:var(--accent); }
+  .brand small { display:block; font:800 10px 'Nunito'; letter-spacing:.2em; color:var(--soft); margin-top:2px; }
+  .langsw { display:inline-flex; border:1.5px solid var(--accent); border-radius:99px; overflow:hidden; }
+  .langsw button { border:0; background:transparent; color:var(--accent); font:800 12px/1 'Nunito',sans-serif; letter-spacing:.04em; padding:8px 12px; cursor:pointer; }
+  .langsw button[aria-pressed="true"] { background:var(--accent); color:#fff; }
+  .hero { display:grid; grid-template-columns:1.1fr .9fr; gap:32px; align-items:center; padding:28px 0 56px; }
+  h1 { font:700 clamp(38px,6.4vw,64px)/1.05 'Playfair Display',serif; color:var(--accent); margin:0 0 16px; }
+  .lead { font-size:clamp(17px,2.4vw,21px); color:var(--soft); margin:0 0 26px; max-width:34ch; }
+  .price { display:flex; align-items:baseline; gap:10px; margin-bottom:6px; }
+  .price b { font:700 46px 'Playfair Display',serif; color:var(--ink); }
+  .price span { color:var(--soft); font-weight:700; }
+  .btn { display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-weight:800; font-size:18px; padding:16px 34px; border-radius:99px; box-shadow:0 10px 24px rgba(140,53,32,.28); }
+  .btn:active { transform:translateY(1px); }
+  .fine { font-size:13.5px; color:var(--soft); margin:12px 0 0; }
+  .phones { position:relative; display:flex; justify-content:center; }
+  .ph { width:min(260px,44vw); border-radius:34px; border:8px solid #3A2A22; overflow:hidden; box-shadow:0 24px 50px rgba(140,53,32,.3); background:#fff; }
+  .ph { height:min(500px,112vw); }
+  .ph img { display:block; width:100%; height:100%; object-fit:cover; object-position:top; }
+  .ph.b { margin-left:-34px; margin-top:44px; }
+  section { padding:44px 0; border-top:1px solid var(--line); }
+  h2 { font:700 clamp(28px,4.4vw,38px)/1.15 'Playfair Display',serif; color:var(--accent); margin:0 0 24px; }
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:22px; padding:20px; }
+  .card h3 { margin:0 0 6px; font-size:18px; }
+  .card p { margin:0; color:var(--soft); font-size:15.5px; }
+  .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; counter-reset:s; }
+  .steps .card { position:relative; padding-top:54px; }
+  .steps .card:before { counter-increment:s; content:counter(s); position:absolute; left:20px; top:16px; width:30px; height:30px; border-radius:50%; background:var(--accent); color:#fff; font-weight:800; display:grid; place-items:center; }
+  details { background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:14px 18px; margin-bottom:10px; }
+  summary { cursor:pointer; font-weight:800; }
+  details p { margin:10px 0 0; color:var(--soft); }
+  .cta { text-align:center; padding:56px 0 70px; }
+  .cta h2 { margin-bottom:12px; }
+  footer { border-top:1px solid var(--line); padding:24px 0 40px; text-align:center; color:var(--soft); font-size:14px; }
+  footer a { color:var(--accent); font-weight:800; }
+  html[lang="en"] [data-es], html:not([lang="en"]) [data-en] { display:none !important; }
+  @media (max-width:760px) { .hero { grid-template-columns:1fr; text-align:center; } .lead { margin-left:auto; margin-right:auto; } .price { justify-content:center; } .grid, .steps { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">TIME<small>BETTER CALENDAR</small></div>
+    <div class="langsw" role="group" aria-label="Idioma"><button type="button" data-lang="es" aria-pressed="true">ES</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1><span data-es>Tu semana, bajo control.</span><span data-en>Your week, under control.</span></h1>
+      <p class="lead"><span data-es>El calendario para personas ocupadas: metas, actividades y recordatorios en un solo lugar, en tu teléfono.</span><span data-en>The calendar for busy people: goals, activities and reminders in one place, on your phone.</span></p>
+      <div class="price"><b>$19.99</b><span data-es>USD · pago único</span><span data-en>USD · one-time payment</span></div>
+      <a class="btn js-buy" href="#comprar"><span data-es>Comprar ahora</span><span data-en>Buy now</span></a>
+      <p class="fine"><span data-es>Sin suscripción. Instálalo como app en iPhone, Android o computadora.</span><span data-en>No subscription. Install it as an app on iPhone, Android or computer.</span></p>
+    </div>
+    <div class="phones">
+      <div class="ph"><img data-es src="img/es-cal.jpg" alt="Calendario del mes" width="600" height="1298"><img data-en src="img/en-cal.jpg" alt="Monthly calendar" width="600" height="1298"></div>
+      <div class="ph b"><img data-es src="img/es-vision.jpg" alt="My Vision: metas e ideas" width="600" height="1298"><img data-en src="img/en-vision.jpg" alt="My Vision: goals and ideas" width="600" height="1298"></div>
+    </div>
+  </div>
+
+  <section>
+    <h2><span data-es>Todo lo que incluye</span><span data-en>Everything included</span></h2>
+    <div class="grid">
+      <div class="card"><h3><span data-es>Calendario del mes</span><span data-en>Monthly calendar</span></h3><p><span data-es>Con metas, categorías, fotos y propósitos por día. Cambia de estación y de colores cuando quieras.</span><span data-en>With goals, categories, photos and daily intentions. Switch season and colors whenever you like.</span></p></div>
+      <div class="card"><h3><span data-es>Recordatorios</span><span data-en>Reminders</span></h3><p><span data-es>Actividades con fecha y hora. Te avisan en tu teléfono aunque la app esté cerrada.</span><span data-en>Activities with date and time. Alerts reach your phone even when the app is closed.</span></p></div>
+      <div class="card"><h3>My Vision</h3><p><span data-es>Tus metas futuras, viajes, ingresos, proyectos e ideas, con fotos, en un solo lugar.</span><span data-en>Your future goals, travel, income, projects and ideas, with photos, in one place.</span></p></div>
+      <div class="card"><h3><span data-es>Fechas importantes</span><span data-en>Important dates</span></h3><p><span data-es>Los feriados de Estados Unidos aparecen solos. Agrega cumpleaños y aniversarios que se repiten cada año.</span><span data-en>US holidays appear on their own. Add birthdays and anniversaries that repeat every year.</span></p></div>
+      <div class="card"><h3><span data-es>Español e inglés</span><span data-en>Spanish and English</span></h3><p><span data-es>Cambias el idioma con un toque, cuando quieras.</span><span data-en>Switch language with one tap, any time.</span></p></div>
+      <div class="card"><h3><span data-es>Tus datos son tuyos</span><span data-en>Your data is yours</span></h3><p><span data-es>Lo que escribes y tus fotos se guardan en tu teléfono. Funciona sin Internet.</span><span data-en>What you write and your photos stay on your phone. Works offline.</span></p></div>
+    </div>
+  </section>
+
+  <section id="como">
+    <h2><span data-es>Cómo funciona</span><span data-en>How it works</span></h2>
+    <div class="steps">
+      <div class="card"><h3><span data-es>Compra</span><span data-en>Buy</span></h3><p><span data-es>Pagas una sola vez con tarjeta, de forma segura con Stripe.</span><span data-en>Pay once by card, securely through Stripe.</span></p></div>
+      <div class="card"><h3><span data-es>Recibe tu código</span><span data-en>Get your code</span></h3><p><span data-es>Al terminar el pago ves tu código personal y una guía rápida para instalarlo.</span><span data-en>Right after paying you see your personal code and a quick guide to install it.</span></p></div>
+      <div class="card"><h3><span data-es>Instálalo y empieza</span><span data-en>Install and start</span></h3><p><span data-es>Lo instalas como app, escribes el código una vez y listo. Viene con un mes de ejemplo para que veas cómo se usa.</span><span data-en>Install it as an app, enter your code once and you are in. It comes with a sample month so you can see how it works.</span></p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span data-es>Preguntas frecuentes</span><span data-en>FAQ</span></h2>
+    <details><summary><span data-es>¿Es una suscripción?</span><span data-en>Is it a subscription?</span></summary><p><span data-es>No. Pagas $19.99 una sola vez.</span><span data-en>No. You pay $19.99 once.</span></p></details>
+    <details><summary><span data-es>¿En cuántos dispositivos lo puedo usar?</span><span data-en>How many devices can I use it on?</span></summary><p><span data-es>Tu código funciona en hasta 4 dispositivos, por ejemplo tu teléfono y tu computadora.</span><span data-en>Your code works on up to 4 devices, for example your phone and your computer.</span></p></details>
+    <details><summary><span data-es>¿Funciona en iPhone y Android?</span><span data-en>Does it work on iPhone and Android?</span></summary><p><span data-es>Sí. En iPhone se instala desde Safari (Compartir → Agregar a pantalla de inicio) y en Android desde Chrome (Instalar app). También funciona en computadora.</span><span data-en>Yes. On iPhone you install it from Safari (Share → Add to Home Screen) and on Android from Chrome (Install app). It also works on a computer.</span></p></details>
+    <details><summary><span data-es>¿Dónde se guardan mis datos?</span><span data-en>Where is my data stored?</span></summary><p><span data-es>En tu propio teléfono. Si quieres tenerlo igual en varios dispositivos, puedes activar la sincronización o descargar un respaldo.</span><span data-en>On your own phone. If you want it the same on several devices, you can turn on sync or download a backup.</span></p></details>
+    <details><summary><span data-es>¿Necesito ayuda para instalarlo?</span><span data-en>Do I need help to install it?</span></summary><p><span data-es>Incluye una guía rápida en español e inglés. Si te trabas, escríbenos a</span><span data-en>It includes a quick guide in Spanish and English. If you get stuck, write to us at</span> <a href="mailto:eyredigitalstudio@outlook.com" style="color:var(--accent);font-weight:800">eyredigitalstudio@outlook.com</a>.</p></details>
+  </section>
+
+  <div class="cta" id="comprar">
+    <h2><span data-es>Ponle orden a tus días</span><span data-en>Put your days in order</span></h2>
+    <div class="price" style="justify-content:center"><b>$19.99</b><span data-es>USD · pago único</span><span data-en>USD · one-time payment</span></div>
+    <a class="btn js-buy" href="#comprar"><span data-es>Comprar ahora</span><span data-en>Buy now</span></a>
+  </div>
+
+  <footer>
+    <span>TIME · Better Calendar · Eyre Digital Studio</span><br>
+    <a href="mailto:eyredigitalstudio@outlook.com">eyredigitalstudio@outlook.com</a>
+  </footer>
+</div>
+<script src="i18n.js"></script>
+<script>
+(function () {
+  // El enlace de compra viene de la variable BUY_URL de Netlify (la misma que usa la app).
+  fetch('/api/license?a=info', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) {
+    if (!j || !j.buyUrl) return;
+    document.querySelectorAll('.js-buy').forEach(function (a) { a.href = j.buyUrl; });
+  }).catch(function () {});
+})();
+</script>
+</body>
+</html>

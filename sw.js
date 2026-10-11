@@ -32,7 +32,7 @@ self.addEventListener('fetch', (e) => {
   if (url.origin !== location.origin) return;
   if (url.pathname.startsWith('/api/')) return;   // la sincronización siempre va a la red
   if (url.pathname.startsWith('/admin')) return;
-  if (url.pathname.startsWith('/gracias')) return;   // página de después del pago: siempre desde la red
+  if (url.pathname.startsWith('/gracias') || url.pathname.startsWith('/comprar') || url.pathname.startsWith('/img/')) return;   // página de después del pago: siempre desde la red
 
   // Abrir la app: se muestra lo guardado al instante y se actualiza en segundo plano.
   const key = req.mode === 'navigate' ? './index.html' : req;
