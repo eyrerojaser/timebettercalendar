@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Política de privacidad · TIME</title>
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<style>
+  @font-face { font-family:'Playfair Display'; font-weight:700; font-display:swap; src:url(fonts/playfair-display-latin-700-normal.woff2) format('woff2'); }
+  @font-face { font-family:'Nunito'; font-weight:400; font-display:swap; src:url(fonts/nunito-latin-400-normal.woff2) format('woff2'); }
+  @font-face { font-family:'Nunito'; font-weight:700; font-display:swap; src:url(fonts/nunito-latin-700-normal.woff2) format('woff2'); }
+  @font-face { font-family:'Nunito'; font-weight:800; font-display:swap; src:url(fonts/nunito-latin-800-normal.woff2) format('woff2'); }
+  :root { --bg:#FCF3EC; --surface:#fff; --ink:#3A2A22; --soft:#6C574D; --accent:#8C3520; --line:rgba(140,53,32,.16); }
+  @media (prefers-color-scheme: dark) { :root { --bg:#241A16; --surface:#2F231D; --ink:#F3E7DE; --soft:#C7B3A6; --accent:#E8955F; --line:rgba(232,149,95,.24); } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:'Nunito',system-ui,sans-serif; line-height:1.65; padding:0 16px calc(40px + env(safe-area-inset-bottom,0)); }
+  .wrap { max-width:760px; margin:0 auto; }
+  header { display:flex; align-items:center; justify-content:space-between; padding:18px 0; }
+  .brand { font:700 24px 'Playfair Display',serif; letter-spacing:.16em; color:var(--accent); text-decoration:none; }
+  .brand small { display:block; font:800 9.5px 'Nunito'; letter-spacing:.2em; color:var(--soft); margin-top:2px; }
+  .langsw { display:inline-flex; border:1.5px solid var(--accent); border-radius:99px; overflow:hidden; }
+  .langsw button { border:0; background:transparent; color:var(--accent); font:800 12px/1 'Nunito',sans-serif; letter-spacing:.04em; padding:8px 12px; cursor:pointer; }
+  .langsw button[aria-pressed="true"] { background:var(--accent); color:#fff; }
+  h1 { font:700 clamp(30px,6vw,44px)/1.1 'Playfair Display',serif; color:var(--accent); margin:14px 0 6px; }
+  .updated { color:var(--soft); font-size:14px; margin:0 0 22px; }
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:22px; padding:22px 22px 8px; }
+  h2 { font-size:18px; margin:22px 0 6px; color:var(--accent); }
+  h2:first-child { margin-top:0; }
+  p, li { font-size:16px; margin:0 0 12px; }
+  ul { padding-left:22px; margin:0 0 12px; }
+  a { color:var(--accent); font-weight:700; }
+  .note { font-size:14px; color:var(--soft); margin:16px 0 0; }
+  nav.more { display:flex; flex-wrap:wrap; gap:8px 18px; margin:22px 0 0; font-size:15px; }
+  html[lang="en"] [data-es], html:not([lang="en"]) [data-en] { display:none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="/">TIME<small>BETTER CALENDAR</small></a>
+    <div class="langsw" role="group" aria-label="Idioma"><button type="button" data-lang="es" aria-pressed="true">ES</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+  </header>
+  <h1><span data-es>Política de privacidad</span><span data-en>Privacy policy</span></h1>
+  <p class="updated"><span data-es>Última actualización: 11 de octubre de 2026</span><span data-en>Last updated: October 11, 2026</span></p>
+  <div class="card">
+    <h2><span data-es>Resumen</span><span data-en>Summary</span></h2>
+    <div data-es><p>TIME guarda tu calendario <b>en tu propio dispositivo</b>. Solo recopilamos lo necesario para cobrar, darte tu código y ayudarte si algo falla. No vendemos tus datos ni usamos publicidad ni rastreadores de análisis en la app.</p></div>
+    <div data-en><p>TIME keeps your calendar <b>on your own device</b>. We only collect what is needed to charge you, give you your code and help you if something goes wrong. We do not sell your data, and we use no advertising or analytics trackers in the app.</p></div>
+    <h2><span data-es>Qué datos recopilamos</span><span data-en>What data we collect</span></h2>
+    <div data-es><ul><li><b>Datos de compra:</b> tu nombre, correo electrónico, fecha e importe de la compra e identificadores de Stripe. Los datos de tu tarjeta los procesa Stripe; nosotros nunca vemos ni guardamos el número completo.</li><li><b>Datos de activación:</b> tu código y un identificador aleatorio de cada dispositivo (no está ligado a tu nombre) para respetar el límite de 4 dispositivos.</li><li><b>Sincronización (opcional):</b> si la activas, tu calendario (meses, actividades, notas y fotos) se guarda en nuestro proveedor de alojamiento, en un espacio privado que se identifica con tu código de sincronización.</li><li><b>Recordatorios (opcional):</b> si los activas, se guarda la dirección de notificaciones de tu dispositivo y el título y la hora de cada recordatorio pendiente; se borran al enviarse.</li><li><b>Datos técnicos:</b> tu dirección IP se usa de forma breve y cifrada (hash) para limitar intentos abusivos, y el alojamiento puede guardar registros técnicos.</li><li><b>Mensajes:</b> lo que nos escribes por correo.</li></ul><p>Si no activas la sincronización, el contenido de tu calendario no sale de tu dispositivo.</p></div>
+    <div data-en><ul><li><b>Purchase data:</b> your name, email address, purchase date and amount, and Stripe identifiers. Your card details are processed by Stripe; we never see or store the full number.</li><li><b>Activation data:</b> your code and a random identifier for each device (not linked to your name) to enforce the 4-device limit.</li><li><b>Sync (optional):</b> if you turn it on, your calendar (months, activities, notes and photos) is stored with our hosting provider, in a private space identified by your sync code.</li><li><b>Reminders (optional):</b> if you turn them on, your device’s notification address and the title and time of each pending reminder are stored; they are deleted once sent.</li><li><b>Technical data:</b> your IP address is used briefly, in hashed form, to limit abusive attempts, and the hosting provider may keep technical logs.</li><li><b>Messages:</b> what you write to us by email.</li></ul><p>If you do not turn on sync, your calendar content never leaves your device.</p></div>
+    <h2><span data-es>Cómo usamos tus datos</span><span data-en>How we use your data</span></h2>
+    <div data-es><ul><li>Entregarte el producto y mostrarte tu código.</li><li>Enviarte tu código si lo pierdes (solo al correo de la compra).</li><li>Procesar reembolsos y atender tus consultas.</li><li>Prevenir fraudes y abusos, y cumplir con obligaciones legales y contables.</li></ul></div>
+    <div data-en><ul><li>To deliver the product and show you your code.</li><li>To send you your code if you lose it (only to the purchase email).</li><li>To process refunds and answer your questions.</li><li>To prevent fraud and abuse, and to meet legal and accounting obligations.</li></ul></div>
+    <h2><span data-es>Con quién los compartimos</span><span data-en>Who we share it with</span></h2>
+    <div data-es><p>Solo con los servicios necesarios para que TIME funcione: <b>Stripe</b> (pagos), <b>Netlify</b> (alojamiento y almacenamiento) y nuestro proveedor de correo (para enviarte tu código). También podemos compartir datos si la ley lo exige. No vendemos ni alquilamos tus datos.</p></div>
+    <div data-en><p>Only with the services needed for TIME to work: <b>Stripe</b> (payments), <b>Netlify</b> (hosting and storage) and our email provider (to send you your code). We may also share data if the law requires it. We do not sell or rent your data.</p></div>
+    <h2><span data-es>Cómo los protegemos</span><span data-en>How we protect it</span></h2>
+    <div data-es><ul><li>Todas las conexiones usan HTTPS (cifrado en tránsito).</li><li>Los códigos de activación son largos y aleatorios, y limitamos los intentos para evitar adivinarlos.</li><li>El panel de administración está protegido con contraseña y las llaves de Stripe se guardan como variables privadas del servidor.</li><li>Los avisos de Stripe se verifican con firma digital antes de aceptarlos.</li><li>El contenido sincronizado está protegido por tu código de sincronización, que funciona como una contraseña: no lo compartas. Ten en cuenta que no está cifrado de extremo a extremo.</li></ul><p>Ningún sistema es 100 % seguro, pero trabajamos para protegerlos razonablemente.</p></div>
+    <div data-en><ul><li>All connections use HTTPS (encryption in transit).</li><li>Activation codes are long and random, and we limit attempts to prevent guessing.</li><li>The admin panel is password-protected and Stripe keys are stored as private server variables.</li><li>Stripe notifications are verified with a digital signature before being accepted.</li><li>Synced content is protected by your sync code, which works like a password: do not share it. Note that it is not end-to-end encrypted.</li></ul><p>No system is 100% secure, but we work to protect your data reasonably.</p></div>
+    <h2><span data-es>Cuánto tiempo los guardamos</span><span data-en>How long we keep it</span></h2>
+    <div data-es><p>Los datos de compra se guardan mientras sean necesarios para soporte, reembolsos y obligaciones legales o contables. El contenido sincronizado se guarda hasta que desactives la sincronización o nos pidas borrarlo. Lo que está solo en tu dispositivo lo controlas tú.</p></div>
+    <div data-en><p>Purchase data is kept as long as needed for support, refunds and legal or accounting obligations. Synced content is kept until you turn sync off or ask us to delete it. What is only on your device is under your control.</p></div>
+    <h2><span data-es>Tus derechos</span><span data-en>Your rights</span></h2>
+    <div data-es><p>Puedes pedirnos acceso, corrección o eliminación de tus datos escribiendo a <a href="mailto:eyredigitalstudio@outlook.com">eyredigitalstudio@outlook.com</a> desde el correo de tu compra. Te respondemos en un plazo razonable. Si vives en California o en la Unión Europea, tienes además los derechos que te reconocen las leyes de tu lugar.</p></div>
+    <div data-en><p>You can ask us for access, correction or deletion of your data by writing to <a href="mailto:eyredigitalstudio@outlook.com">eyredigitalstudio@outlook.com</a> from your purchase email. We reply within a reasonable time. If you live in California or the European Union, you also have the rights your local laws give you.</p></div>
+    <h2><span data-es>Menores de edad</span><span data-en>Children</span></h2>
+    <div data-es><p>TIME no está dirigido a menores de 13 años y no recopilamos datos de ellos a sabiendas.</p></div>
+    <div data-en><p>TIME is not directed to children under 13 and we do not knowingly collect their data.</p></div>
+    <h2><span data-es>Cambios y contacto</span><span data-en>Changes and contact</span></h2>
+    <div data-es><p>Si cambiamos esta política, actualizaremos la fecha de arriba. Preguntas: <a href="mailto:eyredigitalstudio@outlook.com">eyredigitalstudio@outlook.com</a></p></div>
+    <div data-en><p>If we change this policy, we will update the date above. Questions: <a href="mailto:eyredigitalstudio@outlook.com">eyredigitalstudio@outlook.com</a></p></div>
+  </div>
+  <nav class="more">
+    <a href="reembolsos.html"><span data-es>Política de reembolsos</span><span data-en>Refund policy</span></a>
+    <a href="terminos.html"><span data-es>Términos y condiciones</span><span data-en>Terms and conditions</span></a>
+    <a href="privacidad.html"><span data-es>Política de privacidad</span><span data-en>Privacy policy</span></a>
+    <a href="/"><span data-es>Volver a TIME</span><span data-en>Back to TIME</span></a>
+  </nav>
+</div>
+<script src="i18n.js"></script>
+</body>
+</html>

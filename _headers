@@ -9,3 +9,9 @@
   Cache-Control: no-store
 /comprar.html
   Cache-Control: no-cache
+/reembolsos.html
+  Cache-Control: no-cache
+/terminos.html
+  Cache-Control: no-cache
+/privacidad.html
+  Cache-Control: no-cache

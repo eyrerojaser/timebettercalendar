@@ -22,35 +22,52 @@ Repositorio nuevo (privado). Sube **el contenido** de esta carpeta (no la carpet
 **Add new project → Import from GitHub →** tu repositorio → **Deploy**. No cambies nada, todo viene en `netlify.toml`.
 
 ### 3. Stripe: la llave de lectura
-En Stripe: **Developers → API keys → Create restricted key**. Dale solo permiso de **lectura** en **Checkout Sessions** y nada más. Cópiala (`rk_live_…`).
+En Stripe: **Developers → API keys → Create restricted key**. Permisos de **lectura** (Read) en: **Checkout Sessions**, **PaymentIntents** y **Charges** (los dos últimos sirven para detectar reembolsos al sincronizar). Nada más. Cópiala (`rk_live_…`) y pégala directo en Netlify (paso 6), nunca en un chat.
 
 ### 4. Stripe: el producto y el enlace de pago
-1. **Product catalog → Add product** → nombre, precio, pago único.
+1. **Product catalog → Add product** → nombre, precio ($19.99), pago único.
 2. **Payment Links → Create** con ese producto.
 3. En **After payment → Don't show confirmation page → Redirect customers to your website**, pega:
    `https://TU-SITIO.netlify.app/gracias.html?session_id={CHECKOUT_SESSION_ID}`
    (deja `{CHECKOUT_SESSION_ID}` tal cual; Stripe lo reemplaza solo)
-4. Copia el enlace de pago (`https://buy.stripe.com/…`) y su ID (`plink_…`, está en la URL del panel al abrir el enlace).
+4. Copia el enlace de pago (`https://buy.stripe.com/…`) y su ID (`plink_…`).
 
-### 5. Netlify: variables
-**Site configuration → Environment variables**, agrega:
+### 5. Stripe: el webhook (para que las compras se guarden solas)
+Así la compra aparece en el panel aunque el cliente cierre la página antes de ver su código, y un reembolso desactiva el código automáticamente.
+1. **Developers → Webhooks → Add endpoint**.
+2. URL: `https://TU-SITIO.netlify.app/api/stripe-webhook`
+3. Eventos: `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `charge.refunded`, `charge.dispute.created`.
+4. Copia el **Signing secret** (`whsec_…`) → variable `STRIPE_WEBHOOK_SECRET`.
+Modo de prueba y modo real son webhooks distintos: crea uno en cada modo.
+
+### 6. Netlify: variables
+**Site configuration → Environment variables**:
 
 | Nombre | Valor |
 | --- | --- |
 | `STRIPE_SECRET_KEY` | la llave `rk_…` del paso 3 |
-| `BUY_URL` | tu enlace `https://buy.stripe.com/…` (sale en el candado como "Compra aquí") |
-| `STRIPE_PAYMENT_LINK` | *(opcional)* el `plink_…`, para aceptar solo compras de este producto |
+| `STRIPE_WEBHOOK_SECRET` | el `whsec_…` del paso 5 |
+| `BUY_URL` | tu enlace `https://buy.stripe.com/…` |
+| `STRIPE_PAYMENT_LINK` | *(opcional)* el `plink_…`, para aceptar solo este producto |
+| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` | correo para "Recuperar mi código". Gmail: `smtp.gmail.com`, `465`, tu correo y una **contraseña de aplicación** |
+| `MAIL_FROM` | *(opcional)* remitente que verá el cliente |
+| `RESEND_API_KEY` | *(alternativa a SMTP)* si usas Resend, con `MAIL_FROM` de un dominio verificado |
 
-Luego **Deploys → Trigger deploy**.
+Sin correo configurado, el formulario de recuperación le dice al cliente que escriba a soporte. Luego **Deploys → Trigger deploy**.
 
-### 6. Panel
-Abre `https://TU-SITIO.netlify.app/admin.html`. La primera vez eliges tu contraseña. Ahí ves cada compra (nombre, correo, código, dispositivos) y puedes **Revocar**, **Restaurar** o **Liberar dispositivos**.
+### 7. Panel
+Abre `https://TU-SITIO.netlify.app/admin.html`. La primera vez eliges tu contraseña. Ahí ves cada compra: cliente, correo, código, fecha, estado y dispositivos (x/4). Botones: **Desactivar**, **Restaurar**, **Liberar dispositivos**, **Exportar CSV** y **Sincronizar con Stripe**.
+- Compras hechas antes de configurar el webhook (por ejemplo tu compra real): toca **Sincronizar con Stripe** y se importan.
+- Las compras nuevas aparecen solas cuando Stripe avisa por el webhook.
 
-### 7. Prueba antes de vender
-Activa el **modo de prueba** de Stripe, usa llaves de prueba (`rk_test_…`) y paga con la tarjeta `4242 4242 4242 4242`. Comprueba que `gracias.html` te muestre el código y que la app lo acepte. Luego pasa a las llaves reales.
+### 8. Prueba antes de vender
+Con el modo de prueba de Stripe y la tarjeta `4242 4242 4242 4242`: comprueba que `gracias.html` muestre el código, que la app lo acepte, que la compra salga en el panel, que "Recuperar mi código" llegue al correo, y haz un reembolso de prueba para ver que el código queda en "Reembolsado".
 
-## Reembolsos
-Si devuelves un pago, entra al panel y toca **Revocar** en ese código. La app revisa el código cada pocos días cuando hay Internet.
+## Reembolsos (garantía de 7 días)
+Reembolsa el pago en Stripe (**Payments → el pago → Refund**). El webhook marca el código como **Reembolsado** y deja de funcionar: la app se bloquea la próxima vez que se conecte a Internet (revisión cada 24 h) y ya no puede reactivarse. Si el webhook no está activo, usa **Desactivar** en el panel. Los datos del cliente quedan en su teléfono.
+
+## Políticas
+`reembolsos.html`, `terminos.html` y `privacidad.html` (español/inglés) están enlazadas junto a la guía: página de gracias, Ajustes de la app, pantalla del código y pie de `/comprar`. Son plantillas, no asesoría legal; revísalas (plazo de respuesta de 3 días hábiles y ley de Florida son supuestos).
 
 ## Actualizar la app
 Cambia los archivos en GitHub y sube el número de `VERSION` en `sw.js` para que los dispositivos descarguen la versión nueva.

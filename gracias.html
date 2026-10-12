@@ -27,6 +27,8 @@
   ol li { margin-bottom:6px; }
   .note { font-size:13.5px; color:var(--soft); line-height:1.5; margin:12px 0 0; }
   .err { color:var(--bad); font-weight:700; line-height:1.5; }
+  .legal { margin-top:14px; font-size:13.5px; line-height:1.8; text-align:center; }
+  .legal a { color:var(--soft); }
   [hidden] { display:none !important; }
   html[lang="en"] [data-es], html:not([lang="en"]) [data-en] { display:none !important; }
   .langsw { position:absolute; top:calc(10px + env(safe-area-inset-top,0px)); right:12px; display:inline-flex; border:1.5px solid var(--accent); border-radius:99px; overflow:hidden; }
@@ -50,6 +52,7 @@
       <button class="btn ghost" id="copy" type="button"></button>
       <a class="btn" id="open" href="/"><span data-es>Abrir mi calendario</span><span data-en>Open my calendar</span></a>
       <a class="btn ghost" id="guide" href="guias/guia-rapida.pdf" target="_blank" rel="noopener" style="margin-top:10px"><span data-es>Descargar guía rápida (PDF)</span><span data-en>Download quick guide (PDF)</span></a>
+      <div class="legal"><a href="reembolsos.html" target="_blank" rel="noopener"><span data-es>Política de reembolsos</span><span data-en>Refund policy</span></a> · <a href="terminos.html" target="_blank" rel="noopener"><span data-es>Términos y condiciones</span><span data-en>Terms and conditions</span></a> · <a href="privacidad.html" target="_blank" rel="noopener"><span data-es>Política de privacidad</span><span data-en>Privacy policy</span></a></div>
       <p class="note">
         <span data-es><strong>Guarda este código.</strong> Es tuyo y funciona en hasta 4 dispositivos (por ejemplo, tu teléfono y tu computadora). Si pierdes esta página, vuelve a abrir el enlace de tu recibo de Stripe.</span>
         <span data-en><strong>Keep this code.</strong> It is yours and works on up to 4 devices (for example, your phone and your computer). If you lose this page, open the link in your Stripe receipt again.</span>

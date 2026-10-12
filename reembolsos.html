@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Política de reembolsos · TIME</title>
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<style>
+  @font-face { font-family:'Playfair Display'; font-weight:700; font-display:swap; src:url(fonts/playfair-display-latin-700-normal.woff2) format('woff2'); }
+  @font-face { font-family:'Nunito'; font-weight:400; font-display:swap; src:url(fonts/nunito-latin-400-normal.woff2) format('woff2'); }
+  @font-face { font-family:'Nunito'; font-weight:700; font-display:swap; src:url(fonts/nunito-latin-700-normal.woff2) format('woff2'); }
+  @font-face { font-family:'Nunito'; font-weight:800; font-display:swap; src:url(fonts/nunito-latin-800-normal.woff2) format('woff2'); }
+  :root { --bg:#FCF3EC; --surface:#fff; --ink:#3A2A22; --soft:#6C574D; --accent:#8C3520; --line:rgba(140,53,32,.16); }
+  @media (prefers-color-scheme: dark) { :root { --bg:#241A16; --surface:#2F231D; --ink:#F3E7DE; --soft:#C7B3A6; --accent:#E8955F; --line:rgba(232,149,95,.24); } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:'Nunito',system-ui,sans-serif; line-height:1.65; padding:0 16px calc(40px + env(safe-area-inset-bottom,0)); }
+  .wrap { max-width:760px; margin:0 auto; }
+  header { display:flex; align-items:center; justify-content:space-between; padding:18px 0; }
+  .brand { font:700 24px 'Playfair Display',serif; letter-spacing:.16em; color:var(--accent); text-decoration:none; }
+  .brand small { display:block; font:800 9.5px 'Nunito'; letter-spacing:.2em; color:var(--soft); margin-top:2px; }
+  .langsw { display:inline-flex; border:1.5px solid var(--accent); border-radius:99px; overflow:hidden; }
+  .langsw button { border:0; background:transparent; color:var(--accent); font:800 12px/1 'Nunito',sans-serif; letter-spacing:.04em; padding:8px 12px; cursor:pointer; }
+  .langsw button[aria-pressed="true"] { background:var(--accent); color:#fff; }
+  h1 { font:700 clamp(30px,6vw,44px)/1.1 'Playfair Display',serif; color:var(--accent); margin:14px 0 6px; }
+  .updated { color:var(--soft); font-size:14px; margin:0 0 22px; }
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:22px; padding:22px 22px 8px; }
+  h2 { font-size:18px; margin:22px 0 6px; color:var(--accent); }
+  h2:first-child { margin-top:0; }
+  p, li { font-size:16px; margin:0 0 12px; }
+  ul { padding-left:22px; margin:0 0 12px; }
+  a { color:var(--accent); font-weight:700; }
+  .note { font-size:14px; color:var(--soft); margin:16px 0 0; }
+  nav.more { display:flex; flex-wrap:wrap; gap:8px 18px; margin:22px 0 0; font-size:15px; }
+  html[lang="en"] [data-es], html:not([lang="en"]) [data-en] { display:none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="/">TIME<small>BETTER CALENDAR</small></a>
+    <div class="langsw" role="group" aria-label="Idioma"><button type="button" data-lang="es" aria-pressed="true">ES</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+  </header>
+  <h1><span data-es>Política de reembolsos</span><span data-en>Refund policy</span></h1>
+  <p class="updated"><span data-es>Última actualización: 11 de octubre de 2026</span><span data-en>Last updated: October 11, 2026</span></p>
+  <div class="card">
+    <h2><span data-es>Garantía de 7 días</span><span data-en>7-day guarantee</span></h2>
+    <div data-es><p>Si TIME · Better Calendar no es lo que esperabas, puedes pedir el reembolso completo dentro de los <b>7 días calendario</b> siguientes a la fecha de tu compra (la fecha que aparece en tu recibo de Stripe).</p></div>
+    <div data-en><p>If TIME · Better Calendar is not what you expected, you can ask for a full refund within <b>7 calendar days</b> of your purchase date (the date on your Stripe receipt).</p></div>
+    <h2><span data-es>Cómo pedirlo</span><span data-en>How to ask</span></h2>
+    <div data-es><p>Escríbenos a <a href="mailto:eyredigitalstudio@outlook.com">eyredigitalstudio@outlook.com</a> con el asunto «Reembolso» e indica el correo con el que compraste. No necesitas dar una razón, aunque nos ayuda a mejorar. Respondemos en un máximo de 3 días hábiles.</p></div>
+    <div data-en><p>Write to <a href="mailto:eyredigitalstudio@outlook.com">eyredigitalstudio@outlook.com</a> with the subject “Refund” and include the email you used to buy. You do not need to give a reason, although it helps us improve. We reply within 3 business days.</p></div>
+    <h2><span data-es>Si se aprueba el reembolso</span><span data-en>If the refund is approved</span></h2>
+    <div data-es><ul><li>Devolvemos el <b>importe completo</b> al mismo método de pago que usaste. Lo procesa Stripe y tu banco puede tardar entre 5 y 10 días hábiles en mostrarlo.</li><li><b>Tu código de activación se desactiva.</b> La app deja de abrir con ese código la próxima vez que se conecte a Internet (normalmente en menos de 24 horas).</li><li>Lo que escribiste se queda en tu teléfono. Antes de que se desactive, puedes descargar un respaldo desde Configuración → Respaldo.</li></ul></div>
+    <div data-en><ul><li>We return the <b>full amount</b> to the same payment method you used. Stripe processes it and your bank may take 5 to 10 business days to show it.</li><li><b>Your activation code is deactivated.</b> The app stops opening with that code the next time it connects to the Internet (usually within 24 hours).</li><li>What you wrote stays on your phone. Before it is deactivated, you can download a backup from Settings → Backup.</li></ul></div>
+    <h2><span data-es>Después de los 7 días</span><span data-en>After 7 days</span></h2>
+    <div data-es><p>Pasados los 7 días, las compras ya no son reembolsables, salvo cargos duplicados o por error y los casos en que la ley lo exija. Si tienes un problema técnico, escríbenos primero: lo revisamos y tratamos de resolverlo.</p></div>
+    <div data-en><p>After 7 days, purchases are no longer refundable, except for duplicate or mistaken charges and where the law requires it. If you have a technical problem, write to us first: we will look into it and try to fix it.</p></div>
+    <h2><span data-es>Disputas con el banco</span><span data-en>Bank disputes</span></h2>
+    <div data-es><p>Si abres una disputa o contracargo con tu banco, el código se desactiva mientras se revisa. Te pedimos que nos escribas antes: casi siempre lo resolvemos más rápido.</p></div>
+    <div data-en><p>If you open a dispute or chargeback with your bank, the code is deactivated while it is reviewed. Please write to us first: we can almost always solve it faster.</p></div>
+    <h2><span data-es>Contacto</span><span data-en>Contact</span></h2>
+    <div data-es><p><a href="mailto:eyredigitalstudio@outlook.com">eyredigitalstudio@outlook.com</a></p></div>
+    <div data-en><p><a href="mailto:eyredigitalstudio@outlook.com">eyredigitalstudio@outlook.com</a></p></div>
+  </div>
+  <nav class="more">
+    <a href="reembolsos.html"><span data-es>Política de reembolsos</span><span data-en>Refund policy</span></a>
+    <a href="terminos.html"><span data-es>Términos y condiciones</span><span data-en>Terms and conditions</span></a>
+    <a href="privacidad.html"><span data-es>Política de privacidad</span><span data-en>Privacy policy</span></a>
+    <a href="/"><span data-es>Volver a TIME</span><span data-en>Back to TIME</span></a>
+  </nav>
+</div>
+<script src="i18n.js"></script>
+</body>
+</html>

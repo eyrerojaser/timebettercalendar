@@ -334,6 +334,7 @@
   .gate-sheet h2 { margin: 0 0 8px; font-family: var(--font-logo); font-weight: 400; font-size: 40px; color: var(--accent); }
   .gate-sheet p.gate-sub { margin: 0 0 22px; font-size: 14.5px; line-height: 1.5; color: var(--ink-soft); }
   .gate-sheet .gfield { text-align: left; margin-bottom: 12px; }
+  .gate-legal a { color: var(--ink-soft); text-decoration: underline; }
   .gate-err { min-height: 18px; margin: 2px 0 10px; font-size: 13px; font-weight: 700; color: #B0453D; }
 
   /* ---------- Fechas importantes ---------- */
@@ -393,6 +394,13 @@
       <p class="gate-err" id="gateErr"></p>
       <button class="done-btn solid" id="gateGo" type="button">Activar mi calendario</button>
       <p class="gate-sub" id="gateBuy" style="margin:18px 0 0" hidden>¿Aún no tienes código? <a id="gateBuyLink" href="#" style="color:var(--accent);font-weight:800">Compra tu calendario aquí</a></p>
+      <p class="gate-sub" style="margin:12px 0 0"><a id="gateLost" href="#" style="color:var(--accent);font-weight:800">¿Perdiste tu código? Recupéralo con tu correo</a></p>
+      <div id="recBox" hidden style="margin-top:12px">
+        <div class="gfield"><label class="lbl" for="rEmail">Correo con el que compraste</label><input class="field" id="rEmail" type="email" maxlength="160" autocomplete="email" inputmode="email"></div>
+        <p class="gate-err" id="recMsg" role="status"></p>
+        <button class="done-btn solid" id="recGo" type="button" style="margin-top:0">Enviarme el código</button>
+      </div>
+      <p class="gate-sub gate-legal" style="margin:16px 0 0;font-size:12.5px"><a href="reembolsos.html" target="_blank" rel="noopener">Política de reembolsos</a> · <a href="terminos.html" target="_blank" rel="noopener">Términos y condiciones</a> · <a href="privacidad.html" target="_blank" rel="noopener">Política de privacidad</a></p>
     </div>
   </div>
 </div>
@@ -592,6 +600,12 @@
     </div>
     <p class="lbl sec-gap">Guía</p>
     <a class="ghost-btn" id="guideLink" href="guias/guia-rapida.pdf" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none">Guía rápida (PDF)</a>
+    <p class="lbl sec-gap">Políticas</p>
+    <div class="legal-links">
+      <a class="ghost-btn" href="reembolsos.html" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none">Política de reembolsos</a>
+      <a class="ghost-btn" href="terminos.html" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none">Términos y condiciones</a>
+      <a class="ghost-btn" href="privacidad.html" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none">Política de privacidad</a>
+    </div>
     <p class="lbl sec-gap">Respaldo</p>
     <p class="hint">Descarga una copia de todo (metas, días y fotos) o pasa tu calendario a otro dispositivo. Al importar, se reemplazan los meses que vengan en el archivo.</p>
     <div class="seg">
@@ -1963,7 +1977,7 @@
 
   /* ================= Licencia (código de compra) ================= */
   const newDeviceId = () => { const a = new Uint8Array(16); crypto.getRandomValues(a); return Array.from(a, x => x.toString(16).padStart(2, '0')).join(''); };
-  const RECHECK_MS = 3 * 24 * 3600 * 1000;
+  const RECHECK_MS = 24 * 3600 * 1000;
   function closeGate() { $('#gate').classList.remove('open'); document.body.style.overflow = ''; }
   function openGate(msg) { $('#gate').classList.add('open'); gateErr(msg || ''); loadBuyUrl(); }
   function gateErr(msg) { $('#gateErr').textContent = msg || ''; }
@@ -2025,6 +2039,30 @@
 
   const setGuide = () => { $('#guideLink').href = I18N.lang() === 'en' ? 'guias/quick-guide-en.pdf' : 'guias/guia-rapida.pdf'; };
   setGuide(); I18N.onChange(setGuide);
+
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const REC_MSG = {
+    ok: 'Si ese correo tiene una compra, te enviamos el código. Revisa también tu carpeta de spam.',
+    bad_email: 'Escribe un correo válido.',
+    mail_not_configured: 'La recuperación por correo no está disponible ahora. Escríbenos a eyredigitalstudio@outlook.com y te ayudamos.',
+    too_many_requests: 'Demasiados intentos. Espera un rato e inténtalo de nuevo.',
+    fail: 'No se pudo enviar el correo. Inténtalo de nuevo en un momento.'
+  };
+  $('#gateLost').addEventListener('click', e => { e.preventDefault(); const b = $('#recBox'); b.hidden = !b.hidden; if (!b.hidden) $('#rEmail').focus(); });
+  $('#recGo').addEventListener('click', async () => {
+    const email = $('#rEmail').value.trim(), msg = $('#recMsg');
+    msg.style.color = '';
+    if (!EMAIL_RE.test(email)) { msg.textContent = REC_MSG.bad_email; $('#rEmail').focus(); return; }
+    msg.textContent = ''; $('#recGo').disabled = true;
+    try {
+      const r = await fetch('/api/license?a=recover', { method: 'POST', cache: 'no-store', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: email, lang: I18N.lang() }) });
+      let j = {}; try { j = await r.json(); } catch (e) {}
+      if (r.ok) { msg.style.color = '#2F6B45'; msg.textContent = REC_MSG.ok; }
+      else msg.textContent = REC_MSG[j.error] || REC_MSG.fail;
+    } catch (e) { msg.textContent = 'Sin conexión. Conéctate a Internet e inténtalo de nuevo.'; }
+    $('#recGo').disabled = false;
+  });
+  $('#rEmail').addEventListener('keydown', e => { if (e.key === 'Enter') $('#recGo').click(); });
 
   /* ================= Mes de ejemplo ================= */
   async function seedDemoIfNew(buyerName) {

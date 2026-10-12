@@ -49,8 +49,8 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>Panel de clientas</h1>
-  <p class="sub">Compras de TIME y códigos de acceso.</p>
+  <h1>Panel de compras</h1>
+  <p class="sub">Compradores de TIME: datos, código de activación, fecha y estado.</p>
 
   <div class="card" id="setupCard" hidden>
     <h2>Crea tu contraseña</h2>
@@ -73,16 +73,17 @@
   </div>
 
   <div id="panel" hidden>
+    <div id="notices"></div>
     <div class="toolbar">
       <span class="count" id="count"></span>
+      <button class="btn ghost" id="syncBtn">Sincronizar con Stripe</button>
       <button class="btn ghost" id="refreshBtn">Actualizar</button>
       <button class="btn ghost" id="csvBtn">Exportar CSV</button>
       <button class="btn ghost" id="outBtn">Cerrar sesión</button>
     </div>
-    <h2 style="margin:6px 0 10px;font-size:18px">Compras</h2>
+    <p class="count" id="syncMsg" role="status" style="margin:-6px 0 12px"></p>
     <div id="buysWrap"><p class="empty">Cargando…</p></div>
-    <h2 style="margin:26px 0 10px;font-size:18px">Registros anteriores</h2>
-    <div id="tableWrap"></div>
+    <div id="tableWrap" hidden></div>
     <details class="pass-toggle">
       <summary>Cambiar mi contraseña</summary>
       <label for="cpCur">Contraseña actual</label>
@@ -104,24 +105,8 @@
   const fmt = ts => { try { return new Date(ts).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' }); } catch (e) { return ''; } };
   const esc = s => String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  function renderTable(leads) {
-    $('#count').textContent = leads.length + (leads.length === 1 ? ' persona registrada' : ' personas registradas');
-    if (!leads.length) { $('#tableWrap').innerHTML = '<p class="empty">Todavía no hay nadie registrado.</p>'; return; }
-    let h = '<table><thead><tr><th>Nombre</th><th>Apellido</th><th>Correo</th><th>Fecha</th></tr></thead><tbody>';
-    leads.forEach(l => { h += `<tr><td>${esc(l.name)}</td><td>${esc(l.lastName)}</td><td class="email">${esc(l.email)}</td><td>${fmt(l.created)}</td></tr>`; });
-    $('#tableWrap').innerHTML = h + '</tbody></table>';
-  }
+  function renderTable() {}
   let lastLeads = [];
-  function toCSV(leads) {
-    const rows = [['Nombre', 'Apellido', 'Correo', 'Fecha']].concat(leads.map(l => [l.name, l.lastName, l.email, new Date(l.created).toISOString()]));
-    return rows.map(r => r.map(v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"').join(',')).join('\r\n');
-  }
-  $('#csvBtn').addEventListener('click', () => {
-    const blob = new Blob([toCSV(lastLeads)], { type: 'text/csv;charset=utf-8' });
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'clientas-mi-calendario.csv'; a.click();
-    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-  });
-
   async function loadLeads(withKey) {
     const r = await fetch('/api/leads?admin=1', { cache: 'no-store', headers: { 'x-admin-key': withKey } });
     let j = {}; try { j = await r.json(); } catch (e) {}
@@ -129,24 +114,56 @@
   }
 
 
-  async function loadBuys() {
-    const r = await fetch('/api/license?admin=1', { cache: 'no-store', headers: { 'x-admin-key': key } });
-    let j = {}; try { j = await r.json(); } catch (e) {}
-    if (!r.ok) { $('#buysWrap').innerHTML = '<p class="empty">No se pudieron cargar las compras.</p>'; return; }
-    const list = j.purchases || [];
-    if (!list.length) { $('#buysWrap').innerHTML = '<p class="empty">Todavía no hay compras.</p>'; return; }
-    let h = '<table><thead><tr><th>Cliente</th><th>Código</th><th>Disp.</th><th>Fecha</th><th></th></tr></thead><tbody>';
-    list.forEach(p => {
-      const money = p.amount != null ? ' · ' + (p.amount / 100).toFixed(2) + ' ' + esc(String(p.currency || '').toUpperCase()) : '';
-      h += `<tr><td>${esc(p.name)}<br><span class="email">${esc(p.email)}</span></td><td><code>${esc(p.code)}</code>${p.revoked ? '<br><b style="color:var(--bad)">Revocado</b>' : ''}</td><td>${p.devices}/4</td><td>${fmt(p.created)}${money}</td>`
-        + `<td><button class="btn ghost" style="height:34px;margin:0;font-size:13px;padding:0 12px;width:auto" data-act="${p.revoked ? 'restore' : 'revoke'}" data-code="${esc(p.code)}">${p.revoked ? 'Restaurar' : 'Revocar'}</button>`
+  let buys = [], flags = {};
+  const STATUS = { active: ['Activo', 'var(--ok)'], refunded: ['Reembolsado', 'var(--bad)'], dispute: ['Disputa', 'var(--bad)'], revoked: ['Revocado', 'var(--bad)'] };
+  const money = p => p.amount != null ? (p.amount / 100).toFixed(2) + ' ' + esc(String(p.currency || '').toUpperCase()) : '';
+  function renderBuys() {
+    $('#count').textContent = buys.length + (buys.length === 1 ? ' compra' : ' compras');
+    let n = '';
+    if (flags.webhook === false) n += '<div class="card" style="max-width:none;margin:0 0 12px;padding:14px 16px"><b>Falta conectar el webhook de Stripe.</b> Sin él, las compras solo se guardan cuando la persona abre la página de gracias, y los reembolsos no desactivan el código solos. Mira el paso 5 del README.</div>';
+    if (flags.mail === false) n += '<div class="card" style="max-width:none;margin:0 0 12px;padding:14px 16px"><b>Falta configurar el correo.</b> Sin él, el botón «Recuperar código por correo» no puede enviar nada. Mira el paso 6 del README.</div>';
+    $('#notices').innerHTML = n;
+    if (!buys.length) { $('#buysWrap').innerHTML = '<p class="empty">Todavía no hay compras. Si ya vendiste, toca «Sincronizar con Stripe».</p>'; return; }
+    let h = '<table><thead><tr><th>Cliente</th><th>Código</th><th>Fecha de compra</th><th>Estado</th><th>Disp.</th><th></th></tr></thead><tbody>';
+    buys.forEach(p => {
+      const st = STATUS[p.status] || STATUS.active;
+      h += `<tr><td>${esc(p.name) || '<span style="color:var(--ink-soft)">(sin nombre)</span>'}<br><span class="email">${esc(p.email)}</span></td>`
+        + `<td><code>${esc(p.code)}</code></td><td>${fmt(p.created)}<br><span style="color:var(--ink-soft)">${money(p)}</span></td>`
+        + `<td><b style="color:${st[1]}">${st[0]}</b></td><td>${p.devices}/4</td>`
+        + `<td><button class="btn ghost" style="height:34px;margin:0;font-size:13px;padding:0 12px;width:auto" data-act="${p.revoked ? 'restore' : 'revoke'}" data-code="${esc(p.code)}">${p.revoked ? 'Restaurar' : 'Desactivar'}</button>`
         + `<br><button class="btn ghost" style="height:34px;margin:6px 0 0;font-size:13px;padding:0 12px;width:auto" data-act="reset_devices" data-code="${esc(p.code)}">Liberar dispositivos</button></td></tr>`;
     });
     $('#buysWrap').innerHTML = '<div style="overflow-x:auto">' + h + '</tbody></table></div>';
   }
+  async function loadBuys() {
+    const r = await fetch('/api/license?admin=1', { cache: 'no-store', headers: { 'x-admin-key': key } });
+    let j = {}; try { j = await r.json(); } catch (e) {}
+    if (!r.ok) { $('#buysWrap').innerHTML = '<p class="empty">No se pudieron cargar las compras.</p>'; return; }
+    buys = j.purchases || []; flags = { webhook: j.webhook, mail: j.mail }; renderBuys();
+  }
+  function toCSV() {
+    const rows = [['Nombre', 'Correo', 'Código', 'Fecha de compra', 'Importe', 'Moneda', 'Estado', 'Dispositivos']].concat(buys.map(p => [p.name, p.email, p.code, new Date(p.created).toISOString(), p.amount != null ? (p.amount / 100).toFixed(2) : '', String(p.currency || '').toUpperCase(), p.status, p.devices]));
+    return rows.map(r => r.map(v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"').join(',')).join('\r\n');
+  }
+  $('#csvBtn').addEventListener('click', () => {
+    const blob = new Blob(['\ufeff' + toCSV()], { type: 'text/csv;charset=utf-8' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'compras-time.csv'; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  });
+  $('#syncBtn').addEventListener('click', async () => {
+    const m = $('#syncMsg'); m.textContent = 'Buscando compras en Stripe…'; $('#syncBtn').disabled = true;
+    try {
+      const r = await fetch('/api/license?admin=1', { method: 'POST', headers: { 'content-type': 'application/json', 'x-admin-key': key }, body: JSON.stringify({ action: 'sync' }) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) m.textContent = j.error === 'not_configured' ? 'Falta la llave de Stripe (STRIPE_SECRET_KEY) en Netlify.' : 'No se pudo consultar Stripe. Revisa que la llave tenga permiso de lectura en Checkout Sessions.';
+      else m.textContent = `Listo: ${j.imported} compra(s) nueva(s) importada(s)` + (j.refunded ? `, ${j.refunded} ya reembolsada(s) (desactivadas)` : '') + `, ${j.already} ya estaban guardadas.` + (j.unchecked ? ` No pude comprobar reembolsos en ${j.unchecked} (da a tu llave permiso de lectura en PaymentIntents y Charges).` : '');
+      await loadBuys();
+    } catch (e) { m.textContent = 'Sin conexión. Intenta de nuevo.'; }
+    $('#syncBtn').disabled = false;
+  });
   document.addEventListener('click', async e => {
     const b = e.target.closest('button[data-act]'); if (!b) return;
-    if (b.dataset.act === 'revoke' && !confirm('¿Revocar este código? La persona perderá el acceso la próxima vez que abra la app con Internet.')) return;
+    if (b.dataset.act === 'revoke' && !confirm('¿Desactivar este código? La persona ya no podrá entrar a la app cuando se conecte a Internet.')) return;
     b.disabled = true;
     await fetch('/api/license?admin=1', { method: 'POST', headers: { 'content-type': 'application/json', 'x-admin-key': key }, body: JSON.stringify({ action: b.dataset.act, code: b.dataset.code }) });
     loadBuys();
