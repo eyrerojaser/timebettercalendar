@@ -77,6 +77,7 @@
   }
 
   html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body::before { content: ''; position: fixed; z-index: 40; top: 0; left: 0; right: 0; height: env(safe-area-inset-top, 0px); background: var(--bg-a); pointer-events: none; }
   *, *::before, *::after { box-sizing: inherit; }
   [hidden] { display: none !important; }
   body {
@@ -175,11 +176,11 @@
   .wk { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; margin: 16px 0 8px; padding: 9px 4px; border-radius: 99px; background: var(--soft); text-align: center; font-size: clamp(10px, 2.7vw, 14px); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); scroll-margin-top: 12px; }
   .grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: clamp(5px, 1.4vw, 12px); }
 
-  .day { position: relative; aspect-ratio: .82; padding: clamp(4px, 1.2vw, 8px); display: flex; flex-direction: column; align-items: stretch; gap: clamp(2px, .8vw, 5px); overflow: hidden; text-align: left; cursor: pointer; border: 1px solid var(--line); border-radius: clamp(10px, 2.4vw, 16px); background: var(--surface); -webkit-appearance: none; appearance: none; }
+  .day { position: relative; aspect-ratio: .82; padding: clamp(4px, 1.2vw, 8px); display: flex; flex-direction: column; align-items: stretch; gap: clamp(2px, .8vw, 5px); overflow: hidden; text-align: left; cursor: pointer; border: 1.5px solid color-mix(in srgb, var(--accent) 34%, transparent); border-radius: clamp(10px, 2.4vw, 16px); background: color-mix(in srgb, var(--accent) 6%, var(--surface)); box-shadow: 0 1px 2px color-mix(in srgb, var(--accent) 14%, transparent); -webkit-appearance: none; appearance: none; }
   @media (min-width: 560px) { .day { aspect-ratio: 1 / 1.02; } }
   .day:hover { border-color: var(--accent); }
   .num { position: relative; z-index: 2; padding-left: 2px; font-size: clamp(10px, 2.8vw, 15px); font-weight: 800; line-height: 1; }
-  .inner { flex: 1; min-height: 0; padding: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(1px, .6vw, 4px); text-align: center; border-radius: clamp(8px, 2vw, 12px); background: color-mix(in srgb, var(--cat) 16%, var(--surface)); }
+  .inner { flex: 1; min-height: 0; padding: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(1px, .6vw, 4px); text-align: center; border-radius: clamp(8px, 2vw, 12px); background: color-mix(in srgb, var(--cat) 24%, var(--surface)); }
   .ico { width: clamp(13px, 4vw, 26px); height: clamp(13px, 4vw, 26px); color: var(--cat); }
   .ico svg { width: 100%; height: 100%; display: block; }
   .lbl-c { display: block; width: 100%; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; font-size: clamp(8px, 2.3vw, 13px); font-weight: 700; line-height: 1.12; }
@@ -319,7 +320,7 @@
   .v-img img { display: block; width: 100%; max-height: 340px; object-fit: cover; }
   .v-more { position: absolute; right: 8px; bottom: 8px; padding: 2px 9px; border-radius: 99px; background: rgba(0,0,0,.5); color: #fff; font-size: 12px; font-weight: 800; }
   .v-body { display: block; padding: 10px 12px 12px; }
-  .v-tag { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 99px; font-size: 11.5px; font-weight: 800; color: var(--cat); background: color-mix(in srgb, var(--cat) 16%, var(--surface)); }
+  .v-tag { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 99px; font-size: 11.5px; font-weight: 800; color: var(--cat); background: color-mix(in srgb, var(--cat) 24%, var(--surface)); }
   .v-name { display: block; margin-top: 6px; font-family: var(--font-script); font-weight: 700; font-size: 21px; line-height: 1.08; overflow-wrap: anywhere; }
   .v-text { display: -webkit-box; margin-top: 4px; overflow: hidden; -webkit-line-clamp: 5; -webkit-box-orient: vertical; white-space: pre-line; overflow-wrap: anywhere; font-size: 13.5px; line-height: 1.4; color: var(--ink-soft); }
   .v-ok { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; font-size: 12px; font-weight: 800; color: var(--ok); }
