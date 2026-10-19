@@ -1584,7 +1584,9 @@
     const box = $('#heroParticles'); if (!box) return;
     box.replaceChildren();
     if (reduceMotion()) return;   // quien prefiere menos movimiento no ve las partículas animadas
-    const kinds = MONTH_DECOR[cur.m] || ['leaf1'];
+    // Si elegiste una estación a mano, las partículas son de esa estación; en Automático siguen el mes.
+    const SEASON_DECOR = { primavera: ['flower', 'flower'], verano: ['sun', 'lemon'], otono: ['leaf1', 'pumpkin', 'leaf2', 'acorn'], invierno: ['flake', 'flake'] };
+    const kinds = (prefs.season && SEASON_DECOR[prefs.season]) || MONTH_DECOR[cur.m] || ['leaf1'];
     const COUNT = 7;
     for (let i = 0; i < COUNT; i++) {
       const kind = kinds[i % kinds.length];
