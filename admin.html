@@ -117,11 +117,26 @@
   let buys = [], flags = {};
   const STATUS = { active: ['Activo', 'var(--ok)'], refunded: ['Reembolsado', 'var(--bad)'], dispute: ['Disputa', 'var(--bad)'], revoked: ['Revocado', 'var(--bad)'] };
   const money = p => p.amount != null ? (p.amount / 100).toFixed(2) + ' ' + esc(String(p.currency || '').toUpperCase()) : '';
+  let diag = null;
+  function diagHtml() {
+    if (!diag) return '';
+    const ok = v => v ? '<b style="color:var(--ok)">✓</b>' : '<b style="color:var(--bad)">✗</b>';
+    const when = x => x && x.at ? fmt(x.at) : 'nunca';
+    const rd = { ok: ['✓', 'Bien: lleva a gracias.html con el session_id.'], wrong: ['✗', 'Está redirigiendo a otra dirección: ' + esc(diag.redirectUrl) + '. Debe ser exactamente: ' + esc(diag.expectedRedirect)], no_redirect: ['✗', 'El enlace muestra la página de Stripe y no te regresa a tu sitio. En Stripe → Payment Links → tu enlace → After payment elige «Redirect customers to your website» y pega: ' + esc(diag.expectedRedirect)], unknown: ['?', 'No pude comprobarlo desde aquí. Abre Stripe → Payment Links → tu enlace → After payment y confirma que la dirección sea: ' + esc(diag.expectedRedirect) + '. (Para que se compruebe solo: pon STRIPE_PAYMENT_LINK = plink_… en Netlify y da a tu llave permiso de lectura en «Payment Links».)'] }[diag.redirect] || ['?', ''];
+    return '<div class="card" style="max-width:none;margin:0 0 12px;padding:14px 16px"><b>Estado de la conexión</b><br>'
+      + ok(diag.stripeKey) + ' Llave de Stripe (STRIPE_SECRET_KEY)<br>'
+      + ok(diag.webhookSecret) + ' Webhook de Stripe — último aviso recibido: ' + when(diag.lastWebhook) + '<br>'
+      + ok(diag.buyUrl) + ' Enlace de compra (BUY_URL)<br>'
+      + ok(diag.mail) + ' Correo para recuperar códigos<br>'
+      + '<b>' + rd[0] + '</b> Redirección del pago: ' + rd[1] + '<br>'
+      + 'Última vez que alguien abrió gracias.html con una compra real: ' + when(diag.lastRedeem) + '</div>';
+  }
   function renderBuys() {
     $('#count').textContent = buys.length + (buys.length === 1 ? ' compra' : ' compras');
     let n = '';
     if (flags.webhook === false) n += '<div class="card" style="max-width:none;margin:0 0 12px;padding:14px 16px"><b>Falta conectar el webhook de Stripe.</b> Sin él, las compras solo se guardan cuando la persona abre la página de gracias, y los reembolsos no desactivan el código solos. Mira el paso 5 del README.</div>';
     if (flags.mail === false) n += '<div class="card" style="max-width:none;margin:0 0 12px;padding:14px 16px"><b>Falta configurar el correo.</b> Sin él, el botón «Recuperar código por correo» no puede enviar nada. Mira el paso 6 del README.</div>';
+    n += diagHtml();
     $('#notices').innerHTML = n;
     if (!buys.length) { $('#buysWrap').innerHTML = '<p class="empty">Todavía no hay compras. Si ya vendiste, toca «Sincronizar con Stripe».</p>'; return; }
     let h = '<table><thead><tr><th>Cliente</th><th>Código</th><th>Fecha de compra</th><th>Estado</th><th>Disp.</th><th></th></tr></thead><tbody>';
@@ -139,7 +154,7 @@
     const r = await fetch('/api/license?admin=1', { cache: 'no-store', headers: { 'x-admin-key': key } });
     let j = {}; try { j = await r.json(); } catch (e) {}
     if (!r.ok) { $('#buysWrap').innerHTML = '<p class="empty">No se pudieron cargar las compras.</p>'; return; }
-    buys = j.purchases || []; flags = { webhook: j.webhook, mail: j.mail }; renderBuys();
+    buys = j.purchases || []; flags = { webhook: j.webhook, mail: j.mail }; diag = j.diag || null; renderBuys();
   }
   function toCSV() {
     const rows = [['Nombre', 'Correo', 'Código', 'Fecha de compra', 'Importe', 'Moneda', 'Estado', 'Dispositivos']].concat(buys.map(p => [p.name, p.email, p.code, new Date(p.created).toISOString(), p.amount != null ? (p.amount / 100).toFixed(2) : '', String(p.currency || '').toUpperCase(), p.status, p.devices]));

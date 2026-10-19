@@ -82,6 +82,7 @@
     'Actividad': 'Activity', 'Guardar actividad': 'Save activity', 'Eliminar actividad': 'Delete activity', 'Actividad guardada': 'Activity saved', 'Actividad eliminada': 'Activity deleted',
     'Actividad guardada. Activa las notificaciones para recibir el aviso.': 'Activity saved. Turn on notifications to receive the alert.',
     '¿Qué vas a hacer?': 'What are you going to do?', 'Ej. Reunión con clienta': 'e.g. Meeting with a client', 'Escribe qué vas a hacer': 'Enter what you are going to do', 'Elige una fecha': 'Pick a date',
+    'Sin hora': 'No time', 'Elegir hora': 'Choose time', 'Minutos': 'Minutes', 'AM o PM': 'AM or PM',
     'Fecha': 'Date', 'Hora': 'Time', 'Color de la cita': 'Event color', 'Todo el día': 'All day', 'Recordatorio': 'Reminder', 'Recordatorios': 'Reminders',
     'Marcar actividad como hecha': 'Mark activity as done',
     'Sin recordatorio': 'No reminder', 'A la hora': 'At the time', 'a la hora': 'at the time', '15 minutos antes': '15 minutes before', '30 minutos antes': '30 minutes before', '1 hora antes': '1 hour before',

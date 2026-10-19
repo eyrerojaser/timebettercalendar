@@ -280,6 +280,23 @@
   .atitle { font-size: 15px; font-weight: 700; overflow-wrap: anywhere; }
   .abell { display: inline-flex; align-items: center; gap: 4px; width: 100%; font-size: 12px; color: var(--ink-soft); }
   .add-act { height: 46px; margin: 0 0 6px; border: 2px dashed var(--accent); color: var(--accent); font-weight: 800; }
+  /* Selector de hora propio (hora 1-12, minutos de 5 en 5, AM/PM) */
+  .tp-btn { display: flex; align-items: center; justify-content: space-between; gap: 8px; text-align: left; cursor: pointer; font-weight: 700; }
+  .tp-btn.empty #aTimeTxt { color: var(--ink-soft); font-weight: 600; }
+  .tp-btn[aria-expanded="true"] { border-color: var(--accent); }
+  .tp-caret { color: var(--ink-soft); font-size: 13px; }
+  .tp { margin: -4px 0 14px; padding: 12px; border: 1px solid var(--line); border-radius: 20px; background: var(--soft); }
+  .tp[hidden] { display: none; }
+  .tp-h { margin: 0 0 6px 4px; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
+  .tp-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; margin-bottom: 12px; }
+  .tp-grid button, .tp-ampm button { height: 42px; border: 2px solid transparent; border-radius: 14px; background: var(--surface); color: var(--ink); font: inherit; font-size: 16px; font-weight: 700; cursor: pointer; padding: 0; }
+  .tp-grid button[aria-pressed="true"], .tp-ampm button[aria-pressed="true"] { background: var(--accent); color: var(--surface); border-color: var(--accent); }
+  .tp-foot { display: flex; align-items: center; gap: 8px; }
+  .tp-ampm { display: flex; gap: 6px; margin-right: auto; }
+  .tp-ampm button { width: 58px; }
+  .tp-clear, .tp-ok { height: 42px; padding: 0 14px; border-radius: 99px; border: 1px solid var(--line); background: transparent; color: var(--ink-soft); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .tp-ok { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+  .tp button:focus-visible, .tp-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .chip[disabled] { opacity: .45; cursor: not-allowed; }
   .num .bell { display: inline-block; width: .85em; height: .85em; margin-left: 3px; vertical-align: -1px; color: var(--accent); }
@@ -634,7 +651,19 @@
     <input class="field" id="aTitle" type="text" maxlength="80" placeholder="Ej. Reunión con clienta">
     <div class="row2">
       <div><label class="lbl" for="aDate">Fecha</label><input class="field" id="aDate" type="date"></div>
-      <div><label class="lbl" for="aTime">Hora</label><input class="field" id="aTime" type="time"></div>
+      <div><label class="lbl" id="aTimeLbl" for="aTimeBtn">Hora</label><input id="aTime" type="hidden" value="">
+        <button class="field tp-btn" id="aTimeBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="aTimePanel"><span id="aTimeTxt">Sin hora</span><span class="tp-caret" aria-hidden="true">▾</span></button></div>
+    </div>
+    <div class="tp" id="aTimePanel" role="group" aria-label="Elegir hora" hidden>
+      <p class="tp-h">Hora</p>
+      <div class="tp-grid" id="tpH"></div>
+      <p class="tp-h">Minutos</p>
+      <div class="tp-grid" id="tpM"></div>
+      <div class="tp-foot">
+        <div class="tp-ampm" id="tpAP" role="group" aria-label="AM o PM"><button type="button" data-ap="AM">AM</button><button type="button" data-ap="PM">PM</button></div>
+        <button type="button" class="tp-clear" id="tpClear">Sin hora</button>
+        <button type="button" class="tp-ok" id="tpOk">Listo</button>
+      </div>
     </div>
     <p class="lbl">Color</p>
     <div class="acolors" id="aColor" role="radiogroup" aria-label="Color de la cita"></div>
@@ -1648,6 +1677,49 @@
       : perm === 'default' ? 'Al guardar te pediremos permiso para enviarte notificaciones.'
       : perm === 'unsupported' ? 'Este navegador no permite notificaciones.' : '';
   }
+  /* ---- Selector de hora propio. #aTime (oculto) guarda "HH:MM" en 24 h, igual que antes. ---- */
+  const tpFmt = v => { if (!v) return ''; const q = v.split(':').map(Number), h = q[0] % 12 || 12; return h + ':' + pad2(q[1]) + ' ' + (q[0] >= 12 ? 'PM' : 'AM'); };
+  function tpParse() { const v = $('#aTime').value; if (!v) return null; const q = v.split(':').map(Number); return { h: q[0], m: q[1] }; }
+  function tpSet(v) {
+    $('#aTime').value = v || '';
+    const t = $('#aTimeTxt'), b = $('#aTimeBtn');
+    t.textContent = v ? tpFmt(v) : 'Sin hora'; b.classList.toggle('empty', !v);
+    tpRender();
+  }
+  function tpCommit(h24, m) {
+    $('#aTime').value = pad2(h24) + ':' + pad2(m); tpSet($('#aTime').value);
+    $('#aTime').dispatchEvent(new Event('input', { bubbles: true })); $('#aTime').dispatchEvent(new Event('change', { bubbles: true }));
+  }
+  function tpRender() {
+    const cur = tpParse(), H = $('#tpH'), M = $('#tpM');
+    if (!H.childElementCount) {
+      for (let h = 1; h <= 12; h++) { const b = el('button', { type: 'button', text: String(h), 'data-h': String(h) }); H.append(b); }
+      for (let m = 0; m < 60; m += 5) { const b = el('button', { type: 'button', text: pad2(m), 'data-m': String(m) }); M.append(b); }
+    }
+    const h12 = cur ? (cur.h % 12 || 12) : 0, pm = cur ? cur.h >= 12 : false;
+    H.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.h === h12)));
+    M.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(!!cur && +b.dataset.m === cur.m)));
+    $('#tpAP').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(!!cur && ((b.dataset.ap === 'PM') === pm))));
+  }
+  function tpApply(part, val) {
+    const cur = tpParse() || { h: 9, m: 0 };                       // si no había hora, se empieza en 9:00 AM
+    let h = cur.h, m = cur.m; const pm = h >= 12;
+    if (part === 'h') h = (val % 12) + (pm ? 12 : 0);
+    else if (part === 'm') m = val;
+    else if (part === 'ap') h = (h % 12) + (val === 'PM' ? 12 : 0);
+    tpCommit(h, m);
+  }
+  function tpOpen(open) {
+    const p = $('#aTimePanel'); p.hidden = !open; $('#aTimeBtn').setAttribute('aria-expanded', String(open));
+    if (open) { tpRender(); setTimeout(() => p.scrollIntoView({ block: 'nearest', behavior: reduceMotion() ? 'auto' : 'smooth' }), 30); }
+  }
+  $('#aTimeBtn').addEventListener('click', () => tpOpen($('#aTimePanel').hidden));
+  $('#tpH').addEventListener('click', e => { const b = e.target.closest('button'); if (b) tpApply('h', +b.dataset.h); });
+  $('#tpM').addEventListener('click', e => { const b = e.target.closest('button'); if (b) tpApply('m', +b.dataset.m); });
+  $('#tpAP').addEventListener('click', e => { const b = e.target.closest('button'); if (b) tpApply('ap', b.dataset.ap); });
+  $('#tpClear').addEventListener('click', () => { tpSet(''); $('#aTime').dispatchEvent(new Event('input', { bubbles: true })); tpOpen(false); });
+  $('#tpOk').addEventListener('click', () => tpOpen(false));
+
   $('#aTime').addEventListener('input', renderRemindPick);
   $('#aTime').addEventListener('change', renderRemindPick);
   function renderActColors() {
@@ -1672,7 +1744,7 @@
     $('#aTitle').value = a ? a.title : '';
     const date = a ? a.date : (o.date || todayStr());
     $('#aDate').value = date;
-    $('#aTime').value = a ? (a.time || '') : (date === todayStr() ? pad2(Math.min(23, new Date().getHours() + 1)) + ':00' : '09:00');
+    tpOpen(false); tpSet(a ? (a.time || '') : (date === todayStr() ? pad2(Math.min(23, new Date().getHours() + 1)) + ':00' : '09:00'));
     actRemind = a ? a.remind : 15;
     actColorId = a ? (a.color || null) : null;
     $('#aDel').hidden = !a; $('#aDelTxt').textContent = 'Eliminar actividad';

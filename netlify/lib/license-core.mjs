@@ -159,6 +159,7 @@ export async function handleWebhook(req, store, deps) {
 
   let event; try { event = JSON.parse(payload); } catch { return json({ error: 'bad_json' }, 400); }
   const obj = event && event.data && event.data.object;
+  try { await store.setJSON('meta:webhook', { at: now, type: String(event && event.type || '').slice(0, 80) }); } catch (e) {}
   if (!obj) return json({ ok: true });
 
   switch (event.type) {
@@ -205,8 +206,31 @@ async function syncFromStripe(store, deps, now) {
   return out;
 }
 
+
+/* ---------------- Diagnóstico de la conexión con Stripe (para el panel) ---------------- */
+async function diagnose(store, deps, origin) {
+  const d = {
+    stripeKey: !!deps.env('STRIPE_SECRET_KEY'), webhookSecret: !!deps.env('STRIPE_WEBHOOK_SECRET'),
+    buyUrl: !!deps.env('BUY_URL'), mail: !!(deps.mailConfigured && deps.mailConfigured()),
+    expectedRedirect: `${origin}/gracias.html?session_id={CHECKOUT_SESSION_ID}`, redirect: 'unknown', redirectUrl: '',
+    lastWebhook: await store.get('meta:webhook', { type: 'json' }).catch(() => null),
+    lastRedeem: await store.get('meta:redeem', { type: 'json' }).catch(() => null)
+  };
+  const link = deps.env('STRIPE_PAYMENT_LINK');
+  if (d.stripeKey && link) {
+    const r = await stripeGet(`payment_links/${encodeURIComponent(link)}`, deps);
+    const ac = r.data && r.data.after_completion;
+    if (ac) {
+      const url = ac.type === 'redirect' && ac.redirect ? String(ac.redirect.url || '') : '';
+      d.redirectUrl = url;
+      d.redirect = !url ? 'no_redirect' : (/\/gracias\.html\?session_id=\{CHECKOUT_SESSION_ID\}\s*$/.test(url) && url.startsWith(origin) ? 'ok' : 'wrong');
+    }
+  }
+  return d;
+}
+
 /* ---------------- Correo de recuperación ---------------- */
-function recoveryMail(codes, lang) {
+function recoveryMail(codes, lang, origin) {
   const en = lang === 'en';
   const list = codes.map(prettyCode);
   const subject = en ? 'Your TIME · Better Calendar code' : 'Tu código de TIME · Better Calendar';
@@ -214,8 +238,10 @@ function recoveryMail(codes, lang) {
   const how = en
     ? 'Open the app, enter this code once and you are in. It works on up to 4 devices. If you did not ask for this email, you can ignore it.'
     : 'Abre la app, escribe este código una vez y listo. Funciona en hasta 4 dispositivos. Si tú no pediste este correo, puedes ignorarlo.';
-  const text = `${intro}\n\n${list.join('\n')}\n\n${how}\n\nEyre Digital Studio`;
-  const html = `<div style="font-family:Arial,sans-serif;color:#3A2A22;max-width:480px"><p>${intro}</p>${list.map((c) => `<p style="font:700 24px monospace;letter-spacing:2px;background:#FCF3EC;border:2px dashed #8C3520;padding:14px;text-align:center;color:#8C3520">${c}</p>`).join('')}<p>${how}</p><p style="color:#8A7367">Eyre Digital Studio</p></div>`;
+  const link = origin ? `${origin}/?code=${codes[0]}` : '';
+  const linkTxt = en ? 'Or open this link to activate it automatically:' : 'O abre este enlace para activarla automáticamente:';
+  const text = `${intro}\n\n${list.join('\n')}\n\n${how}${link ? `\n\n${linkTxt}\n${link}` : ''}\n\nEyre Digital Studio`;
+  const html = `<div style="font-family:Arial,sans-serif;color:#3A2A22;max-width:480px"><p>${intro}</p>${list.map((c) => `<p style="font:700 24px monospace;letter-spacing:2px;background:#FCF3EC;border:2px dashed #8C3520;padding:14px;text-align:center;color:#8C3520">${c}</p>`).join('')}<p>${how}</p>${link ? `<p>${linkTxt}<br><a href="${link}">${link}</a></p>` : ''}<p style="color:#8A7367">Eyre Digital Studio</p></div>`;
   return { subject, text, html };
 }
 
@@ -246,7 +272,7 @@ export async function handleLicense(req, store, deps) {
         });
       }
       list.sort((x, y) => y.created - x.created);
-      return json({ ok: true, purchases: list, webhook: !!deps.env('STRIPE_WEBHOOK_SECRET'), mail: !!(deps.mailConfigured && deps.mailConfigured()) });
+      return json({ ok: true, purchases: list, webhook: !!deps.env('STRIPE_WEBHOOK_SECRET'), mail: !!(deps.mailConfigured && deps.mailConfigured()), diag: await diagnose(store, deps, url.origin) });
     }
     if (req.method === 'POST') {
       let body; try { body = JSON.parse(await req.text()); } catch { return json({ error: 'bad_json' }, 400); }
@@ -295,6 +321,7 @@ export async function handleLicense(req, store, deps) {
     if (!isPaidPayment(session)) return json({ error: 'not_paid' }, 402);
     if (!rightProduct(session, deps)) return json({ error: 'wrong_product' }, 403);
     const { code, rec } = await ensureLicense(store, session, now, { sid });
+    try { await store.setJSON('meta:redeem', { at: now }); } catch (e) {}
     return json({ ok: true, code: prettyCode(code), name: rec && rec.name, email: rec && rec.email });
   }
 
@@ -325,12 +352,17 @@ export async function handleLicense(req, store, deps) {
     if (!(await failGate(store, req, now, 'rec-mail', true, 3, 3600e3, await sha256(email)))) return json({ ok: true });
     const ref = await store.get(`email:${await sha256(email)}`, { type: 'json' });
     const codes = [];
-    for (const c of (ref && ref.codes) || []) {
+    const cand = new Set((ref && ref.codes) || []);
+    if (!cand.size) {                                                       // compras guardadas antes de existir el índice de correos
+      const idx = (await store.get('index', { type: 'json' })) || { codes: [] };
+      for (const c of idx.codes) { const r = await store.get(`code:${c}`, { type: 'json' }); if (r && r.email === email) { cand.add(c); await addEmailIndex(store, email, c); } }
+    }
+    for (const c of cand) {
       const r = await store.get(`code:${c}`, { type: 'json' });
       if (r && !r.revoked) codes.push(c);
     }
     if (codes.length) {
-      try { await deps.sendMail({ to: email, ...recoveryMail(codes.slice(0, 3), lang) }); }
+      try { await deps.sendMail({ to: email, ...recoveryMail(codes.slice(0, 3), lang, url.origin) }); }
       catch (e) { return json({ error: 'mail_failed' }, 502); }
     }
     return json({ ok: true });                                              // misma respuesta exista o no la compra

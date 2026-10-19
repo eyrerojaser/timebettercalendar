@@ -22,7 +22,7 @@ Repositorio nuevo (privado). Sube **el contenido** de esta carpeta (no la carpet
 **Add new project → Import from GitHub →** tu repositorio → **Deploy**. No cambies nada, todo viene en `netlify.toml`.
 
 ### 3. Stripe: la llave de lectura
-En Stripe: **Developers → API keys → Create restricted key**. Permisos de **lectura** (Read) en: **Checkout Sessions**, **PaymentIntents** y **Charges** (los dos últimos sirven para detectar reembolsos al sincronizar). Nada más. Cópiala (`rk_live_…`) y pégala directo en Netlify (paso 6), nunca en un chat.
+En Stripe: **Developers → API keys → Create restricted key**. Permisos de **lectura** (Read) en: **Checkout Sessions**, **PaymentIntents**, **Charges** y **Payment Links** (este último deja que el panel compruebe tu redirección) (los dos últimos sirven para detectar reembolsos al sincronizar). Nada más. Cópiala (`rk_live_…`) y pégala directo en Netlify (paso 6), nunca en un chat.
 
 ### 4. Stripe: el producto y el enlace de pago
 1. **Product catalog → Add product** → nombre, precio ($19.99), pago único.
@@ -56,6 +56,7 @@ Modo de prueba y modo real son webhooks distintos: crea uno en cada modo.
 Sin correo configurado, el formulario de recuperación le dice al cliente que escriba a soporte. Luego **Deploys → Trigger deploy**.
 
 ### 7. Panel
+Arriba verás **Estado de la conexión**: te dice con ✓ o ✗ si la llave, el webhook (y cuándo llegó su último aviso), el enlace de compra, el correo y la **redirección de tu enlace de pago a `gracias.html?session_id=…`** están bien.
 Abre `https://TU-SITIO.netlify.app/admin.html`. La primera vez eliges tu contraseña. Ahí ves cada compra: cliente, correo, código, fecha, estado y dispositivos (x/4). Botones: **Desactivar**, **Restaurar**, **Liberar dispositivos**, **Exportar CSV** y **Sincronizar con Stripe**.
 - Compras hechas antes de configurar el webhook (por ejemplo tu compra real): toca **Sincronizar con Stripe** y se importan.
 - Las compras nuevas aparecen solas cuando Stripe avisa por el webhook.
@@ -82,3 +83,9 @@ Cambia los archivos en GitHub y sube el número de `VERSION` en `sw.js` para que
 La app, la pantalla del código y la página de gracias tienen un selector **ES | EN** arriba. La elección se recuerda en cada dispositivo.
 Las frases en inglés están en `i18n.js` (lista `EN`): si quieres corregir o cambiar una, edítala ahí y sube el número de `VERSION` en `sw.js`.
 Lo que la persona escribe (metas, notas, actividades) nunca se traduce.
+
+## Selector de hora
+Al crear o editar una actividad, la hora se elige con un selector propio de la app (hora 1–12, minutos de 5 en 5, AM/PM). Las actividades y recordatorios que ya existían no cambian. Si una actividad vieja tiene minutos que no son de 5 en 5 (por ejemplo 9:07), se conserva igual hasta que la cambies.
+
+## Recuperar el código
+El correo de recuperación ahora trae también un **enlace directo** (`/?code=…`) que activa la app solo. Si no hay correo configurado, la app lo dice y da tu correo de soporte.
