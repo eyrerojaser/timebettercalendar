@@ -1,7 +1,7 @@
 /* TIME · service worker
    Guarda la app en el dispositivo para que abra al instante y funcione sin Internet.
    Si cambias algún archivo de la app, sube el número de VERSION para que se actualice. */
-const VERSION = 'time-v9';
+const VERSION = 'time-v11';
 const ASSETS = [
   './', './index.html', './i18n.js', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png', './icons/apple-touch-icon.png', './icons/badge-96.png',
@@ -34,7 +34,7 @@ self.addEventListener('fetch', (e) => {
   if (url.pathname.startsWith('/admin')) return;
   // Solo la pantalla de la app (/) se sirve desde el caché; las demás páginas (gracias, comprar, políticas) van siempre a la red.
   if (req.mode === 'navigate' && url.pathname !== '/' && url.pathname !== '/index.html') return;
-  if (url.pathname.startsWith('/img/') || url.pathname.startsWith('/guias/')) return;
+  if (url.pathname.startsWith('/img/') || url.pathname.startsWith('/guias/') || url.pathname.startsWith('/bonus/')) return;
 
   // Abrir la app: se muestra lo guardado al instante y se actualiza en segundo plano.
   const key = req.mode === 'navigate' ? './index.html' : req;

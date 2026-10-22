@@ -72,7 +72,7 @@
     'Marcar como completado': 'Mark as completed', 'Día completado': 'Day completed', 'Completado': 'Completed', 'completado': 'completed', 'hoy': 'today',
     'Categoría': 'Category', 'Categorías': 'Categories', 'Tus categorías': 'Your categories', 'Agregar categoría': 'Add category', 'Nueva categoría': 'New category',
     'Ej. Familia, Salud, Viajes': 'e.g. Family, Health, Travel', 'Escribe un nombre para la categoría': 'Enter a name for the category',
-    'Sin color': 'No color', '¡Es esta!': 'This one!', 'Adorno': 'Sticker', 'Sin adorno': 'No sticker', 'Adorno de la cita': 'Event sticker', 'Quitar': 'Remove', 'Quitar foto': 'Remove photo', 'Foto': 'Photo', 'Fotos': 'Photos', 'Agregar fotos': 'Add photos', 'Agregar una foto': 'Add a photo', 'Cambiar': 'Change',
+    'Sin color': 'No color', 'Bono: planner imprimible': 'Bonus: printable planner', 'Un regalo por tu compra: el planner para imprimir en casa (tamaño carta). Se descarga en PDF.': 'A gift with your purchase: the printable planner (US Letter size), as a PDF download.', 'Planner en español': 'Planner in Spanish', 'Planner in English': 'Planner in English', '¡Es esta!': 'This one!', 'Adorno': 'Sticker', 'Sin adorno': 'No sticker', 'Adorno de la cita': 'Event sticker', 'Quitar': 'Remove', 'Quitar foto': 'Remove photo', 'Foto': 'Photo', 'Fotos': 'Photos', 'Agregar fotos': 'Add photos', 'Agregar una foto': 'Add a photo', 'Cambiar': 'Change',
     'Listo': 'Done', 'Guardar': 'Save', 'Cerrar': 'Close', 'Color': 'Color', 'Todo': 'All',
     'Alguna foto no se pudo leer.': 'Some photo could not be read.', 'No se pudo leer esa foto. Prueba con otra.': 'Could not read that photo. Try another one.',
     // ---- Categorías por defecto ----

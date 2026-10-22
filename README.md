@@ -89,3 +89,8 @@ Al crear o editar una actividad, la hora se elige con un selector propio de la a
 
 ## Recuperar el código
 El correo de recuperación ahora trae también un **enlace directo** (`/?code=…`) que activa la app solo. Si no hay correo configurado, la app lo dice y da tu correo de soporte.
+
+## Bono (planner imprimible)
+
+Los PDF del bono están en la carpeta `bonus/` y salen en dos lugares: en `gracias.html` (justo después de pagar) y dentro de la app, en **Configuración → Bono: planner imprimible**.
+Para cambiar el bono, sube tu PDF a `bonus/` con **el mismo nombre** (`TIME-Planner-imprimible-ES-k7x9q2.pdf` y `...-EN-k7x9q2.pdf`). El código al final del nombre hace la dirección difícil de adivinar; no pongas el enlace en redes ni en la página de venta.
