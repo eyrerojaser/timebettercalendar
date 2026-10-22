@@ -89,6 +89,8 @@
   button { font: inherit; color: inherit; }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .app { max-width: 920px; margin: 0 auto; }
+  @media (min-width: 900px) { .app { max-width: min(1400px, 96vw); } }
+  @media (min-width: 900px) { .goals-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); overflow: visible; gap: 14px; } .gcard { flex: none; max-width: none; height: 118px; padding-left: 16px; } .gtext { font-size: 24px; } .gnum { width: 30px; height: 30px; } }
 
   /* ============ Encabezado ============ */
   .top { position: relative; overflow: hidden; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; padding: 14px 16px 12px; }
@@ -273,10 +275,20 @@
   .chk::after { content: ''; position: absolute; inset: -9px; }
   .chk[aria-checked="true"] { background: var(--ok); border-color: var(--ok); }
   .arow { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 16px; background: var(--bg-a); }
+  .arow { position: relative; }
+  .arow.spot { border: 2px solid var(--spot); background: color-mix(in srgb, var(--spot) 16%, var(--surface)); animation: spotpulse 1.4s ease-in-out 4; }
+  .arow.spot .atitle { font-size: 17px; }
+  .spot-tag { position: absolute; top: -11px; right: 12px; display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 800; color: #fff; background: var(--spot); animation: spotbob 1.4s ease-in-out infinite; }
+  @keyframes spotpulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--spot) 55%, transparent); } 50% { box-shadow: 0 0 0 10px transparent; } }
+  @keyframes spotbob { 0%, 100% { transform: translateY(0) rotate(0); } 25% { transform: translateY(-2px) rotate(-6deg); } 75% { transform: translateY(-2px) rotate(6deg); } }
+  @media (prefers-reduced-motion: reduce) { .arow.spot, .spot-tag { animation: none; } }
   .arow.done .atitle { text-decoration: line-through; color: var(--ink-soft); }
   .abody { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; padding: 4px 0; border: 0; background: transparent; text-align: left; cursor: pointer; }
   .atime { font-size: 14px; font-weight: 800; color: var(--accent); white-space: nowrap; }
   .adot { flex: none; width: 11px; height: 11px; border-radius: 50%; background: var(--dot, var(--accent)); }
+  .swi { display: grid; place-items: center; color: var(--ink-soft); background: var(--soft); }
+  .swi[aria-checked="true"] { color: #fff; background: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent); }
+  .aico { display: inline-grid; place-items: center; width: 18px; height: 18px; margin-right: 2px; color: var(--accent); }
   .acolors { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
   .atitle { font-size: 15px; font-weight: 700; overflow-wrap: anywhere; }
   .abell { display: inline-flex; align-items: center; gap: 4px; width: 100%; font-size: 12px; color: var(--ink-soft); }
@@ -574,10 +586,13 @@
       <div><h2 class="sh-date" id="sTitle">Configuración</h2></div>
       <button class="icon-btn close" type="button" aria-label="Cerrar"></button>
     </div>
+    <div id="grpProf">
     <label class="lbl" for="sName">Tu nombre</label>
     <input class="field" id="sName" type="text" maxlength="30">
     <label class="lbl" for="sPhrase">Tu frase de portada</label>
     <input class="field" id="sPhrase" type="text" maxlength="70">
+    </div>
+    <div id="grpSet">
     <p class="lbl">La semana empieza el</p>
     <div class="seg" id="sWeek" role="group" aria-label="Primer día de la semana">
       <button type="button" data-ws="1" aria-pressed="true">Lunes</button>
@@ -636,6 +651,7 @@
       <p class="hint" id="installHint"></p>
       <button class="done-btn solid" id="installBtn" type="button" hidden style="margin-top:0">Instalar en este dispositivo</button>
     </div>
+    </div>
     <p class="sh-status js-status"></p>
     <button class="done-btn solid" id="sDone" type="button">Listo</button>
   </div>
@@ -668,6 +684,8 @@
     </div>
     <p class="lbl">Color</p>
     <div class="acolors" id="aColor" role="radiogroup" aria-label="Color de la cita"></div>
+    <p class="lbl">Adorno</p>
+    <div class="acolors" id="aIcon" role="radiogroup" aria-label="Adorno de la cita"></div>
     <p class="lbl">Recordatorio</p>
     <div class="catpick" id="aRemind" role="radiogroup" aria-label="Recordatorio"></div>
     <p class="hint" id="aRemHint"></p>
@@ -1111,7 +1129,7 @@
       const ghost = !hasContent;
       const inner = el('span', { class: 'inner' + (ghost ? ' ghost' : '') });
       const ico = el('span', { class: 'ico' });
-      ico.innerHTML = svg(cat ? cat.icon : (ghost ? SEASONS[season()].icon : 'star'), 26, 1.9);
+      ico.innerHTML = svg(cat ? cat.icon : ((a0 && a0.icon) || (ghost ? SEASONS[season()].icon : 'star')), 26, 1.9);
       const lb = el('span', { class: 'lbl-c', text: ghost ? 'Enfoque de hoy' : label });
       if (info.done) lb.append(' ', okIcon());
       inner.append(ico, lb); b.append(inner);
@@ -1191,7 +1209,7 @@
     renderDayPhoto(); renderCatPick(); updateDoneBtn(); renderDayActs(); renderDaySpecials();
     openModal('m-day', { from: trigger, focus: '#dText' });
   }
-  onClose['m-day'] = () => { openDay = null; };
+  onClose['m-day'] = () => { openDay = null; spotId = null; clearTimeout(spotTimer); };
   $('#dText').addEventListener('input', e => { ensureDay(openDay).text = e.target.value; commitDay(openDay); });
   $('#dDone').addEventListener('click', () => { const i = ensureDay(openDay); i.done = !i.done; commitDay(openDay); updateDoneBtn(); });
   $('#dFile').addEventListener('change', e => {
@@ -1271,12 +1289,14 @@
 
   /* ---------- Configuración ---------- */
   function syncSeg() { document.querySelectorAll('#sWeek button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.ws === prefs.weekStart))); }
-  function openSettings(from, focus) {
+  function openSettings(from, focus, mode) {
+    $('#grpProf').hidden = mode === 'set'; $('#grpSet').hidden = mode === 'prof';
+    $('#sTitle').textContent = mode === 'prof' ? 'Mi perfil' : 'Configuración';
     $('#sName').value = prefs.name || ''; $('#sPhrase').value = prefs.phrase || ''; syncSeg(); renderSync(); checkSync(); renderRem();
-    openModal('m-set', { from: from, focus: focus || '#sName' });
+    openModal('m-set', { from: from, focus: focus || undefined });
   }
-  $('#profBtn').addEventListener('click', e => openSettings(e.currentTarget, '#sName'));
-  $('#setBtn').addEventListener('click', e => openSettings(e.currentTarget, '#sPhrase'));
+  $('#profBtn').addEventListener('click', e => openSettings(e.currentTarget, '#sName', 'prof'));
+  $('#setBtn').addEventListener('click', e => openSettings(e.currentTarget, null, 'set'));
   $('#sName').addEventListener('input', e => { prefs.name = e.target.value; renderHeader(); savePrefs(); });
   $('#sPhrase').addEventListener('input', e => { prefs.phrase = e.target.value; renderHeader(); savePrefs(); });
   document.querySelectorAll('#sWeek button').forEach(b => b.addEventListener('click', () => { prefs.weekStart = +b.dataset.ws; syncSeg(); renderCalendar(); savePrefs(); }));
@@ -1622,6 +1642,10 @@
     return new Date(d[0], d[1] - 1, d[2], t[0], t[1]).getTime();
   }
   function fireAtOf(a) { const st = startMs(a); return (st == null || a.remind == null) ? null : st - a.remind * 60000; }
+  const ACT_EMOJI = { flower: '🌸', heart: '💗', star: '⭐', sparkle: '✨', sun: '☀️', leaf: '🍃', cake: '🎂', plane: '✈️', bulb: '💡', bell: '🔔', camera: '📸', home: '🏠', book: '📖', target: '🎯', coin: '💰', laptop: '💻', snow: '❄️', flag: '🚩' };
+  const remindTitle = a => (ACT_EMOJI[a.icon] || '⏰') + ' ' + a.title;
+  const remindUrl = a => './?d=' + a.date + '&a=' + encodeURIComponent(a.id);
+  let spotId = null, spotTimer = null;
   const remindBody = a => I18N.t(a.remind === 0 ? 'Es ahora · ' + fmtTime(a.time) : (a.remind === 60 ? 'En 1 hora · ' : 'En ' + a.remind + ' minutos · ') + fmtTime(a.time));
 
   let actsRec = { list: [] }, actIdx = new Map();
@@ -1646,11 +1670,18 @@
     const box = $('#dActs'); box.replaceChildren();
     if (openDay == null) return;
     actsOn(dstr(cur.y, cur.m, openDay)).forEach(a => {
-      const row = el('div', { class: 'arow' + (a.done ? ' done' : '') });
+      const row = el('div', { class: 'arow' + (a.done ? ' done' : '') + (a.id === spotId ? ' spot' : '') });
+      if (a.id === spotId) {
+        row.style.setProperty('--spot', actColorHex(a.color) || 'var(--accent)');
+        const tag = el('span', { class: 'spot-tag' }); tag.innerHTML = svg('bell', 14, 2.4) + '<span></span>'; tag.lastChild.textContent = '¡Es esta!';
+        row.append(tag);
+        setTimeout(() => row.scrollIntoView({ block: 'center', behavior: reduceMotion() ? 'auto' : 'smooth' }), 350);
+      }
       const chk = el('button', { class: 'chk', type: 'button', role: 'checkbox', 'aria-checked': String(!!a.done), 'aria-label': 'Marcar actividad como hecha' });
       chk.innerHTML = a.done ? svg('check', 14, 3.4) : '';
       chk.addEventListener('click', () => { a.done = !a.done; saveActs(); renderDayActs(); repaintDay(openDay); });
       const body = el('button', { class: 'abody', type: 'button', 'aria-label': 'Editar actividad ' + a.title });
+      if (a.icon) { const ai = el('span', { class: 'aico' }); ai.innerHTML = svg(a.icon, 16, 2.1); if (a.color) ai.style.color = actColorHex(a.color); body.append(ai); }
       if (a.color) { const dot = el('span', { class: 'adot' }); dot.style.setProperty('--dot', actColorHex(a.color)); body.append(dot); }
       body.append(el('span', { class: 'atime', text: a.time ? fmtTime(a.time) : 'Todo el día' }), el('span', { class: 'atitle', text: a.title }));
       if (a.remind != null && a.time && !a.done) {
@@ -1662,7 +1693,7 @@
   }
   $('#dActAdd').addEventListener('click', e => openActModal({ date: dstr(cur.y, cur.m, openDay), fromDay: openDay, from: e.currentTarget }));
 
-  let actEdit = null, actReturnDay = null, actRemind = 15, actDelArm = null, actColorId = null;
+  let actEdit = null, actReturnDay = null, actRemind = 15, actDelArm = null, actColorId = null, actIconId = null;
   function renderRemindPick() {
     const box = $('#aRemind'); box.replaceChildren();
     const hasTime = !!$('#aTime').value;
@@ -1740,6 +1771,19 @@
       box.append(b);
     });
   }
+  function renderActIcons() {
+    const box = $('#aIcon'); box.replaceChildren();
+    const none = el('button', { type: 'button', class: 'sw swi', role: 'radio', 'aria-checked': String(actIconId == null), 'aria-label': 'Sin adorno' });
+    none.innerHTML = svg('x', 14, 2.6);
+    none.addEventListener('click', () => { actIconId = null; renderActIcons(); });
+    box.append(none);
+    ACT_ICONS.forEach(k => {
+      const b = el('button', { type: 'button', class: 'sw swi', role: 'radio', 'aria-checked': String(actIconId === k), 'aria-label': ACT_ICON_NAMES[k] });
+      b.innerHTML = svg(k, 18, 2);
+      b.addEventListener('click', () => { actIconId = k; renderActIcons(); });
+      box.append(b);
+    });
+  }
   function openActModal(o) {
     const a = o.id ? actsRec.list.find(x => x.id === o.id) : null;
     actEdit = a ? a.id : null; actReturnDay = o.fromDay == null ? null : o.fromDay; actDelArm = null;
@@ -1749,9 +1793,9 @@
     $('#aDate').value = date;
     tpOpen(false); tpSet(a ? (a.time || '') : (date === todayStr() ? pad2(Math.min(23, new Date().getHours() + 1)) + ':00' : '09:00'));
     actRemind = a ? a.remind : 15;
-    actColorId = a ? (a.color || null) : null;
+    actColorId = a ? (a.color || null) : null; actIconId = a ? (a.icon || null) : null;
     $('#aDel').hidden = !a; $('#aDelTxt').textContent = 'Eliminar actividad';
-    renderRemindPick(); renderActColors();
+    renderRemindPick(); renderActColors(); renderActIcons();
     openModal('m-act', { from: o.from, focus: '#aTitle' });
   }
   onClose['m-act'] = () => {
@@ -1765,8 +1809,8 @@
     const remind = time ? actRemind : null;
     if (remind != null && 'Notification' in window && Notification.permission === 'default') await enableReminders();
     let a = actEdit ? actsRec.list.find(x => x.id === actEdit) : null;
-    if (a) Object.assign(a, { title: title, date: date, time: time, remind: remind, color: actColorId });
-    else { a = { id: uid(), title: title, date: date, time: time, remind: remind, color: actColorId, done: false, created: Date.now() }; actsRec.list.push(a); }
+    if (a) Object.assign(a, { title: title, date: date, time: time, remind: remind, color: actColorId, icon: actIconId });
+    else { a = { id: uid(), title: title, date: date, time: time, remind: remind, color: actColorId, icon: actIconId, done: false, created: Date.now() }; actsRec.list.push(a); }
     saveActs(); renderCalendar(); closeModal();
     const perm = 'Notification' in window ? Notification.permission : 'unsupported';
     toast(remind != null && perm !== 'granted' ? 'Actividad guardada. Activa las notificaciones para recibir el aviso.' : 'Actividad guardada');
@@ -1808,7 +1852,7 @@
       const k = a.id + '@' + f;
       if (notified[k]) return;
       notified[k] = now; changed = true;
-      if (notifOK() && Notification.permission === 'granted' && !(pushCfg && pushCfg.off)) showNote(a.title, { body: remindBody(a), tag: 'rem-' + a.id + '-' + f, data: { url: './?d=' + a.date } });
+      if (notifOK() && Notification.permission === 'granted' && !(pushCfg && pushCfg.off)) showNote(remindTitle(a), { body: remindBody(a), tag: 'rem-' + a.id + '-' + f, data: { url: remindUrl(a) } });
       else toast('Recordatorio: ' + a.title + ' · ' + fmtTime(a.time));
     });
     if (changed) kvSet('notified', notified);
@@ -1831,7 +1875,7 @@
       if (a.done) return;
       const f = fireAtOf(a);
       if (f == null || f < now - 100000) return;
-      out.push({ id: a.id, fireAt: f, title: a.title, body: remindBody(a), url: './?d=' + a.date });
+      out.push({ id: a.id, fireAt: f, title: remindTitle(a), body: remindBody(a), url: remindUrl(a) });
     });
     if (pushCfg && pushCfg.test && pushCfg.test > now - 100000) out.push({ id: 'prueba', fireAt: pushCfg.test, title: 'Aviso de prueba', body: '¡Funciona! Este aviso llegó con la app cerrada.', url: './' });
     return out.sort((x, y) => x.fireAt - y.fireAt).slice(0, 300);
@@ -2208,8 +2252,28 @@
     { id: 'rosa', name: 'Rosa', hex: '#E07BA0' },
     { id: 'verde', name: 'Verde', hex: '#4FA06B' },
     { id: 'amarillo', name: 'Amarillo', hex: '#E0B23E' },
-    { id: 'naranja', name: 'Naranja', hex: '#E8772E' }
+    { id: 'naranja', name: 'Naranja', hex: '#E8772E' },
+    { id: 'rojo', name: 'Rojo', hex: '#D64545' },
+    { id: 'coral', name: 'Coral', hex: '#F2836B' },
+    { id: 'fucsia', name: 'Fucsia', hex: '#C2307E' },
+    { id: 'vino', name: 'Vino', hex: '#8E2F4F' },
+    { id: 'morado', name: 'Morado', hex: '#6D45B5' },
+    { id: 'indigo', name: 'Índigo', hex: '#3B4FA8' },
+    { id: 'celeste', name: 'Celeste', hex: '#4DB3E6' },
+    { id: 'turquesa', name: 'Turquesa', hex: '#1FA6A0' },
+    { id: 'menta', name: 'Menta', hex: '#6CCBA0' },
+    { id: 'lima', name: 'Lima', hex: '#8FBF3A' },
+    { id: 'oliva', name: 'Oliva', hex: '#7A8B3C' },
+    { id: 'mostaza', name: 'Mostaza', hex: '#C99A1E' },
+    { id: 'durazno', name: 'Durazno', hex: '#F4B08A' },
+    { id: 'chicle', name: 'Chicle', hex: '#F7A8C8' },
+    { id: 'lavanda', name: 'Lavanda', hex: '#BCA7E8' },
+    { id: 'cielo', name: 'Cielo', hex: '#9CC8F2' },
+    { id: 'cafe', name: 'Café', hex: '#8A5A3C' },
+    { id: 'grafito', name: 'Grafito', hex: '#5B6472' }
   ];
+  const ACT_ICONS = ['flower', 'heart', 'star', 'sparkle', 'sun', 'leaf', 'cake', 'plane', 'bulb', 'bell', 'camera', 'home', 'book', 'target', 'coin', 'laptop', 'snow', 'flag'];
+  const ACT_ICON_NAMES = { flower: 'Flor', heart: 'Corazón', star: 'Estrella', sparkle: 'Brillo', sun: 'Sol', leaf: 'Hoja', cake: 'Pastel', plane: 'Viaje', bulb: 'Idea', bell: 'Campana', camera: 'Cámara', home: 'Casa', book: 'Libro', target: 'Meta', coin: 'Dinero', laptop: 'Trabajo', snow: 'Nieve', flag: 'Bandera' };
   const actColorHex = id => (ACT_COLORS.find(c => c.id === id) || {}).hex;
   function nthWeekday(year, month, weekday, n) {
     const first = new Date(year, month, 1);
@@ -2361,7 +2425,9 @@
     checkPush().then(() => { if (notifOK() && Notification.permission === 'granted') pushConnect(); renderRem(); });
     if (location.hash === '#vision') setView('vision');
     const qs = new URLSearchParams(location.search), dq = qs.get('d');
-    if (dq && /^\d{4}-\d{2}-\d{2}$/.test(dq)) { try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {} openFromDate(dq); }
+    if (dq && /^\d{4}-\d{2}-\d{2}$/.test(dq)) { try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {}
+      const aq = qs.get('a'); if (aq && /^[\w-]{1,40}$/.test(aq)) { spotId = aq; spotTimer = setTimeout(() => { spotId = null; if (openDay != null) renderDayActs(); }, 20000); }
+      openFromDate(dq); }
     else if (qs.get('add') === 'today') $('#addBtn').click();
   });
 })();
