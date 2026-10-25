@@ -333,17 +333,22 @@
   .tl-ad { padding: 6px 8px; border-radius: 6px; border: 0; text-align: left; font-size: 13px; font-weight: 800; background: var(--bc); color: var(--tc, #fff); cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .tl-gb { position: relative; } .tl-hr { position: absolute; right: 8px; transform: translateY(-8px); font-size: 12px; font-weight: 800; color: color-mix(in srgb, var(--ink) 80%, transparent); white-space: nowrap; }
   .tl-col { min-width: 0; } .tl-col.today .tl-gh b { color: var(--accent); } .tl-col.today .tl-gh { border-bottom-color: var(--accent); }
-  .tl-col.today .tl-body { background-color: color-mix(in srgb, var(--accent) 8%, var(--surface)); }
-  .tl-body { position: relative; border-radius: 6px; border: 2px solid color-mix(in srgb, var(--ink) 38%, transparent);
-    background-color: var(--surface);
-    background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--hp, 68px) - 2px), color-mix(in srgb, var(--ink) 38%, transparent) calc(var(--hp, 68px) - 2px), color-mix(in srgb, var(--ink) 38%, transparent) var(--hp, 68px)),
-      repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--hp, 68px) / 2 - 1px), color-mix(in srgb, var(--ink) 16%, transparent) calc(var(--hp, 68px) / 2 - 1px), color-mix(in srgb, var(--ink) 16%, transparent) calc(var(--hp, 68px) / 2));
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tl-body { background-color: var(--surface); } }
+  .tl-col.today .tl-body { background-color: #FFF8F3; }
+  .bgpick { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 6px auto 0; padding: 0 12px; font-size: 13px; font-weight: 800; color: var(--ink-soft); }
+  .bgpick .sw { width: 28px; height: 28px; border-width: 2px; }
+  .bgpick .sw[aria-checked="true"] { box-shadow: 0 0 0 2px var(--accent); }
+  .tl-body { position: relative; border-radius: 6px; border: 2px solid color-mix(in srgb, var(--ink) 55%, transparent);
+    background-color: #fff;
+    background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--hp, 68px) - 2px), color-mix(in srgb, var(--ink) 55%, transparent) calc(var(--hp, 68px) - 2px), color-mix(in srgb, var(--ink) 55%, transparent) var(--hp, 68px));
     cursor: copy; overflow: hidden; }
   .tl-blk { font-size: 12px; position: absolute; z-index: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 1px; padding: 5px 8px; border: 0; border-radius: 6px; text-align: left; overflow: hidden; cursor: pointer; color: var(--tc, #fff); background: var(--bc); box-shadow: 0 0 0 2px #fff inset, 0 2px 5px color-mix(in srgb, var(--bc) 45%, transparent); box-sizing: border-box; }
   .tl-blk .tb-t { font-size: 12px; font-weight: 800; line-height: 1.15; white-space: nowrap; opacity: .95; }
   .tl-blk .tb-n { display: flex; align-items: flex-start; gap: 4px; font-size: 14px; font-weight: 800; line-height: 1.2; overflow: hidden; }
   .tl-blk .tb-n > span:last-child { display: -webkit-box; -webkit-line-clamp: 3; overflow-wrap: break-word; word-break: normal; hyphens: auto; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
   .tl-blk.nar { padding: 4px 5px; } .tl-blk.nar .tb-n { font-size: 12px; } .tl-blk.nar .tb-n > span:last-child { hyphens: none; overflow-wrap: break-word; } .tl-blk.nar .tb-t { font-size: 11px; }
+  .tl-blk.auto .tb-n > span:last-child { display: block; -webkit-line-clamp: unset; overflow: visible; }
+  .tl-blk.auto { overflow: visible; padding-bottom: 6px; }
   .tl-blk .aico { color: inherit; width: auto; height: auto; margin: 0; flex: none; } .tl-blk.done { opacity: .78; }
 
   .inner.vivid { background: var(--vc); color: var(--vt); box-shadow: 0 2px 6px color-mix(in srgb, var(--vc) 45%, transparent); }
@@ -569,6 +574,7 @@
   <div class="install-bar" id="installBar" hidden><button type="button" id="installBar2"><i data-ic="plus"></i>Instalar app en este dispositivo</button></div>
 
   <div class="seasons" id="seasons" role="group" aria-label="Estación del año"></div>
+  <div class="bgpick" id="bgPick" role="radiogroup" aria-label="Color de fondo"></div>
 
   <section class="hero" aria-label="Portada del mes">
     <div class="hero-bg" id="heroBg"></div>
@@ -1182,8 +1188,18 @@
   }
 
   /* ================= Render: tema y encabezado ================= */
+  const BG_CHOICES = [['blanco', 'Blanco', '#FFFFFF', '#F3F3F3'], ['rosa', 'Rosa', '#FFF3F8', '#FFDDEB'], ['lila', 'Lila', '#F7F2FF', '#E6DBFB'], ['menta', 'Menta', '#F1FCF7', '#D2F3E5'], ['cielo', 'Cielo', '#F2F8FF', '#D6E8FB'], ['mantequilla', 'Mantequilla', '#FFFBEA', '#FFF0B8'], ['durazno', 'Durazno', '#FFF6F0', '#FFE0CE'], ['perla', 'Gris perla', '#F7F7F9', '#E6E7EC']];
+  function renderBgPick() {
+    const box = $('#bgPick'); box.replaceChildren();
+    const lb = el('span', { text: 'Fondo' }); box.append(lb);
+    const mk = (id, name, bg, on) => { const b = el('button', { type: 'button', class: 'sw', role: 'radio', 'aria-checked': String(on), 'aria-label': 'Fondo ' + name, title: name }); b.style.background = bg; b.addEventListener('click', () => { prefs.bg = id; savePrefs(); renderTheme(); }); box.append(b); };
+    mk(null, 'automático', 'conic-gradient(#F4C9A8, #F7B6CF, #CBB5F5, #B7E4D2, #F4C9A8)', !prefs.bg);
+    BG_CHOICES.forEach(c => mk(c[0], c[1], 'linear-gradient(135deg,' + c[2] + ',' + c[3] + ')', prefs.bg === c[0]));
+  }
   function renderTheme() {
     const s = season(), S = SEASONS[s];
+    { const bc = BG_CHOICES.find(c => c[0] === prefs.bg), rs = document.documentElement.style; if (bc) { rs.setProperty('--bga-l', bc[2]); rs.setProperty('--bgb-l', bc[3]); } else { rs.removeProperty('--bga-l'); rs.removeProperty('--bgb-l'); } }
+    renderBgPick();
     document.documentElement.dataset.season = s;
     // selector
     const box = $('#seasons'); box.replaceChildren();
@@ -1852,8 +1868,8 @@
   function fireAtOf(a) { const st = startMs(a); return (st == null || a.remind == null) ? null : st - a.remind * 60000; }
   const ACT_EMOJI = { flower: '🌸', heart: '💗', star: '⭐', sparkle: '✨', sun: '☀️', leaf: '🍃', cake: '🎂', plane: '✈️', bulb: '💡', bell: '🔔', camera: '📸', home: '🏠', book: '📖', target: '🎯', coin: '💰', laptop: '💻', snow: '❄️', flag: '🚩' };
   const remindTitle = a => ((typeof a.icon === 'string' && a.icon.slice(0, 2) === 'k:' ? DECO_EMOJI[a.icon.slice(2)] : ACT_EMOJI[a.icon]) || '⏰') + ' ' + a.title;
-  const remindUrl = a => './?d=' + a.date + '&a=' + encodeURIComponent(a.id) + (a.color ? '&c=' + a.color : '');
-  const remindIcon = a => a.color ? 'icons/n/' + a.color + '.png' : 'icons/icon-192.png';
+  const remindUrl = a => './?d=' + a.date + '&a=' + encodeURIComponent(a.id) + (a.color && /^[a-z]+$/.test(a.color) && ACT_COLORS.some(c => c.id === a.color) ? '&c=' + a.color : '');
+  const remindIcon = a => a.color && ACT_COLORS.some(c => c.id === a.color) ? 'icons/n/' + a.color + '.png' : 'icons/icon-192.png';
   let spotId = null, spotTimer = null;
   const remindBody = a => I18N.t(a.remind === 0 ? 'Es ahora · ' + fmtTime(a.time) : (a.remind === 60 ? 'En 1 hora · ' : 'En ' + a.remind + ' minutos · ') + fmtTime(a.time));
 
@@ -2704,12 +2720,12 @@
       // carriles para bloques que se traslapan
       const minDur = Math.ceil(MIN_BLK / HOUR_PX * 60);
       const items = timed.map(a => ({ a: a, s: toMin(a.time), e: toMin(a.time) + Math.max(a.dur || 30, minDur) })).sort((x, y) => x.s - y.s);
-      let lanes = [], cl = [], clEnd = -1; const fin = () => { cl.forEach(x => x.n = Math.max(1, lanes.length)); lanes = []; cl = []; }; items.forEach(it => { if (it.s >= clEnd) { fin(); clEnd = -1; } let l = lanes.findIndex(end2 => end2 <= it.s); if (l < 0) { l = lanes.length; lanes.push(0); } lanes[l] = it.e; it.l = l; cl.push(it); clEnd = Math.max(clEnd, it.e); }); fin();
+      let lanes = [], cl = [], clEnd = -1; const fin = () => { cl.forEach(x => x.n = Math.max(1, lanes.length)); lanes = []; cl = []; }; items.filter(it => it.a.dur).forEach(it => { if (it.s >= clEnd) { fin(); clEnd = -1; } let l = lanes.findIndex(end2 => end2 <= it.s); if (l < 0) { l = lanes.length; lanes.push(0); } lanes[l] = it.e; it.l = l; cl.push(it); clEnd = Math.max(clEnd, it.e); }); fin();
       items.forEach(it => {
         const a = it.a, c = actColorHex(a.color) || '#8E3B22', n = it.n || 1;
-        const b = el('button', { type: 'button', class: 'tl-blk' + (a.done ? ' done' : '') + ((it.n || 1) > 1 ? ' nar' : '') });
+        const b = el('button', { type: 'button', class: 'tl-blk' + (a.dur ? '' : ' auto') + (a.done ? ' done' : '') + (it.a.dur && (it.n || 1) > 1 ? ' nar' : '') });
         const real = Math.max(a.dur || 30, 1);
-        b.style.cssText = 'top:' + ((toMin(a.time) / 60 - h0) * HOUR_PX) + 'px;height:' + Math.max(MIN_BLK, real / 60 * HOUR_PX) + 'px;left:calc(' + (it.l / n * 100) + '% + 3px);width:calc(' + (100 / n) + '% - 6px);--bc:' + c + ';--tc:' + textOnHex(c);
+        b.style.cssText = 'top:' + ((toMin(a.time) / 60 - h0) * HOUR_PX) + 'px;' + (a.dur ? 'height:' + Math.max(MIN_BLK, real / 60 * HOUR_PX) + 'px' : 'min-height:' + MIN_BLK + 'px;height:auto') + ';left:calc(' + (it.l / n * 100) + '% + 3px);width:calc(' + (100 / n) + '% - 6px);--bc:' + c + ';--tc:' + textOnHex(c);
         if (paperById(a.color)) { paperStyle(b, a.color, '48px 48px'); b.classList.add('pap'); }
         const ico = a.icon ? '<span class="aico">' + icoHtml(a.icon, isDeco(a.icon) ? 20 : 14) + '</span>' : '';
         b.innerHTML = '<span class="tb-t"></span><span class="tb-n">' + ico + '<span></span></span>';
@@ -2719,6 +2735,15 @@
       });
       if (ds === today) { const now = new Date(), m = now.getHours() * 60 + now.getMinutes(); if (m >= h0 * 60 && m <= h1 * 60) { const nl = el('div', { class: 'tl-now' }); nl.style.top = ((m / 60 - h0) * HOUR_PX) + 'px'; body.append(nl); } }
       col.append(body); grid.append(col);
+    });
+    wkStack();
+  }
+  // Las actividades sin duración que coinciden en hora se apilan hacia abajo (no se aprietan de lado).
+  function wkStack() {
+    document.querySelectorAll('#wkGrid .tl-body').forEach(body => {
+      const bl = [...body.querySelectorAll('.tl-blk.auto')].sort((x, y) => parseFloat(x.style.top) - parseFloat(y.style.top));
+      let bottom = -1e9;
+      bl.forEach(b => { let t = parseFloat(b.style.top); if (t < bottom + 4) t = bottom + 4; b.style.top = t + 'px'; bottom = t + b.offsetHeight; });
     });
   }
   $('#wkPrev').addEventListener('click', () => { wkOff--; wkSel = null; renderWeek(); });
