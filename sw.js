@@ -1,7 +1,7 @@
 /* TIME · service worker
    Guarda la app en el dispositivo para que abra al instante y funcione sin Internet.
    Si cambias algún archivo de la app, sube el número de VERSION para que se actualice. */
-const VERSION = 'time-v11';
+const VERSION = 'time-v16';
 const ASSETS = [
   './', './index.html', './i18n.js', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png', './icons/apple-touch-icon.png', './icons/badge-96.png',
@@ -54,9 +54,11 @@ self.addEventListener('fetch', (e) => {
 self.addEventListener('push', (e) => {
   let d = {};
   try { d = e.data ? e.data.json() : {}; } catch (_) { d = { body: e.data ? e.data.text() : '' }; }
+  // El color de la tarea viaja en la dirección (&c=fucsia): el aviso se ve con ese color.
+  const cm = /[?&]c=([a-z]{3,12})(?:&|$)/.exec(d.url || '');
   const opts = {
     body: d.body || '',
-    icon: './icons/icon-192.png',
+    icon: cm ? './icons/n/' + cm[1] + '.png' : './icons/icon-192.png',
     badge: './icons/badge-96.png',
     data: { url: d.url || './' }
   };

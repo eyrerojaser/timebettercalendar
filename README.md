@@ -94,3 +94,11 @@ El correo de recuperación ahora trae también un **enlace directo** (`/?code=�
 
 Los PDF del bono están en la carpeta `bonus/` y salen en dos lugares: en `gracias.html` (justo después de pagar) y dentro de la app, en **Configuración → Bono: planner imprimible**.
 Para cambiar el bono, sube tu PDF a `bonus/` con **el mismo nombre** (`TIME-Planner-imprimible-ES-k7x9q2.pdf` y `...-EN-k7x9q2.pdf`). El código al final del nombre hace la dirección difícil de adivinar; no pongas el enlace en redes ni en la página de venta.
+
+## Funciones nuevas (octubre 2026)
+
+- **Actividades recurrentes y duración:** en "Nueva actividad" hay "Duración" y "Repetir" (cada día, semana, mes o días elegidos, con fecha final opcional). Marcar como hecha una repetición no afecta a las demás.
+- **Hábitos:** sección nueva con hábitos diarios o semanales, días marcados y círculos de progreso con porcentaje y racha. Se guardan en la llave `habits` y entran en el respaldo y la sincronización.
+- **Semana:** prioridades de la semana y horas ocupadas/disponibles (time blocking). Tocar una hora libre crea una actividad en ese horario.
+- **Stickers:** en el día y en las metas, botón "Stickers". Se colocan sobre las notas y las fotos, se mueven, cambian de tamaño, giran y se borran. Se ven también en la celda del calendario y en la tarjeta de la meta. Colecciones: primavera, verano, otoño, invierno, lazos, washi tape, papel y palabras (en español y en inglés).
+- **Avisos con color:** el aviso lleva el emoji del adorno y un icono del color de la actividad (`icons/n/`). Al tocarlo, la app abre el día y resalta esa tarea.

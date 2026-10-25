@@ -288,6 +288,79 @@
   .adot { flex: none; width: 11px; height: 11px; border-radius: 50%; background: var(--dot, var(--accent)); }
   .swi { display: grid; place-items: center; color: var(--ink-soft); background: var(--soft); }
   .swi[aria-checked="true"] { color: #fff; background: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent); }
+  .hab-view { padding-bottom: 22px; }
+  .hab-week { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 0 0 14px; }
+  .hab-wlbl { min-width: 150px; text-align: center; font-weight: 800; font-size: 15px; }
+  .hab-sum { display: flex; align-items: center; gap: 16px; padding: 14px 16px; margin-bottom: 14px; border-radius: 22px; background: var(--surface); border: 1px solid var(--line); color: var(--accent); }
+  .hab-sum-t { margin: 0; font-weight: 800; font-size: 16px; color: var(--ink); }
+  #habBody { display: grid; gap: 12px; }
+  @media (min-width: 900px) { #habBody { grid-template-columns: 1fr 1fr; } .hab-sum, .hab-empty { grid-column: 1 / -1; } }
+  .hab-card { padding: 14px 14px 12px; border-radius: 22px; background: var(--surface); border: 1.5px solid color-mix(in srgb, var(--hc) 40%, var(--line)); }
+  .hab-top { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .hab-ring { flex: none; color: var(--ink); }
+  .hab-info { flex: 1; min-width: 0; display: grid; gap: 2px; text-align: left; border: 0; background: none; cursor: pointer; padding: 0; }
+  .hab-name { display: flex; align-items: center; gap: 6px; font-weight: 800; font-size: 17px; overflow-wrap: anywhere; }
+  .hab-sub { font-size: 13px; color: var(--ink-soft); }
+  .hab-days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+  .hab-d { display: grid; justify-items: center; gap: 4px; padding: 0; border: 0; background: none; cursor: pointer; }
+  .hd-w { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--ink-soft); }
+  .hd-c { display: grid; place-items: center; width: 100%; max-width: 40px; aspect-ratio: 1; border-radius: 50%; font-size: 13px; font-weight: 800; border: 2px solid color-mix(in srgb, var(--hc) 55%, transparent); color: var(--ink); background: transparent; }
+  .hab-d.on .hd-c { background: var(--hc); border-color: var(--hc); color: #fff; }
+  .hab-d.today .hd-c { box-shadow: 0 0 0 3px color-mix(in srgb, var(--hc) 30%, transparent); }
+  .hab-empty { text-align: center; padding: 18px 8px; display: grid; gap: 10px; justify-items: center; }
+  .wk-view { padding-bottom: 22px; }
+  .wk-pri { padding: 12px 14px; margin-bottom: 14px; border-radius: 22px; background: var(--surface); border: 1px solid var(--line); display: grid; gap: 8px; }
+  .wk-h { margin: 0 0 2px; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+  .wk-pr { display: flex; align-items: center; gap: 10px; }
+  .wk-in { margin: 0; padding: 9px 12px; font-size: 15px; }
+  .wk-pr.done .wk-in { text-decoration: line-through; opacity: .6; }
+  .wk-chips { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; margin-bottom: 12px; }
+  .wk-chip { display: grid; justify-items: center; gap: 1px; padding: 6px 0 4px; border-radius: 16px; border: 1.5px solid var(--line); background: var(--surface); cursor: pointer; }
+  .wk-chip .cw { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--ink-soft); }
+  .wk-chip .cn { font-size: 16px; font-weight: 800; }
+  .wk-chip .cd { font-size: 8px; line-height: 1; color: var(--accent); min-height: 8px; letter-spacing: 1px; }
+  .wk-chip.on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); } .wk-chip.on .cw, .wk-chip.on .cd { color: inherit; }
+  .wk-chip.today:not(.on) { border-color: var(--accent); }
+  .tl-legend { display: flex; gap: 16px; margin: 0 0 8px; font-size: 12px; font-weight: 700; color: var(--ink-soft); }
+  .tl-legend .lg { display: inline-block; width: 12px; height: 12px; border-radius: 4px; margin-right: 6px; vertical-align: -1px; }
+  .lg.busy { background: color-mix(in srgb, var(--accent) 35%, var(--surface)); border: 1.5px solid var(--accent); } .lg.free { background: var(--surface); border: 1.5px dashed color-mix(in srgb, var(--ink-soft) 55%, transparent); }
+  .tl { display: grid; grid-template-columns: 52px repeat(var(--cols, 1), minmax(0, 1fr)); gap: 0 6px; overflow-x: auto; }
+  .tl-gut { position: sticky; left: 0; background: var(--panel); z-index: 2; }
+  .tl-gh { min-height: 42px; padding: 4px 4px 6px; text-align: center; font-size: 13px; display: grid; align-content: end; }
+  .tl-gh b { text-transform: capitalize; } .tl-gh span { font-size: 11px; color: var(--ink-soft); font-weight: 700; }
+  .tl-gad { display: grid; gap: 3px; min-height: 6px; margin-bottom: 4px; }
+  .tl-ad { padding: 3px 6px; border-radius: 8px; border: 0; text-align: left; font-size: 12px; font-weight: 700; color: var(--ink); background: color-mix(in srgb, var(--bc) 25%, var(--surface)); border-left: 4px solid var(--bc); cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tl-gb { position: relative; } .tl-hr { position: absolute; right: 6px; transform: translateY(-7px); font-size: 11px; font-weight: 700; color: var(--ink-soft); white-space: nowrap; }
+  .tl-col { min-width: 0; } .tl-col.today .tl-gh b { color: var(--accent); }
+  .tl-body { position: relative; border-radius: 12px; border: 1.5px dashed color-mix(in srgb, var(--ink-soft) 40%, transparent); background: repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--hp, 46px) - 1px), color-mix(in srgb, var(--ink-soft) 22%, transparent) calc(var(--hp, 46px) - 1px), color-mix(in srgb, var(--ink-soft) 22%, transparent) var(--hp, 46px)), var(--surface); cursor: copy; overflow: hidden; }
+  .tl-blk { position: absolute; z-index: 1; display: flex; flex-wrap: wrap; align-content: flex-start; align-items: baseline; gap: 0 6px; padding: 3px 6px; border: 0; border-left: 4px solid var(--bc); border-radius: 8px; text-align: left; overflow: hidden; cursor: pointer; color: var(--ink); background: color-mix(in srgb, var(--bc) 30%, var(--surface)); box-shadow: 0 1px 3px color-mix(in srgb, var(--bc) 30%, transparent); }
+  .tl-blk .tb-t { font-size: 11px; font-weight: 800; opacity: .8; white-space: nowrap; } .tl-blk .tb-n { display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 800; line-height: 1.15; }
+  .tl-blk .aico { color: var(--bc); width: auto; height: auto; margin: 0; } .tl-blk.done { opacity: .55; text-decoration: line-through; }
+  .tl-now { position: absolute; left: 0; right: 0; height: 0; border-top: 2px solid #E0443A; z-index: 3; pointer-events: none; }
+  .stk-zone { position: relative; }
+  .stk-layer { position: absolute; inset: 0; pointer-events: none; z-index: 6; overflow: hidden; border-radius: 16px; }
+  .stk-ov { position: absolute; inset: 0; pointer-events: none; z-index: 4; overflow: hidden; }
+  .stk { position: absolute; transform: translate(-50%, -50%) rotate(var(--r, 0deg)); pointer-events: none; touch-action: none; filter: drop-shadow(0 2px 3px rgba(60, 30, 20, .22)); }
+  .stk svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .stk-edit .stk-layer { overflow: visible; }
+  .stk-edit .stk { pointer-events: auto; cursor: grab; }
+  .stk-edit .stk:active { cursor: grabbing; }
+  .stk.sel { outline: 2px dashed var(--accent); outline-offset: 4px; border-radius: 6px; z-index: 2; }
+  .stk-h { position: absolute; right: -14px; bottom: -14px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); border: 3px solid #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, .3); cursor: nwse-resize; touch-action: none; }
+  .stk-btn { margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .stk-btn[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+  .stk-tray { margin-top: 10px; padding: 10px; border-radius: 20px; background: var(--bg-a); border: 1px solid var(--line); }
+  .stk-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
+  .stk-tab { flex: none; padding: 7px 12px; border-radius: 99px; border: 1.5px solid var(--line); background: var(--surface); font-size: 13px; font-weight: 800; cursor: pointer; }
+  .stk-tab.on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .stk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 8px; max-height: 210px; overflow-y: auto; padding: 2px; }
+  .stk-pick { display: grid; place-items: center; height: 66px; padding: 6px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; }
+  .stk-pick svg { max-width: 100%; max-height: 100%; width: auto; height: auto; }
+  .stk-pick:hover { border-color: var(--accent); }
+  .stk-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); }
+  .stk-b { min-width: 42px; height: 40px; padding: 0 10px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 18px; font-weight: 800; cursor: pointer; }
+  .stk-b.del { border-color: #D64545; } .stk-b:last-child { background: var(--accent); color: var(--on-accent); border-color: var(--accent); margin-left: auto; }
+  .arep { display: inline-grid; place-items: center; margin-left: 6px; color: var(--ink-soft); }
   .aico { display: inline-grid; place-items: center; width: 18px; height: 18px; margin-right: 2px; color: var(--accent); }
   .acolors { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
   .atitle { font-size: 15px; font-weight: 700; overflow-wrap: anywhere; }
@@ -450,6 +523,8 @@
     <div class="nav-items">
       <button class="nav-btn" type="button" data-nav="goals"><i data-ic="target"></i><span>Metas</span></button>
       <button class="nav-btn active" type="button" data-nav="cal"><i data-ic="calendar"></i><span>Calendario</span></button>
+      <button class="nav-btn" type="button" data-nav="week"><i data-ic="calendar"></i><span>Semana</span></button>
+      <button class="nav-btn" type="button" data-nav="habits"><i data-ic="check"></i><span>Hábitos</span></button>
       <button class="nav-btn" type="button" data-nav="gallery"><i data-ic="image"></i><span>Galería</span></button>
       <button class="nav-btn" type="button" data-nav="vision"><i data-ic="eye"></i><span>My Vision</span></button>
       <button class="nav-btn" type="button" id="profBtn"><i data-ic="user"></i><span>Mi perfil</span></button>
@@ -498,6 +573,31 @@
     </section>
   </main>
 
+  <section class="panel wk-view" id="weekView" hidden aria-label="Mi semana">
+    <div class="sec-row"><h2 class="sec-title"><span class="sec-ico"><i data-ic="calendar"></i></span>Mi semana</h2>
+      <button class="chip sm" type="button" id="wkAdd" style="--cat:var(--accent)"><i data-ic="plus"></i><span>Actividad</span></button></div>
+    <div class="hab-week">
+      <button class="icon-btn" type="button" id="wkPrev" aria-label="Semana anterior"><i data-ic="left"></i></button>
+      <div class="hab-wlbl" id="wkLbl"></div>
+      <button class="icon-btn" type="button" id="wkNext" aria-label="Semana siguiente"><i data-ic="right"></i></button>
+    </div>
+    <div class="wk-pri" id="wkPri"></div>
+    <div class="wk-chips" id="wkChips" role="group" aria-label="Días de la semana"></div>
+    <div class="tl-legend"><span><i class="lg busy"></i>Ocupado</span><span><i class="lg free"></i>Disponible</span></div>
+    <div class="tl" id="wkGrid"></div>
+  </section>
+
+  <section class="panel hab-view" id="habitsView" hidden aria-label="Hábitos">
+    <div class="sec-row"><h2 class="sec-title"><span class="sec-ico"><i data-ic="check"></i></span>Mis hábitos</h2>
+      <button class="chip sm" type="button" id="habAdd" style="--cat:var(--accent)"><i data-ic="plus"></i><span>Nuevo hábito</span></button></div>
+    <div class="hab-week">
+      <button class="icon-btn" type="button" id="habPrev" aria-label="Semana anterior"><i data-ic="left"></i></button>
+      <div class="hab-wlbl" id="habWlbl"></div>
+      <button class="icon-btn" type="button" id="habNext" aria-label="Semana siguiente"><i data-ic="right"></i></button>
+    </div>
+    <div id="habBody"></div>
+  </section>
+
   <section class="gallery" id="galleryView" hidden aria-label="Galería">
     <div class="ghero"><h2>Galería</h2></div>
     <div class="gtabs" id="gTabs" role="group" aria-label="Filtrar galería"></div>
@@ -528,11 +628,15 @@
       <div><p class="sh-dow" id="dDow"></p><h2 class="sh-date" id="dDate"></h2></div>
       <button class="icon-btn close" type="button" aria-label="Cerrar"></button>
     </div>
+    <div class="stk-zone" id="dZone">
     <div id="dPhoto"></div>
     <p class="lbl">Categoría</p>
     <div class="catpick" id="catPick" role="radiogroup" aria-label="Categoría"></div>
     <label class="lbl" for="dText">Mis propósitos del día</label>
     <textarea id="dText" placeholder="Escribe lo que quieres lograr. Una cosa por línea."></textarea>
+    <div class="stk-layer" id="dLayer"></div>
+    </div>
+    <button class="ghost-btn stk-btn" id="dStkBtn" type="button" aria-pressed="false"><i data-ic="flower"></i>Stickers</button>
     <p class="lbl" style="margin:18px 0 8px">Fechas importantes</p>
     <div class="specials" id="dSpecials"></div>
     <button class="ghost-btn add-date" id="dDateAdd" type="button"><i data-ic="plus"></i>Agregar fecha importante</button>
@@ -540,6 +644,7 @@
     <p class="lbl" style="margin:18px 0 8px">Actividades con hora</p>
     <div class="acts" id="dActs"></div>
     <button class="ghost-btn add-act" id="dActAdd" type="button"><i data-ic="plus"></i>Agregar actividad</button>
+    <button class="ghost-btn" id="dHours" type="button"><i data-ic="calendar"></i>Ver mi día por horas</button>
     <button class="done-btn" id="dDone" type="button" aria-pressed="false"></button>
     <p class="sh-status js-status"></p>
     <input type="file" id="dFile" accept="image/*" hidden>
@@ -553,9 +658,13 @@
       <div><p class="sh-dow">Meta del mes</p><h2 class="sh-date" id="gTitle"></h2></div>
       <button class="icon-btn close" type="button" aria-label="Cerrar"></button>
     </div>
+    <div class="stk-zone" id="gZone">
     <div id="gPhoto"></div>
     <label class="lbl" for="gText">¿Qué quieres lograr?</label>
     <textarea id="gText" maxlength="80" style="min-height:88px" placeholder="Ej. Crecer en tecnología"></textarea>
+    <div class="stk-layer" id="gLayer"></div>
+    </div>
+    <button class="ghost-btn stk-btn" id="gStkBtn" type="button" aria-pressed="false"><i data-ic="flower"></i>Stickers</button>
     <button class="done-btn" id="gDone" type="button" aria-pressed="false"></button>
     <button class="ghost-btn" id="gDel" type="button"><i data-ic="trash"></i>Eliminar meta</button>
     <p class="sh-status js-status"></p>
@@ -663,6 +772,27 @@
   </div>
 </div>
 
+<!-- Hábito -->
+<div class="scrim" id="m-hab">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="hHeading" tabindex="-1">
+    <div class="sh-head">
+      <div><p class="sh-dow">Hábito</p><h2 class="sh-date" id="hHeading">Nuevo hábito</h2></div>
+      <button class="icon-btn close" type="button" aria-label="Cerrar"></button>
+    </div>
+    <label class="lbl" for="hName">¿Qué hábito quieres crear?</label>
+    <input class="field" id="hName" type="text" maxlength="50" placeholder="Ej. Tomar agua">
+    <p class="lbl">¿Cada cuánto?</p>
+    <div class="catpick" id="hFreq" role="radiogroup" aria-label="Frecuencia"></div>
+    <div id="hTimesBox" hidden><p class="lbl">¿Cuántas veces por semana?</p><div class="acolors" id="hTimes" role="radiogroup" aria-label="Veces por semana"></div></div>
+    <p class="lbl">Color</p>
+    <div class="acolors" id="hColor" role="radiogroup" aria-label="Color del hábito"></div>
+    <p class="lbl">Adorno</p>
+    <div class="acolors" id="hIcon" role="radiogroup" aria-label="Adorno del hábito"></div>
+    <button class="done-btn solid" id="hSave" type="button" style="margin-top:8px">Guardar hábito</button>
+    <button class="ghost-btn" id="hDel" type="button" hidden><i data-ic="trash"></i><span id="hDelTxt">Eliminar hábito</span></button>
+  </div>
+</div>
+
 <!-- Actividad -->
 <div class="scrim" id="m-act">
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="aHeading" tabindex="-1">
@@ -688,6 +818,13 @@
         <button type="button" class="tp-ok" id="tpOk">Listo</button>
       </div>
     </div>
+    <div id="aDurBox"><p class="lbl">Duración</p>
+    <div class="catpick" id="aDur" role="radiogroup" aria-label="Duración"></div></div>
+    <p class="lbl">Repetir</p>
+    <div class="catpick" id="aRep" role="radiogroup" aria-label="Repetir"></div>
+    <div class="acolors" id="aRepDays" role="group" aria-label="Días de la semana" hidden></div>
+    <div id="aUntilBox" hidden><label class="lbl" for="aUntil">Hasta (opcional)</label><input class="field" id="aUntil" type="date"></div>
+    <p class="hint" id="aRepHint" hidden>Los cambios y la eliminación se aplican a toda la serie.</p>
     <p class="lbl">Color</p>
     <div class="acolors" id="aColor" role="radiogroup" aria-label="Color de la cita"></div>
     <p class="lbl">Adorno</p>
@@ -943,7 +1080,7 @@
   let dirty = false, saveTimer = null, prefsTimer = null, navToken = 0;
   let openDay = null, openGoalId = null, modal = null, modalReturn = null, filterCat = null, newSwatch = SWATCHES[0];
 
-  const isDataKey = k => k === 'prefs' || k === 'acts' || k === 'vision' || k === 'dates' || /^m:\d{4}-\d{2}$/.test(k);
+  const isDataKey = k => k === 'prefs' || k === 'acts' || k === 'habits' || /^w:\d{4}-\d{2}-\d{2}$/.test(k) || k === 'vision' || k === 'dates' || /^m:\d{4}-\d{2}$/.test(k);
   const monthKey = (y, m) => 'm:' + y + '-' + String(m + 1).padStart(2, '0');
   const daysInMonth = () => new Date(cur.y, cur.m + 1, 0).getDate();
   const season = () => prefs.season || seasonOfMonth(cur.m);
@@ -1069,6 +1206,7 @@
       if (g.photo) { const im = el('img', { alt: '', decoding: 'async' }); im.src = g.photo; p.append(im); }
       else p.innerHTML = svg(SEASONS[season()].icon, 30, 1.6);
       c.append(n, t, p);
+      if (g.stk && g.stk.length) c.append(stkOverlay(g.stk));
       c.addEventListener('click', () => openGoal(g.id, c));
       row.append(c);
     });
@@ -1184,7 +1322,7 @@
   const ensureDay = d => data.days[d] || (data.days[d] = { text: '', photo: null, done: false, cat: null });
   function commitDay(d) {
     const i = data.days[d];
-    if (i && !i.text.trim() && !i.photo && !i.done && !i.cat) delete data.days[d];
+    if (i && !i.text.trim() && !i.photo && !i.done && !i.cat && !(i.stk && i.stk.length)) delete data.days[d];
     markDirty(); repaintDay(d);
   }
   function updateDoneBtn() {
@@ -1212,10 +1350,10 @@
     $('#dDow').textContent = DOW_FULL[new Date(cur.y, cur.m, d).getDay()];
     $('#dDate').textContent = d + ' de ' + MONTHS[cur.m];
     $('#dText').value = (data.days[d] && data.days[d].text) || '';
-    renderDayPhoto(); renderCatPick(); updateDoneBtn(); renderDayActs(); renderDaySpecials();
+    renderDayPhoto(); renderCatPick(); updateDoneBtn(); renderDayActs(); renderDaySpecials(); stkShowDay();
     openModal('m-day', { from: trigger, focus: '#dText' });
   }
-  onClose['m-day'] = () => { openDay = null; spotId = null; clearTimeout(spotTimer); };
+  onClose['m-day'] = () => { stkClose(); openDay = null; spotId = null; clearTimeout(spotTimer); };
   $('#dText').addEventListener('input', e => { ensureDay(openDay).text = e.target.value; commitDay(openDay); });
   $('#dDone').addEventListener('click', () => { const i = ensureDay(openDay); i.done = !i.done; commitDay(openDay); updateDoneBtn(); });
   $('#dFile').addEventListener('change', e => {
@@ -1241,12 +1379,13 @@
     openGoalId = id;
     $('#gTitle').textContent = 'Meta ' + (data.goals.indexOf(g) + 1);
     $('#gText').value = g.text;
-    renderGoalPhoto(); updateGoalDone();
+    renderGoalPhoto(); updateGoalDone(); stkShowGoal();
     openModal('m-goal', { from: trigger, focus: '#gText' });
   }
   onClose['m-goal'] = () => {
+    stkClose();
     const g = goalById(openGoalId);
-    if (g && !g.text.trim() && !g.photo) { data.goals = data.goals.filter(x => x !== g); markDirty(); }
+    if (g && !g.text.trim() && !g.photo && !(g.stk && g.stk.length)) { data.goals = data.goals.filter(x => x !== g); markDirty(); }
     openGoalId = null; renderGoals();
   };
   $('#gText').addEventListener('input', e => { const g = goalById(openGoalId); if (!g) return; g.text = e.target.value; markDirty(); renderGoals(); });
@@ -1328,6 +1467,10 @@
     $('#calPanel').hidden = v !== 'cal';
     $('#visionView').hidden = v !== 'vision';
     $('#galleryView').hidden = v !== 'gallery';
+    $('#habitsView').hidden = v !== 'habits';
+    $('#weekView').hidden = v !== 'week';
+    if (v === 'week') renderWeek();
+    if (v === 'habits') renderHabits();
     document.querySelectorAll('.nav-btn[data-nav]').forEach(b => b.classList.toggle('active', b.dataset.nav === v));
     if (v === 'vision') renderVision();
     if (v === 'gallery') { renderGallery(); loadGallery().then(renderGallery); }
@@ -1405,7 +1548,7 @@
     prefs = Object.assign(defaultPrefs(), p && typeof p === 'object' ? p : {});
     if (prefs.season && !SEASONS[prefs.season]) prefs.season = null;
     renderTheme(); renderChips(); renderHeader(); syncSeg();
-    await Promise.all([loadActs(), loadVision(), loadDates()]); renderVision(); schedulePushSync();
+    await Promise.all([loadActs(), loadHabits(), loadVision(), loadDates()]); renderVision(); schedulePushSync();
     await showMonth();
     toast('Respaldo importado (' + n + ' elementos)');
   }
@@ -1515,7 +1658,7 @@
             const val = await internalize(r.value);
             if (val && typeof val === 'object') {
               val._u = r.u; await kvSet(k, val);
-              if (k === 'prefs') refreshPrefs = true; else if (k === 'acts') refreshActs = true; else if (k === 'vision') refreshVis = true; else if (k === 'dates') { await loadDates(); refresh = true; } else if (k === dataKey) refresh = true;
+              if (k === 'prefs') refreshPrefs = true; else if (k === 'acts') refreshActs = true; else if (k === 'habits') { await loadHabits(); renderHabits(); } else if (k === 'vision') refreshVis = true; else if (k === 'dates') { await loadDates(); refresh = true; } else if (k === dataKey) refresh = true;
             }
           }
         }
@@ -1650,24 +1793,66 @@
   function fireAtOf(a) { const st = startMs(a); return (st == null || a.remind == null) ? null : st - a.remind * 60000; }
   const ACT_EMOJI = { flower: '🌸', heart: '💗', star: '⭐', sparkle: '✨', sun: '☀️', leaf: '🍃', cake: '🎂', plane: '✈️', bulb: '💡', bell: '🔔', camera: '📸', home: '🏠', book: '📖', target: '🎯', coin: '💰', laptop: '💻', snow: '❄️', flag: '🚩' };
   const remindTitle = a => (ACT_EMOJI[a.icon] || '⏰') + ' ' + a.title;
-  const remindUrl = a => './?d=' + a.date + '&a=' + encodeURIComponent(a.id);
+  const remindUrl = a => './?d=' + a.date + '&a=' + encodeURIComponent(a.id) + (a.color ? '&c=' + a.color : '');
+  const remindIcon = a => a.color ? 'icons/n/' + a.color + '.png' : 'icons/icon-192.png';
   let spotId = null, spotTimer = null;
   const remindBody = a => I18N.t(a.remind === 0 ? 'Es ahora · ' + fmtTime(a.time) : (a.remind === 60 ? 'En 1 hora · ' : 'En ' + a.remind + ' minutos · ') + fmtTime(a.time));
 
   let actsRec = { list: [] }, actIdx = new Map();
   function reindexActs() {
     actIdx = new Map();
-    actsRec.list.forEach(a => { if (!actIdx.has(a.date)) actIdx.set(a.date, []); actIdx.get(a.date).push(a); });
+    recurList = actsRec.list.filter(a => a.rep);
+    actsRec.list.forEach(a => { if (a.rep) return; if (!actIdx.has(a.date)) actIdx.set(a.date, []); actIdx.get(a.date).push(a); });
     actIdx.forEach(l => l.sort((x, y) => (x.time || '99:99').localeCompare(y.time || '99:99')));
   }
-  const actsOn = ds => actIdx.get(ds) || [];
+  let recurList = [];
+  const parseDs = ds => { const q = ds.split('-').map(Number); return new Date(q[0], q[1] - 1, q[2]); };
+  function occursOn(a, ds) {
+    const r = a.rep; if (!r) return a.date === ds;
+    if (ds < a.date || (r.until && ds > r.until) || (a.skip && a.skip.indexOf(ds) >= 0)) return false;
+    const d = parseDs(ds), b = parseDs(a.date);
+    if (r.t === 'day') return true;
+    if (r.t === 'week') return d.getDay() === b.getDay();
+    if (r.t === 'month') return d.getDate() === b.getDate();
+    if (r.t === 'days') return (r.days || []).indexOf(d.getDay()) >= 0;
+    return false;
+  }
+  const occOf = (a, ds) => a.rep ? Object.assign({}, a, { date: ds, done: !!(a.doneOn && a.doneOn[ds]), _base: a }) : a;
+  const byTime = (x, y) => (x.time || '99:99').localeCompare(y.time || '99:99');
+  function actsOn(ds) {
+    const base = actIdx.get(ds) || [];
+    if (!recurList.length) return base;
+    const occ = recurList.filter(a => occursOn(a, ds)).map(a => occOf(a, ds));
+    return occ.length ? base.concat(occ).sort(byTime) : base;
+  }
+  function toggleActDone(a) {
+    if (a._base) { const b = a._base; b.doneOn = b.doneOn || {}; if (b.doneOn[a.date]) delete b.doneOn[a.date]; else b.doneOn[a.date] = true; }
+    else a.done = !a.done;
+  }
+  // Todas las actividades (con sus repeticiones) entre dos momentos: para avisos.
+  function occurrencesBetween(fromMs, toMs) {
+    const out = [];
+    actsRec.list.forEach(a => {
+      if (!a.rep) { if (!a.done) out.push(a); return; }
+      const d0 = new Date(fromMs); d0.setHours(0, 0, 0, 0);
+      for (let t = d0.getTime(), n = 0; t <= toMs && n < 400; n++) {
+        const dt = new Date(t), ds = dstr(dt.getFullYear(), dt.getMonth(), dt.getDate());
+        if (occursOn(a, ds)) { const o = occOf(a, ds); if (!o.done) out.push(o); }
+        dt.setDate(dt.getDate() + 1); t = dt.getTime();
+      }
+    });
+    return out;
+  }
+  const endTimeOf = a => { if (!a.time || !a.dur) return ''; const q = a.time.split(':').map(Number), m = Math.min(23 * 60 + 59, q[0] * 60 + q[1] + a.dur); return pad2(Math.floor(m / 60)) + ':' + pad2(m % 60); };
+  const REPEATS = [{ v: 'none', label: 'No se repite' }, { v: 'day', label: 'Cada día' }, { v: 'week', label: 'Cada semana' }, { v: 'month', label: 'Cada mes' }, { v: 'days', label: 'Días elegidos' }];
+  const DURS = [{ v: null, label: 'Sin duración' }, { v: 15, label: '15 min' }, { v: 30, label: '30 min' }, { v: 45, label: '45 min' }, { v: 60, label: '1 hora' }, { v: 90, label: '1 h 30 min' }, { v: 120, label: '2 horas' }, { v: 180, label: '3 horas' }];
   async function loadActs() {
     const v = await kvGet('acts');
     actsRec = v && Array.isArray(v.list) ? v : { list: [] };
     reindexActs();
   }
   function saveActs() {
-    actsRec._u = Date.now(); reindexActs(); setStatus('saving');
+    actsRec._u = Date.now(); reindexActs(); setStatus('saving'); if (view === 'week') renderWeek();
     kvSet('acts', actsRec).then(ok => { if (!ok) persistent = false; setStatus('saved'); scheduleSync(); });
     schedulePushSync();
   }
@@ -1685,11 +1870,12 @@
       }
       const chk = el('button', { class: 'chk', type: 'button', role: 'checkbox', 'aria-checked': String(!!a.done), 'aria-label': 'Marcar actividad como hecha' });
       chk.innerHTML = a.done ? svg('check', 14, 3.4) : '';
-      chk.addEventListener('click', () => { a.done = !a.done; saveActs(); renderDayActs(); repaintDay(openDay); });
+      chk.addEventListener('click', () => { toggleActDone(a); saveActs(); renderDayActs(); repaintDay(openDay); });
       const body = el('button', { class: 'abody', type: 'button', 'aria-label': 'Editar actividad ' + a.title });
       if (a.icon) { const ai = el('span', { class: 'aico' }); ai.innerHTML = svg(a.icon, 16, 2.1); if (a.color) ai.style.color = actColorHex(a.color); body.append(ai); }
       if (a.color) { const dot = el('span', { class: 'adot' }); dot.style.setProperty('--dot', actColorHex(a.color)); body.append(dot); }
-      body.append(el('span', { class: 'atime', text: a.time ? fmtTime(a.time) : 'Todo el día' }), el('span', { class: 'atitle', text: a.title }));
+      body.append(el('span', { class: 'atime', text: a.time ? fmtTime(a.time) + (a.dur ? ' – ' + fmtTime(endTimeOf(a)) : '') : 'Todo el día' }), el('span', { class: 'atitle', text: a.title }));
+      if (a.rep) { const rp = el('span', { class: 'arep' }); rp.innerHTML = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>'; rp.title = 'Se repite'; body.append(rp); }
       if (a.remind != null && a.time && !a.done) {
         const bl = el('span', { class: 'abell' }); bl.innerHTML = svg('bell', 13, 2.2) + '<span></span>'; bl.lastChild.textContent = remindShort(a.remind); body.append(bl);
       }
@@ -1697,9 +1883,10 @@
       row.append(chk, body); box.append(row);
     });
   }
+  $('#dHours').addEventListener('click', () => { const ds = dstr(cur.y, cur.m, openDay); closeModal(true); wkSel = ds; wkOff = weekOffOf(ds); setView('week'); window.scrollTo({ top: 0 }); });
   $('#dActAdd').addEventListener('click', e => openActModal({ date: dstr(cur.y, cur.m, openDay), fromDay: openDay, from: e.currentTarget }));
 
-  let actEdit = null, actReturnDay = null, actRemind = 15, actDelArm = null, actColorId = null, actIconId = null;
+  let actEdit = null, actReturnDay = null, actRemind = 15, actDelArm = null, actColorId = null, actIconId = null, actDur = null, actRep = 'none', actRepDays = [];
   function renderRemindPick() {
     const box = $('#aRemind'); box.replaceChildren();
     const hasTime = !!$('#aTime').value;
@@ -1760,8 +1947,8 @@
   $('#tpClear').addEventListener('click', () => { tpSet(''); $('#aTime').dispatchEvent(new Event('input', { bubbles: true })); tpOpen(false); });
   $('#tpOk').addEventListener('click', () => tpOpen(false));
 
-  $('#aTime').addEventListener('input', renderRemindPick);
-  $('#aTime').addEventListener('change', renderRemindPick);
+  $('#aTime').addEventListener('input', () => { renderRemindPick(); renderDurRep(); });
+  $('#aTime').addEventListener('change', () => { renderRemindPick(); renderDurRep(); });
   function renderActColors() {
     const box = $('#aColor'); box.replaceChildren();
     const none = el('button', { type: 'button', class: 'sw', role: 'radio', 'aria-checked': String(actColorId == null), 'aria-label': 'Sin color' });
@@ -1776,6 +1963,30 @@
       b.addEventListener('click', () => { actColorId = c.id; renderActColors(); });
       box.append(b);
     });
+  }
+  function renderDurRep() {
+    const hasTime = !!$('#aTime').value;
+    $('#aDurBox').hidden = !hasTime;
+    const db = $('#aDur'); db.replaceChildren();
+    DURS.forEach(r => {
+      const b = el('button', { type: 'button', class: 'chip sm', role: 'radio', 'aria-checked': String(actDur === r.v) });
+      b.style.setProperty('--cat', 'var(--accent)'); b.innerHTML = '<span></span>'; b.lastChild.textContent = r.label;
+      b.addEventListener('click', () => { actDur = r.v; renderDurRep(); }); db.append(b);
+    });
+    const rb = $('#aRep'); rb.replaceChildren();
+    REPEATS.forEach(r => {
+      const b = el('button', { type: 'button', class: 'chip sm', role: 'radio', 'aria-checked': String(actRep === r.v) });
+      b.style.setProperty('--cat', 'var(--accent)'); b.innerHTML = (r.v === 'none' ? svg('x', 15, 2.2) : '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>') + '<span></span>'; b.lastChild.textContent = r.label;
+      b.addEventListener('click', () => { actRep = r.v; if (r.v === 'days' && !actRepDays.length) actRepDays = [parseDs($('#aDate').value || todayStr()).getDay()]; renderDurRep(); }); rb.append(b);
+    });
+    const dd = $('#aRepDays'); dd.replaceChildren(); dd.hidden = actRep !== 'days';
+    if (actRep === 'days') [1, 2, 3, 4, 5, 6, 0].forEach(n => {
+      const on = actRepDays.indexOf(n) >= 0;
+      const b = el('button', { type: 'button', class: 'sw swi', role: 'checkbox', 'aria-checked': String(on), 'aria-label': DOW_FULL[n] });
+      b.style.width = b.style.height = '40px'; b.style.fontWeight = '800'; b.style.fontSize = '12px'; b.textContent = DOW_SHORT[n];
+      b.addEventListener('click', () => { actRepDays = on ? actRepDays.filter(x => x !== n) : actRepDays.concat(n); renderDurRep(); }); dd.append(b);
+    });
+    $('#aUntilBox').hidden = actRep === 'none'; $('#aRepHint').hidden = !(actRep !== 'none' && actEdit);
   }
   function renderActIcons() {
     const box = $('#aIcon'); box.replaceChildren();
@@ -1797,11 +2008,12 @@
     $('#aTitle').value = a ? a.title : '';
     const date = a ? a.date : (o.date || todayStr());
     $('#aDate').value = date;
-    tpOpen(false); tpSet(a ? (a.time || '') : (date === todayStr() ? pad2(Math.min(23, new Date().getHours() + 1)) + ':00' : '09:00'));
+    tpOpen(false); tpSet(a ? (a.time || '') : o.time ? o.time : (date === todayStr() ? pad2(Math.min(23, new Date().getHours() + 1)) + ':00' : '09:00'));
     actRemind = a ? a.remind : 15;
     actColorId = a ? (a.color || null) : null; actIconId = a ? (a.icon || null) : null;
+    actDur = a ? (a.dur || null) : null; actRep = a && a.rep ? a.rep.t : 'none'; actRepDays = a && a.rep && a.rep.days ? a.rep.days.slice() : []; $('#aUntil').value = a && a.rep && a.rep.until ? a.rep.until : '';
     $('#aDel').hidden = !a; $('#aDelTxt').textContent = 'Eliminar actividad';
-    renderRemindPick(); renderActColors(); renderActIcons();
+    renderRemindPick(); renderActColors(); renderActIcons(); renderDurRep();
     openModal('m-act', { from: o.from, focus: '#aTitle' });
   }
   onClose['m-act'] = () => {
@@ -1815,8 +2027,12 @@
     const remind = time ? actRemind : null;
     if (remind != null && 'Notification' in window && Notification.permission === 'default') await enableReminders();
     let a = actEdit ? actsRec.list.find(x => x.id === actEdit) : null;
-    if (a) Object.assign(a, { title: title, date: date, time: time, remind: remind, color: actColorId, icon: actIconId });
-    else { a = { id: uid(), title: title, date: date, time: time, remind: remind, color: actColorId, icon: actIconId, done: false, created: Date.now() }; actsRec.list.push(a); }
+    if (actRep === 'days' && !actRepDays.length) { toast('Elige al menos un día'); return; }
+    const repObj = actRep === 'none' ? null : { t: actRep, days: actRep === 'days' ? actRepDays.slice().sort() : [], until: $('#aUntil').value || null };
+    const dur = time && actDur ? actDur : null;
+    if (a) { Object.assign(a, { title: title, date: date, time: time, remind: remind, color: actColorId, icon: actIconId, dur: dur }); }
+    else { a = { id: uid(), title: title, date: date, time: time, remind: remind, color: actColorId, icon: actIconId, dur: dur, done: false, created: Date.now() }; actsRec.list.push(a); }
+    if (repObj) a.rep = repObj; else { delete a.rep; delete a.doneOn; delete a.skip; }
     saveActs(); renderCalendar(); closeModal();
     const perm = 'Notification' in window ? Notification.permission : 'unsupported';
     toast(remind != null && perm !== 'granted' ? 'Actividad guardada. Activa las notificaciones para recibir el aviso.' : 'Actividad guardada');
@@ -1851,14 +2067,14 @@
   // Con la app abierta: avisa a la hora exacta sin necesitar el servidor.
   function localTick() {
     const now = Date.now(); let changed = false;
-    actsRec.list.forEach(a => {
+    occurrencesBetween(now - 864e5, now + 864e5).forEach(a => {
       if (a.done) return;
       const f = fireAtOf(a);
       if (f == null || now < f || now - f > 30 * 60000) return;
       const k = a.id + '@' + f;
       if (notified[k]) return;
       notified[k] = now; changed = true;
-      if (notifOK() && Notification.permission === 'granted' && !(pushCfg && pushCfg.off)) showNote(remindTitle(a), { body: remindBody(a), tag: 'rem-' + a.id + '-' + f, data: { url: remindUrl(a) } });
+      if (notifOK() && Notification.permission === 'granted' && !(pushCfg && pushCfg.off)) showNote(remindTitle(a), { body: remindBody(a), icon: remindIcon(a), tag: 'rem-' + a.id + '-' + f, data: { url: remindUrl(a) } });
       else toast('Recordatorio: ' + a.title + ' · ' + fmtTime(a.time));
     });
     if (changed) kvSet('notified', notified);
@@ -1877,7 +2093,7 @@
   }
   function buildReminders() {
     const now = Date.now(), out = [];
-    actsRec.list.forEach(a => {
+    occurrencesBetween(now - 864e5, now + 45 * 864e5).forEach(a => {
       if (a.done) return;
       const f = fireAtOf(a);
       if (f == null || f < now - 100000) return;
@@ -2250,6 +2466,395 @@
   });
 
 
+  /* ================= Hábitos ================= */
+  let habRec = { list: [] }, habOff = 0, habEdit = null, habDelArm = null, hFreq = 'daily', hTimes = 3, hColorId = 'verde', hIconId = null;
+  async function loadHabits() { const v = await kvGet('habits'); habRec = v && Array.isArray(v.list) ? v : { list: [] }; }
+  function saveHabits() { habRec._u = Date.now(); setStatus('saving'); kvSet('habits', habRec).then(ok => { if (!ok) persistent = false; setStatus('saved'); scheduleSync(); }); }
+  function habWeekDays(off) {
+    const t = new Date(); t.setHours(12, 0, 0, 0);
+    const back = (t.getDay() - prefs.weekStart + 7) % 7;
+    t.setDate(t.getDate() - back + off * 7);
+    return Array.from({ length: 7 }, (_, i) => { const d = new Date(t); d.setDate(t.getDate() + i); return dstr(d.getFullYear(), d.getMonth(), d.getDate()); });
+  }
+  const habGoal = h => h.freq === 'weekly' ? Math.max(1, Math.min(7, h.times || 1)) : 7;
+  function habWeekPct(h, days) { const n = days.filter(d => h.log && h.log[d]).length; return Math.min(100, Math.round(n / habGoal(h) * 100)); }
+  function habStreak(h) {
+    if (h.freq === 'weekly') {
+      let n = 0;
+      for (let off = 0; off > -104; off--) { const days = habWeekDays(off), c = days.filter(d => h.log && h.log[d]).length; if (c >= habGoal(h)) n++; else if (off === 0) continue; else break; }
+      return n;
+    }
+    let n = 0; const t = new Date(); t.setHours(12, 0, 0, 0);
+    for (let i = 0; i < 1000; i++) { const ds = dstr(t.getFullYear(), t.getMonth(), t.getDate()); if (h.log && h.log[ds]) n++; else if (i > 0) break; t.setDate(t.getDate() - 1); }
+    return n;
+  }
+  function ringSvg(pct, color, size, label) {
+    const r = size / 2 - 5, c = 2 * Math.PI * r, off = c * (1 - pct / 100);
+    return '<svg class="ring" viewBox="0 0 ' + size + ' ' + size + '" width="' + size + '" height="' + size + '" aria-hidden="true"><circle cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r + '" fill="none" stroke="color-mix(in srgb,' + color + ' 18%,transparent)" stroke-width="7"/><circle cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r + '" fill="none" stroke="' + color + '" stroke-width="7" stroke-linecap="round" stroke-dasharray="' + c.toFixed(1) + '" stroke-dashoffset="' + off.toFixed(1) + '" transform="rotate(-90 ' + size / 2 + ' ' + size / 2 + ')"/><text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-weight="800" font-size="' + (size > 80 ? 20 : 13) + '" fill="currentColor">' + (label == null ? pct + '%' : label) + '</text></svg>';
+  }
+  function renderHabits() {
+    const days = habWeekDays(habOff), today = todayStr();
+    const f = ds => parseDs(ds).toLocaleDateString(I18N.locale(), { day: 'numeric', month: 'short' });
+    $('#habWlbl').textContent = habOff === 0 ? 'Esta semana' : f(days[0]) + ' – ' + f(days[6]);
+    const box = $('#habBody'); box.replaceChildren();
+    if (!habRec.list.length) {
+      const e = el('div', { class: 'hab-empty' }); e.innerHTML = '<p class="dream" style="display:block">Un hábito a la vez</p><p class="hint">Crea tu primer hábito, diario o semanal, y marca los días que cumplas. Verás tu progreso en círculos de colores.</p>';
+      const b = el('button', { type: 'button', class: 'done-btn solid', text: 'Crear mi primer hábito' }); b.addEventListener('click', () => openHabModal()); e.append(b); box.append(e); return;
+    }
+    const en = I18N.lang() === 'en', pcts = habRec.list.map(h => habWeekPct(h, days)), avg = Math.round(pcts.reduce((a, b) => a + b, 0) / pcts.length);
+    const sum = el('div', { class: 'hab-sum' });
+    sum.innerHTML = ringSvg(avg, 'var(--accent)', 96) + '<div><p class="hab-sum-t">Tu progreso de la semana</p><p class="hint" style="margin:2px 0 0">' + (en ? pcts.filter(p => p >= 100).length + ' of ' + pcts.length + (pcts.length === 1 ? ' habit completed' : ' habits completed') : pcts.filter(p => p >= 100).length + ' de ' + pcts.length + (pcts.length === 1 ? ' hábito cumplido' : ' hábitos cumplidos')) + '</p></div>';
+    box.append(sum);
+    habRec.list.forEach(h => {
+      const color = actColorHex(h.color) || 'var(--accent)', pct = habWeekPct(h, days), st = habStreak(h);
+      const card = el('div', { class: 'hab-card' }); card.style.setProperty('--hc', color);
+      const top = el('div', { class: 'hab-top' });
+      top.innerHTML = '<div class="hab-ring">' + ringSvg(pct, color, 64) + '</div>';
+      const info = el('button', { type: 'button', class: 'hab-info', 'aria-label': 'Editar hábito ' + h.name });
+      const nm = el('span', { class: 'hab-name' });
+      if (h.icon) { const ic = el('span', { class: 'aico' }); ic.innerHTML = svg(h.icon, 16, 2.1); ic.style.color = color; nm.append(ic); }
+      nm.append(el('span', { text: h.name }));
+      const sub = el('span', { class: 'hab-sub' });
+      sub.textContent = en ? (h.freq === 'weekly' ? h.times + (h.times === 1 ? ' time a week' : ' times a week') : 'Every day') + (st > 1 ? ' · 🔥 ' + st + (h.freq === 'weekly' ? ' weeks' : ' days') : '')
+        : (h.freq === 'weekly' ? h.times + (h.times === 1 ? ' vez por semana' : ' veces por semana') : 'Todos los días') + (st > 1 ? ' · 🔥 ' + st + (h.freq === 'weekly' ? ' semanas' : ' días') : '');
+      info.append(nm, sub); info.addEventListener('click', () => openHabModal(h.id)); top.append(info); card.append(top);
+      const strip = el('div', { class: 'hab-days' });
+      days.forEach(ds => {
+        const on = !!(h.log && h.log[ds]), d = parseDs(ds);
+        const b = el('button', { type: 'button', class: 'hab-d' + (on ? ' on' : '') + (ds === today ? ' today' : ''), 'aria-pressed': String(on), 'aria-label': DOW_FULL[d.getDay()] + ' ' + d.getDate() });
+        b.innerHTML = '<span class="hd-w"></span><span class="hd-c">' + (on ? svg('check', 14, 3.4) : d.getDate()) + '</span>'; b.firstChild.textContent = DOW_SHORT[d.getDay()];
+        b.addEventListener('click', () => { h.log = h.log || {}; if (h.log[ds]) delete h.log[ds]; else h.log[ds] = 1; saveHabits(); renderHabits(); });
+        strip.append(b);
+      });
+      card.append(strip); box.append(card);
+    });
+  }
+  function openHabModal(id) {
+    const h = id ? habRec.list.find(x => x.id === id) : null;
+    habEdit = h ? h.id : null; habDelArm = null;
+    $('#hHeading').textContent = h ? 'Editar hábito' : 'Nuevo hábito';
+    $('#hName').value = h ? h.name : ''; hFreq = h ? h.freq : 'daily'; hTimes = h ? (h.times || 3) : 3; hColorId = h ? (h.color || 'verde') : 'verde'; hIconId = h ? (h.icon || null) : null;
+    $('#hDel').hidden = !h; $('#hDelTxt').textContent = 'Eliminar hábito';
+    renderHabForm(); openModal('m-hab', { from: null, focus: '#hName' });
+  }
+  function renderHabForm() {
+    const fb = $('#hFreq'); fb.replaceChildren();
+    [['daily', 'Todos los días'], ['weekly', 'Algunas veces por semana']].forEach(([v, l]) => {
+      const b = el('button', { type: 'button', class: 'chip sm', role: 'radio', 'aria-checked': String(hFreq === v) }); b.style.setProperty('--cat', 'var(--accent)'); b.innerHTML = '<span></span>'; b.lastChild.textContent = l;
+      b.addEventListener('click', () => { hFreq = v; renderHabForm(); }); fb.append(b);
+    });
+    $('#hTimesBox').hidden = hFreq !== 'weekly';
+    const tb = $('#hTimes'); tb.replaceChildren();
+    for (let n = 1; n <= 7; n++) { const b = el('button', { type: 'button', class: 'sw swi', role: 'radio', 'aria-checked': String(hTimes === n), 'aria-label': n + ' por semana', text: String(n) }); b.style.fontWeight = '800'; b.addEventListener('click', () => { hTimes = n; renderHabForm(); }); tb.append(b); }
+    const cb = $('#hColor'); cb.replaceChildren();
+    ACT_COLORS.forEach(c => { const b = el('button', { type: 'button', class: 'sw', role: 'radio', 'aria-checked': String(hColorId === c.id), 'aria-label': c.name }); b.style.setProperty('--cat', c.hex); if (hColorId === c.id) b.innerHTML = svg('check', 16, 3, '#fff'); b.addEventListener('click', () => { hColorId = c.id; renderHabForm(); }); cb.append(b); });
+    const ib = $('#hIcon'); ib.replaceChildren();
+    const none = el('button', { type: 'button', class: 'sw swi', role: 'radio', 'aria-checked': String(hIconId == null), 'aria-label': 'Sin adorno' }); none.innerHTML = svg('x', 14, 2.6); none.addEventListener('click', () => { hIconId = null; renderHabForm(); }); ib.append(none);
+    ACT_ICONS.forEach(k => { const b = el('button', { type: 'button', class: 'sw swi', role: 'radio', 'aria-checked': String(hIconId === k), 'aria-label': ACT_ICON_NAMES[k] }); b.innerHTML = svg(k, 18, 2); b.addEventListener('click', () => { hIconId = k; renderHabForm(); }); ib.append(b); });
+  }
+  $('#hSave').addEventListener('click', () => {
+    const name = $('#hName').value.trim();
+    if (!name) { toast('Escribe el nombre del hábito'); $('#hName').focus(); return; }
+    let h = habEdit ? habRec.list.find(x => x.id === habEdit) : null;
+    const f = { name: name, freq: hFreq, times: hFreq === 'weekly' ? hTimes : 7, color: hColorId, icon: hIconId };
+    if (h) Object.assign(h, f); else { h = Object.assign({ id: uid(), log: {}, created: Date.now() }, f); habRec.list.push(h); }
+    saveHabits(); closeModal(); renderHabits(); toast('Hábito guardado');
+  });
+  $('#hDel').addEventListener('click', () => {
+    if (!habEdit) return;
+    if (habDelArm == null) { habDelArm = setTimeout(() => { habDelArm = null; $('#hDelTxt').textContent = 'Eliminar hábito'; }, 3500); $('#hDelTxt').textContent = 'Toca de nuevo para eliminar'; return; }
+    clearTimeout(habDelArm); habDelArm = null; habRec.list = habRec.list.filter(x => x.id !== habEdit); saveHabits(); closeModal(); renderHabits(); toast('Hábito eliminado');
+  });
+  $('#hName').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); $('#hSave').click(); } });
+  I18N.onChange(() => { if (view === 'habits') renderHabits(); });
+  $('#habAdd').addEventListener('click', () => openHabModal());
+  $('#habPrev').addEventListener('click', () => { habOff--; renderHabits(); });
+  $('#habNext').addEventListener('click', () => { habOff++; renderHabits(); });
+
+  /* ================= Semana: prioridades + bloques de horario ================= */
+  let wkOff = 0, wkSel = null, weekRec = null, weekKeyNow = null;
+  const WK_H0 = 6, WK_H1 = 22, HOUR_PX = 46;
+  const weekOffOf = ds => { const d = parseDs(ds); d.setDate(d.getDate() - (d.getDay() - prefs.weekStart + 7) % 7); const n = parseDs(habWeekDays(0)[0]); return Math.round((d - n) / (7 * 864e5)); };
+  const toMin = t => { const q = t.split(':').map(Number); return q[0] * 60 + q[1]; };
+  const fmtHM = m => { const h = Math.floor(m / 60), mm = m % 60; return h + ' h' + (mm ? ' ' + mm + ' min' : ''); };
+  const wkNarrow = () => !window.matchMedia('(min-width: 900px)').matches;
+  async function renderWeek() {
+    const days = habWeekDays(wkOff), key = 'w:' + days[0], today = todayStr();
+    if (!wkSel || days.indexOf(wkSel) < 0) wkSel = days.indexOf(today) >= 0 ? today : days[0];
+    const f = ds => parseDs(ds).toLocaleDateString(I18N.locale(), { day: 'numeric', month: 'short' });
+    $('#wkLbl').textContent = wkOff === 0 ? 'Esta semana' : f(days[0]) + ' – ' + f(days[6]);
+    if (weekKeyNow !== key) { const v = await kvGet(key); weekRec = Object.assign({ pri: [] }, v && typeof v === 'object' ? v : {}); weekKeyNow = key; }
+    // prioridades
+    const pri = $('#wkPri'); pri.replaceChildren();
+    pri.append(el('h3', { class: 'wk-h', text: 'Prioridades de la semana' }));
+    for (let i = 0; i < 5; i++) {
+      const it = weekRec.pri[i] || { t: '', d: false };
+      const row = el('div', { class: 'wk-pr' + (it.d ? ' done' : '') });
+      const chk = el('button', { type: 'button', class: 'chk', role: 'checkbox', 'aria-checked': String(!!it.d), 'aria-label': 'Prioridad cumplida' }); chk.innerHTML = it.d ? svg('check', 14, 3.4) : '';
+      const inp = el('input', { type: 'text', class: 'field wk-in', maxlength: '80', placeholder: i === 0 ? 'Lo más importante de esta semana' : 'Prioridad ' + (i + 1) }); inp.value = it.t || '';
+      const savePri = () => { weekRec.pri[i] = Object.assign({ t: '', d: false }, weekRec.pri[i], { t: inp.value }); for (let j = 0; j < 5; j++) if (!weekRec.pri[j]) weekRec.pri[j] = { t: '', d: false }; weekRec._u = Date.now(); kvSet(key, weekRec).then(() => scheduleSync()); };
+      inp.addEventListener('input', savePri);
+      chk.addEventListener('click', () => { const cur0 = weekRec.pri[i] || { t: inp.value, d: false }; weekRec.pri[i] = { t: inp.value, d: !cur0.d }; for (let j = 0; j < 5; j++) if (!weekRec.pri[j]) weekRec.pri[j] = { t: '', d: false }; weekRec._u = Date.now(); kvSet(key, weekRec).then(() => scheduleSync()); row.classList.toggle('done', weekRec.pri[i].d); chk.setAttribute('aria-checked', String(weekRec.pri[i].d)); chk.innerHTML = weekRec.pri[i].d ? svg('check', 14, 3.4) : ''; });
+      row.append(chk, inp); pri.append(row);
+    }
+    // chips de días (móvil)
+    const chips = $('#wkChips'); chips.replaceChildren(); chips.hidden = !wkNarrow();
+    days.forEach(ds => {
+      const d = parseDs(ds), n = actsOn(ds).length;
+      const b = el('button', { type: 'button', class: 'wk-chip' + (ds === wkSel ? ' on' : '') + (ds === today ? ' today' : ''), 'aria-pressed': String(ds === wkSel), 'aria-label': DOW_FULL[d.getDay()] + ' ' + d.getDate() });
+      b.innerHTML = '<span class="cw"></span><span class="cn">' + d.getDate() + '</span><span class="cd">' + (n ? '●'.repeat(Math.min(3, n)) : '&nbsp;') + '</span>'; b.firstChild.textContent = DOW_SHORT[d.getDay()];
+      b.addEventListener('click', () => { wkSel = ds; renderWeek(); }); chips.append(b);
+    });
+    // rejilla
+    const shown = wkNarrow() ? [wkSel] : days;
+    let h0 = WK_H0, h1 = WK_H1;
+    shown.forEach(ds => actsOn(ds).forEach(a => { if (!a.time) return; const m = toMin(a.time); h0 = Math.min(h0, Math.floor(m / 60)); h1 = Math.max(h1, Math.ceil((m + (a.dur || 30)) / 60)); }));
+    h1 = Math.min(24, h1);
+    const grid = $('#wkGrid'); grid.replaceChildren(); grid.style.setProperty('--cols', shown.length);
+    const gut = el('div', { class: 'tl-gut' }); gut.append(el('div', { class: 'tl-gh' }), el('div', { class: 'tl-gad' }));
+    const gb = el('div', { class: 'tl-gb' }); gb.style.height = (h1 - h0) * HOUR_PX + 'px';
+    for (let h = h0; h < h1; h++) { const l = el('span', { class: 'tl-hr', text: new Date(2000, 0, 1, h).toLocaleTimeString([], { hour: 'numeric' }) }); l.style.top = (h - h0) * HOUR_PX + 'px'; gb.append(l); }
+    gut.append(gb); grid.append(gut);
+    shown.forEach(ds => {
+      const d = parseDs(ds), list = actsOn(ds), timed = list.filter(a => a.time), allday = list.filter(a => !a.time);
+      const col = el('div', { class: 'tl-col' + (ds === today ? ' today' : '') });
+      // cabecera con minutos disponibles
+      const ivs = timed.map(a => [Math.max(h0 * 60, toMin(a.time)), Math.min(h1 * 60, toMin(a.time) + (a.dur || 30))]).filter(v => v[1] > v[0]).sort((x, y) => x[0] - y[0]);
+      let busy = 0, end = -1; ivs.forEach(v => { const s0 = Math.max(v[0], end); if (v[1] > s0) { busy += v[1] - s0; end = v[1]; } });
+      const free = (h1 - h0) * 60 - busy;
+      const head = el('div', { class: 'tl-gh' }); head.innerHTML = '<b></b><span></span>'; head.firstChild.textContent = DOW_SHORT[d.getDay()] + ' ' + d.getDate();
+      head.lastChild.textContent = (I18N.lang() === 'en' ? 'Free ' : 'Libre ') + fmtHM(free);
+      col.append(head);
+      const ad = el('div', { class: 'tl-gad' });
+      allday.forEach(a => { const c = actColorHex(a.color) || 'var(--accent)'; const b = el('button', { type: 'button', class: 'tl-ad' + (a.done ? ' done' : ''), text: a.title }); b.style.setProperty('--bc', c); b.addEventListener('click', () => openActModal({ id: a.id, from: b })); ad.append(b); });
+      col.append(ad);
+      const body = el('div', { class: 'tl-body' }); body.style.height = (h1 - h0) * HOUR_PX + 'px'; body.style.setProperty('--hp', HOUR_PX + 'px');
+      body.addEventListener('click', e => { if (e.target !== body) return; const y = e.offsetY, h = Math.min(h1 - 1, h0 + Math.floor(y / HOUR_PX)); openActModal({ date: ds, time: pad2(h) + ':00', from: body }); });
+      // carriles para bloques que se traslapan
+      const items = timed.map(a => ({ a: a, s: toMin(a.time), e: toMin(a.time) + (a.dur || 30) })).sort((x, y) => x.s - y.s);
+      const lanes = []; items.forEach(it => { let l = lanes.findIndex(end2 => end2 <= it.s); if (l < 0) { l = lanes.length; lanes.push(0); } lanes[l] = it.e; it.l = l; });
+      items.forEach(it => {
+        const a = it.a, c = actColorHex(a.color) || 'var(--accent)', n = Math.max(1, lanes.length);
+        const b = el('button', { type: 'button', class: 'tl-blk' + (a.done ? ' done' : '') });
+        b.style.cssText = 'top:' + ((it.s / 60 - h0) * HOUR_PX) + 'px;height:' + Math.max(26, (it.e - it.s) / 60 * HOUR_PX - 2) + 'px;left:calc(' + (it.l / n * 100) + '% + 2px);width:calc(' + (100 / n) + '% - 4px);--bc:' + c;
+        const ico = a.icon ? '<span class="aico">' + svg(a.icon, 13, 2.2) + '</span>' : '';
+        b.innerHTML = '<span class="tb-t"></span><span class="tb-n">' + ico + '<span></span></span>'; b.firstChild.textContent = fmtTime(a.time) + (a.dur ? ' – ' + fmtTime(endTimeOf(a)) : ''); b.lastChild.lastChild.textContent = a.title;
+        b.addEventListener('click', () => openActModal({ id: a.id, from: b })); body.append(b);
+      });
+      if (ds === today) { const now = new Date(), m = now.getHours() * 60 + now.getMinutes(); if (m >= h0 * 60 && m <= h1 * 60) { const nl = el('div', { class: 'tl-now' }); nl.style.top = ((m / 60 - h0) * HOUR_PX) + 'px'; body.append(nl); } }
+      col.append(body); grid.append(col);
+    });
+  }
+  $('#wkPrev').addEventListener('click', () => { wkOff--; wkSel = null; renderWeek(); });
+  $('#wkNext').addEventListener('click', () => { wkOff++; wkSel = null; renderWeek(); });
+  $('#wkAdd').addEventListener('click', e => openActModal({ date: wkNarrow() && wkSel ? wkSel : todayStr(), from: e.currentTarget }));
+  window.matchMedia('(min-width: 900px)').addEventListener('change', () => { if (view === 'week') renderWeek(); });
+  I18N.onChange(() => { if (view === 'week') renderWeek(); });
+
+  /* ================= Stickers: colección ================= */
+  const STK_GROUPS = [
+    { id: 'primavera', n: ['Primavera', 'Spring'] }, { id: 'verano', n: ['Verano', 'Summer'] },
+    { id: 'otono', n: ['Otoño', 'Autumn'] }, { id: 'invierno', n: ['Invierno', 'Winter'] },
+    { id: 'lazos', n: ['Lazos', 'Bows'] }, { id: 'cintas', n: ['Washi tape', 'Washi tape'] },
+    { id: 'papel', n: ['Papel', 'Paper'] }, { id: 'palabras', n: ['Palabras', 'Words'] }
+  ];
+  const stkSvg = (vb, inner) => '<svg viewBox="' + vb + '" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">' + inner + '</svg>';
+  const petals = (n, rx, ry, cy, fill, extra) => { let p = ''; for (let i = 0; i < n; i++) p += '<ellipse cx="0" cy="' + cy + '" rx="' + rx + '" ry="' + ry + '" fill="' + fill + '" ' + (extra || '') + ' transform="rotate(' + (i * 360 / n) + ')"/>'; return p; };
+  const daisy = (n, petal, center, ring) => stkSvg('-50 -50 100 100', petals(n, 9, 22, -24, petal, 'stroke="rgba(0,0,0,.08)" stroke-width="1"') + '<circle r="14" fill="' + center + '"/><circle r="14" fill="none" stroke="' + (ring || 'rgba(0,0,0,.18)') + '" stroke-width="2.5"/><circle cx="-4" cy="-4" r="3.5" fill="rgba(255,255,255,.45)"/>');
+  const blossom = (petal, deep) => { let p = ''; for (let i = 0; i < 5; i++) p += '<g transform="rotate(' + (i * 72) + ')"><path d="M0 0C-17 -14 -15 -38 -5 -43L0 -37L5 -43C15 -38 17 -14 0 0Z" fill="' + petal + '"/><path d="M0 -8L0 -30" stroke="' + deep + '" stroke-width="1.6" stroke-linecap="round" opacity=".5"/></g>'; let st = ''; for (let i = 0; i < 6; i++) st += '<g transform="rotate(' + (i * 60 + 20) + ')"><line x1="0" y1="0" x2="0" y2="-14" stroke="#E8A33D" stroke-width="1.8"/><circle cy="-15" r="2.4" fill="#E8A33D"/></g>'; return stkSvg('-50 -50 100 100', p + '<circle r="6" fill="' + deep + '"/>' + st); };
+  const tulip = (c, d) => stkSvg('0 0 80 120', '<path d="M40 112C40 88 41 72 40 56" stroke="#5E9A55" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M40 100C26 94 16 82 14 70C28 72 38 84 40 100Z" fill="#6DB063"/><path d="M40 108C54 104 64 94 66 82C52 84 42 94 40 108Z" fill="#5E9A55"/><path d="M14 34C14 56 26 66 40 66C54 66 66 56 66 34C58 40 50 38 46 28C43 36 37 36 34 28C30 38 22 40 14 34Z" fill="' + c + '"/><path d="M34 28C37 14 40 8 40 8C40 8 43 14 46 28C43 36 37 36 34 28Z" fill="' + d + '"/>');
+  const butterfly = (a, b, spot) => stkSvg('0 0 100 84', '<g><path d="M50 40C38 8 8 6 8 28C8 44 30 50 50 42Z" fill="' + a + '"/><path d="M50 44C40 52 20 54 22 70C24 82 44 76 50 52Z" fill="' + b + '"/><g transform="translate(100 0) scale(-1 1)"><path d="M50 40C38 8 8 6 8 28C8 44 30 50 50 42Z" fill="' + a + '"/><path d="M50 44C40 52 20 54 22 70C24 82 44 76 50 52Z" fill="' + b + '"/></g><circle cx="24" cy="26" r="5" fill="' + spot + '"/><circle cx="76" cy="26" r="5" fill="' + spot + '"/><circle cx="31" cy="66" r="3.4" fill="' + spot + '"/><circle cx="69" cy="66" r="3.4" fill="' + spot + '"/><ellipse cx="50" cy="46" rx="3.6" ry="18" fill="#4A3A36"/><path d="M48 30C44 18 38 12 34 10M52 30C56 18 62 12 66 10" stroke="#4A3A36" stroke-width="2" fill="none" stroke-linecap="round"/></g>');
+  const bow = c => stkSvg('0 0 110 84', '<path d="M55 44C34 12 6 14 8 40C10 66 36 66 55 44Z" fill="' + c + '"/><path d="M55 44C76 12 104 14 102 40C100 66 74 66 55 44Z" fill="' + c + '"/><path d="M55 44C34 12 6 14 8 40C10 66 36 66 55 44Z" fill="rgba(255,255,255,.18)"/><path d="M55 46C48 66 38 76 28 82L46 76L55 54Z" fill="' + c + '"/><path d="M55 46C62 66 72 76 82 82L64 76L55 54Z" fill="' + c + '"/><path d="M55 46C48 66 38 76 28 82L46 76L55 54Z" fill="rgba(0,0,0,.12)"/><circle cx="55" cy="44" r="10" fill="' + c + '"/><circle cx="55" cy="44" r="10" fill="rgba(0,0,0,.14)"/><path d="M22 28C28 24 36 26 44 34M88 28C82 24 74 26 66 34" stroke="rgba(255,255,255,.55)" stroke-width="3" fill="none" stroke-linecap="round"/>');
+  const jag = (w, h, step) => { let l = 'M0 0', r = ''; const n = Math.round(h / step); for (let i = 1; i <= n; i++) l += 'L' + (i % 2 ? 3 : 0) + ' ' + (i * h / n); let rt = 'L' + w + ' ' + h; for (let i = n - 1; i >= 0; i--) rt += 'L' + (i % 2 ? w - 3 : w) + ' ' + (i * h / n); return l + 'L0 ' + h + rt + 'Z'; };
+  const washi = (id, base, pat) => stkSvg('0 0 130 40', '<defs><clipPath id="wc-' + id + '"><path d="' + jag(130, 40, 5) + '"/></clipPath></defs><g clip-path="url(#wc-' + id + ')"><rect width="130" height="40" fill="' + base + '"/>' + pat + '<rect width="130" height="40" fill="rgba(255,255,255,.14)"/></g><path d="' + jag(130, 40, 5) + '" fill="none" stroke="rgba(0,0,0,.1)" stroke-width="1"/>');
+  const stripes = (c, w) => { let s = ''; for (let x = -40; x < 150; x += w * 2) s += '<rect x="' + x + '" y="-10" width="' + w + '" height="70" fill="' + c + '" transform="rotate(30 65 20)"/>'; return s; };
+  const dotsP = (c, r, g) => { let s = ''; for (let y = g / 2; y < 40; y += g) for (let x = ((y / g) % 2 ? g / 2 : g); x < 130; x += g) s += '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="' + c + '"/>'; return s; };
+  const miniFl = (c, d) => { let s = ''; for (let k = 0; k < 6; k++) { const x = 12 + k * 21, y = k % 2 ? 28 : 12; s += '<g transform="translate(' + x + ' ' + y + ')">' + petals(5, 3.2, 5, -5, c) + '<circle r="2.2" fill="' + d + '"/></g>'; } return s; };
+  const hearts = c => { let s = ''; for (let k = 0; k < 7; k++) { const x = 10 + k * 18, y = k % 2 ? 27 : 13; s += '<path transform="translate(' + x + ' ' + y + ')" d="M0 4C-8 -2 -5 -8 0 -4C5 -8 8 -2 0 4Z" fill="' + c + '"/>'; } return s; };
+  const paperTag = (c, line) => stkSvg('0 0 110 70', '<path d="M8 6L84 6L104 35L84 64L8 64Z" fill="' + c + '" stroke="rgba(0,0,0,.12)" stroke-width="1.5"/><circle cx="86" cy="35" r="5" fill="#fff" stroke="rgba(0,0,0,.2)"/><path d="M18 24H66M18 36H60M18 48H52" stroke="' + line + '" stroke-width="2" stroke-linecap="round"/>');
+  const paperNote = (c, line) => stkSvg('0 0 100 100', '<path d="M8 8L92 6L94 78L72 94L8 92Z" fill="' + c + '" stroke="rgba(0,0,0,.12)" stroke-width="1.5"/><path d="M94 78L72 94L72 80Z" fill="rgba(0,0,0,.14)"/><path d="M20 28H80M20 42H80M20 56H80M20 70H58" stroke="' + line + '" stroke-width="1.8" stroke-linecap="round"/>');
+  const paperTorn = c => stkSvg('0 0 120 80', '<path d="M6 10L18 6L30 11L44 5L58 10L72 6L88 11L104 6L114 10L112 36L116 52L111 72L96 76L82 71L66 77L52 72L36 77L22 72L8 76L10 52L5 36Z" fill="' + c + '" stroke="rgba(0,0,0,.12)" stroke-width="1.5"/><path d="M20 30H98M20 44H98M20 58H70" stroke="rgba(0,0,0,.12)" stroke-width="1.6" stroke-linecap="round"/>');
+  const paperHeart = c => stkSvg('0 0 100 92', '<path d="M50 88C16 62 4 42 10 26C16 10 38 10 50 28C62 10 84 10 90 26C96 42 84 62 50 88Z" fill="' + c + '" stroke="rgba(0,0,0,.12)" stroke-width="1.5"/><path d="M22 28C26 20 36 18 42 24" stroke="rgba(255,255,255,.55)" stroke-width="3.5" fill="none" stroke-linecap="round"/>');
+  const paperStar = c => stkSvg('0 0 100 96', '<path d="M50 6L62 36L94 38L69 58L78 90L50 72L22 90L31 58L6 38L38 36Z" fill="' + c + '" stroke="rgba(0,0,0,.12)" stroke-width="1.5" stroke-linejoin="round"/><path d="M50 18L57 36" stroke="rgba(255,255,255,.55)" stroke-width="3" stroke-linecap="round"/>');
+  const word = (t, bg, fg) => { const w = Math.max(190, t.length * 17 + 70); return stkSvg('0 0 ' + w + ' 70', '<rect x="4" y="6" width="' + (w - 8) + '" height="58" rx="29" fill="' + bg + '" stroke="rgba(0,0,0,.1)" stroke-width="1.5"/><text x="' + (w / 2) + '" y="37" text-anchor="middle" dominant-baseline="central" font-family="\'Great Vibes\',\'Dancing Script\',cursive" font-size="38" fill="' + fg + '">' + t + '</text>'); };
+  const holly = () => stkSvg('0 0 100 80', '<path d="M50 42C34 14 12 22 10 38C20 38 24 48 30 50C28 58 38 66 50 52Z" fill="#3F7A55"/><path d="M50 42C66 14 88 22 90 38C80 38 76 48 70 50C72 58 62 66 50 52Z" fill="#2F6B45"/><circle cx="42" cy="50" r="8" fill="#C0392B"/><circle cx="58" cy="50" r="8" fill="#C0392B"/><circle cx="50" cy="60" r="8" fill="#D64541"/><circle cx="39" cy="47" r="2.2" fill="rgba(255,255,255,.6)"/><circle cx="55" cy="47" r="2.2" fill="rgba(255,255,255,.6)"/><circle cx="47" cy="57" r="2.2" fill="rgba(255,255,255,.6)"/>');
+  const pine = () => stkSvg('0 0 80 110', '<rect x="35" y="88" width="10" height="18" rx="2" fill="#8A5A3C"/><path d="M40 6L62 38H50L70 66H54L76 92H4L26 66H10L30 38H18Z" fill="#3F7A55"/><path d="M40 6L62 38H50L70 66H54L76 92H40Z" fill="rgba(0,0,0,.1)"/><circle cx="34" cy="50" r="3.4" fill="#E8B84A"/><circle cx="48" cy="72" r="3.4" fill="#C0392B"/><circle cx="26" cy="78" r="3.4" fill="#fff"/><path d="M40 0L43 7L50 8L45 13L46 20L40 16L34 20L35 13L30 8L37 7Z" fill="#F2C94C"/>');
+  const star = (c) => stkSvg('0 0 100 96', '<path d="M50 6L62 36L94 38L69 58L78 90L50 72L22 90L31 58L6 38L38 36Z" fill="' + c + '" stroke="rgba(0,0,0,.1)" stroke-width="1.5" stroke-linejoin="round"/><path d="M50 16L56 34" stroke="rgba(255,255,255,.6)" stroke-width="3" stroke-linecap="round"/>');
+  const shell = () => stkSvg('0 0 100 90', '<path d="M50 84C24 76 6 54 8 32C20 24 38 26 50 40C62 26 80 24 92 32C94 54 76 76 50 84Z" fill="#F4B5A0"/><path d="M50 84L50 40M50 84L26 36M50 84L74 36M50 84L14 44M50 84L86 44" stroke="rgba(255,255,255,.7)" stroke-width="3" stroke-linecap="round"/><path d="M38 90H62L58 82H42Z" fill="#E9967F"/>');
+  const palm = () => stkSvg('0 0 100 100', '<path d="M10 90C14 50 40 20 90 12C86 54 60 84 14 94" fill="#4FA06B"/><path d="M12 92C34 62 56 38 88 14" stroke="#2F6B45" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M30 70L24 54M44 54L40 38M58 42L58 26M70 30L74 18M24 78L40 76M38 62L56 62M54 48L72 46" stroke="#2F6B45" stroke-width="2.4" stroke-linecap="round"/>');
+  const sunflower = () => stkSvg('-50 -50 100 100', petals(14, 6, 18, -30, '#FFC43D') + petals(14, 5, 14, -22, '#F5A623', 'transform-origin="0 0"') .replace(/rotate\(([\d.]+)\)/g, 'rotate($1)') + '<circle r="20" fill="#6B4226"/><circle r="20" fill="none" stroke="#4A2C17" stroke-width="2"/>' + (() => { let d = ''; for (let i = 0; i < 18; i++) { const a = i * 2.4, r = 3 + i * 0.9; d += '<circle cx="' + (Math.cos(a * 2.4) * r).toFixed(1) + '" cy="' + (Math.sin(a * 2.4) * r).toFixed(1) + '" r="1.4" fill="#A9743F"/>'; } return d; })());
+  const bigFlake = () => stkSvg('-30 -30 60 60', flake(0, 0, 1.2, 1, '#6FA3D8').replace('stroke-width="2.6"', 'stroke-width="3"'));
+  const mushroom = () => stkSvg('0 0 100 90', '<path d="M34 50H66L64 82Q50 90 36 82Z" fill="#F1E3CC"/><path d="M8 50C8 22 30 8 50 8C70 8 92 22 92 50Z" fill="#D8522B"/><circle cx="30" cy="30" r="7" fill="#fff"/><circle cx="56" cy="22" r="6" fill="#fff"/><circle cx="72" cy="38" r="6" fill="#fff"/><circle cx="46" cy="42" r="5" fill="#fff"/>');
+  const STK = {};
+  const addStk = (k, g, es, en, vb, svg) => { STK[k] = { g: g, n: [es, en], svg: svg }; };
+  // Primavera
+  addStk('sp-flor-rosa', 'primavera', 'Flor rosa', 'Pink flower', 0, daisy(8, '#F6B7CB', '#F9D65C'));
+  addStk('sp-margarita', 'primavera', 'Margarita', 'Daisy', 0, daisy(12, '#FFFFFF', '#F2B84B'));
+  addStk('sp-flor-lila', 'primavera', 'Flor lila', 'Lilac flower', 0, daisy(6, '#C9B3EC', '#F9D65C'));
+  addStk('sp-cerezo', 'primavera', 'Flor de cerezo', 'Cherry blossom', 0, blossom('#F8C7D6', '#D9658A'));
+  addStk('sp-tulipan', 'primavera', 'Tulipán', 'Tulip', 0, tulip('#E0507A', '#C23A66'));
+  addStk('sp-tulipan2', 'primavera', 'Tulipán amarillo', 'Yellow tulip', 0, tulip('#F4C542', '#E0A526'));
+  addStk('sp-mariposa', 'primavera', 'Mariposa rosa', 'Pink butterfly', 0, butterfly('#F4A6C4', '#F7C6D9', '#fff'));
+  addStk('sp-mariposa2', 'primavera', 'Mariposa lila', 'Lilac butterfly', 0, butterfly('#B79CE6', '#D4C2F2', '#fff'));
+  // Verano
+  addStk('su-sol', 'verano', 'Sol', 'Sun', 0, stkSvg('-50 -50 100 100', sun(0, 0, 20, '#FFC43D')));
+  addStk('su-limon', 'verano', 'Limón', 'Lemon', 0, stkSvg('-34 -34 68 68', lemon(0, 0, 28)));
+  addStk('su-girasol', 'verano', 'Girasol', 'Sunflower', 0, sunflower());
+  addStk('su-concha', 'verano', 'Concha', 'Shell', 0, shell());
+  addStk('su-palma', 'verano', 'Hoja tropical', 'Tropical leaf', 0, palm());
+  addStk('su-mariposa', 'verano', 'Mariposa naranja', 'Orange butterfly', 0, butterfly('#F59A3C', '#F8C27A', '#fff'));
+  addStk('su-flor', 'verano', 'Flor coral', 'Coral flower', 0, daisy(7, '#F58F7A', '#FFD23F'));
+  // Otoño
+  addStk('au-hoja1', 'otono', 'Hoja naranja', 'Orange leaf', 0, stkSvg('-50 -50 100 100', leaf(0, 0, 1, 0, '#D4541E')));
+  addStk('au-hoja2', 'otono', 'Hoja roja', 'Red leaf', 0, stkSvg('-50 -50 100 100', leaf(0, 0, 1, 0, '#B23A26')));
+  addStk('au-hoja3', 'otono', 'Hoja mostaza', 'Mustard leaf', 0, stkSvg('-50 -50 100 100', leaf(0, 0, 1, 0, '#E2A12B')));
+  addStk('au-calabaza', 'otono', 'Calabaza', 'Pumpkin', 0, stkSvg('-76 -66 152 132', pumpkin(0, 0, 1)));
+  addStk('au-bellota', 'otono', 'Bellota', 'Acorn', 0, stkSvg('-36 -40 72 92', acorn(0, 0, 1)));
+  addStk('au-hongo', 'otono', 'Hongo', 'Mushroom', 0, mushroom());
+  addStk('au-flor', 'otono', 'Flor de otoño', 'Autumn flower', 0, daisy(9, '#E8772E', '#6B4226'));
+  // Invierno
+  addStk('wi-copo', 'invierno', 'Copo de nieve', 'Snowflake', 0, bigFlake());
+  addStk('wi-estrella', 'invierno', 'Estrella', 'Star', 0, star('#F2C94C'));
+  addStk('wi-pino', 'invierno', 'Pino', 'Pine tree', 0, pine());
+  addStk('wi-acebo', 'invierno', 'Acebo', 'Holly', 0, holly());
+  addStk('wi-estrella2', 'invierno', 'Estrella celeste', 'Blue star', 0, star('#8FC4EA'));
+  // Lazos
+  [['rosa', '#F08CB0', 'Rosa', 'Pink'], ['rojo', '#D64545', 'Rojo', 'Red'], ['azul', '#6FA3D8', 'Azul', 'Blue'], ['dorado', '#E2B14B', 'Dorado', 'Gold'], ['lila', '#A68BDC', 'Lila', 'Lilac'], ['verde', '#5FAE7A', 'Verde', 'Green']].forEach(c => addStk('bw-' + c[0], 'lazos', 'Lazo ' + c[2].toLowerCase(), c[3] + ' bow', 0, bow(c[1])));
+  // Washi tape
+  addStk('wt-rosa', 'cintas', 'Cinta rayas rosa', 'Pink stripe tape', 0, washi('rosa', '#F9D3DF', stripes('#F08CB0', 7)));
+  addStk('wt-menta', 'cintas', 'Cinta lunares menta', 'Mint dots tape', 0, washi('menta', '#CDEBDD', dotsP('#fff', 3.4, 14)));
+  addStk('wt-flores', 'cintas', 'Cinta de flores', 'Floral tape', 0, washi('flores', '#FFF1D6', miniFl('#F08CB0', '#F2B84B')));
+  addStk('wt-kraft', 'cintas', 'Cinta kraft', 'Kraft tape', 0, washi('kraft', '#D9B88A', stripes('rgba(255,255,255,.4)', 3)));
+  addStk('wt-corazones', 'cintas', 'Cinta de corazones', 'Hearts tape', 0, washi('cor', '#FBE3E3', hearts('#E0507A')));
+  addStk('wt-azul', 'cintas', 'Cinta rayas azul', 'Blue stripe tape', 0, washi('azul', '#DCE8F7', stripes('#6FA3D8', 6)));
+  addStk('wt-dorada', 'cintas', 'Cinta dorada', 'Gold tape', 0, washi('dor', '#F3DD9C', dotsP('#E2B14B', 2.6, 12)));
+  // Papel
+  addStk('pp-nota', 'papel', 'Nota rayada', 'Lined note', 0, paperNote('#FFF8E1', '#9DB7D5'));
+  addStk('pp-kraft', 'papel', 'Nota kraft', 'Kraft note', 0, paperNote('#E4C79C', 'rgba(90,60,30,.35)'));
+  addStk('pp-rasgado', 'papel', 'Recorte rasgado', 'Torn paper', 0, paperTorn('#FFFFFF'));
+  addStk('pp-etiqueta', 'papel', 'Etiqueta', 'Tag', 0, paperTag('#FCE4EC', '#E0507A'));
+  addStk('pp-corazon', 'papel', 'Corazón de papel', 'Paper heart', 0, paperHeart('#F6A9C2'));
+  addStk('pp-estrella', 'papel', 'Estrella de papel', 'Paper star', 0, paperStar('#FFD66B'));
+  // Palabras
+  [['gracias', 'Gracias', 'Thank you', '#FDE7EE', '#C23A66'], ['suena', 'Sueña en grande', 'Dream big', '#E6F2FA', '#3B6EA5'], ['logre', 'Lo logré', 'I did it', '#E4F4EA', '#2F7A4F'], ['hoy', 'Hoy sí', 'Today', '#FFF1D6', '#B5651D'], ['feliz', 'Feliz', 'Happy', '#FFF6BF', '#A9801C'], ['amor', 'Con amor', 'With love', '#F3E6FA', '#7B4BB0']].forEach(w => {
+    addStk('wd-' + w[0] + '-es', 'palabras', w[1], w[1], 0, word(w[1], w[3], w[4]));
+    addStk('wd-' + w[0] + '-en', 'palabras', w[2], w[2], 0, word(w[2], w[3], w[4]));
+  });
+
+  /* ================= Stickers: colocar, mover, cambiar tamaño ================= */
+  const STK_W = { palabras: 40, cintas: 38, papel: 28, lazos: 24 };
+  const stkLang = () => I18N.lang() === 'en' ? 1 : 0;
+  const stkName = k => (STK[k] || { n: ['', ''] }).n[stkLang()];
+  function stkNode(st, live) {
+    const s = STK[st.k]; if (!s) return null;
+    const d = el('div', { class: 'stk' }); d.dataset.id = st.id;
+    d.style.left = st.x + '%'; d.style.top = st.y + '%'; d.style.width = st.w + '%'; d.style.setProperty('--r', (st.r || 0) + 'deg');
+    d.innerHTML = s.svg;
+    if (live) d.setAttribute('aria-label', stkName(st.k));
+    return d;
+  }
+  function stkOverlay(list) {
+    const o = el('span', { class: 'stk-ov', 'aria-hidden': 'true' });
+    (list || []).forEach(st => { const n = stkNode(st, false); if (n) o.append(n); });
+    return o;
+  }
+  const stk = { ctx: null, sel: null, tab: null, tray: null };
+  function stkCtxDay() {
+    return { zone: $('#dZone'), layer: $('#dLayer'), btn: $('#dStkBtn'), get: () => (data.days[openDay] || {}).stk || [], arr: () => { const i = ensureDay(openDay); return i.stk || (i.stk = []); }, commit: () => commitDay(openDay) };
+  }
+  function stkCtxGoal() {
+    const g = goalById(openGoalId);
+    return { zone: $('#gZone'), layer: $('#gLayer'), btn: $('#gStkBtn'), get: () => (goalById(openGoalId) || {}).stk || [], arr: () => { const g2 = goalById(openGoalId); return g2.stk || (g2.stk = []); }, commit: () => { markDirty(); renderGoals(); } };
+  }
+  function stkRender(ctx) {
+    ctx = ctx || stk.ctx; if (!ctx) return;
+    ctx.layer.replaceChildren();
+    ctx.get().forEach(st => {
+      const n = stkNode(st, true); if (!n) return;
+      if (stk.sel === st.id && stk.ctx && stk.ctx.layer === ctx.layer) { n.classList.add('sel'); const h = el('span', { class: 'stk-h', 'aria-label': 'Cambiar tamaño' }); n.append(h); bindResize(h, n, st, ctx); }
+      bindDrag(n, st, ctx);
+      ctx.layer.append(n);
+    });
+  }
+  function bindDrag(n, st, ctx) {
+    n.addEventListener('pointerdown', e => {
+      if (!ctx.zone.classList.contains('stk-edit') || e.target.classList.contains('stk-h')) return;
+      e.preventDefault(); e.stopPropagation();
+      if (stk.sel !== st.id) { stk.sel = st.id; stkRender(ctx); stkBar(); const nn = ctx.layer.querySelector('.stk[data-id="' + st.id + '"]'); if (nn) { startDrag(nn, e); } return; }
+      startDrag(n, e);
+      function startDrag(node, ev) {
+        const rect = ctx.layer.getBoundingClientRect(), sx = ev.clientX, sy = ev.clientY, ox = st.x, oy = st.y; let moved = false;
+        try { node.setPointerCapture(ev.pointerId); } catch (x) {}
+        const mv = m => { moved = true; st.x = Math.max(2, Math.min(98, ox + (m.clientX - sx) / rect.width * 100)); st.y = Math.max(2, Math.min(98, oy + (m.clientY - sy) / rect.height * 100)); node.style.left = st.x + '%'; node.style.top = st.y + '%'; };
+        const up = () => { node.removeEventListener('pointermove', mv); node.removeEventListener('pointerup', up); node.removeEventListener('pointercancel', up); if (moved) ctx.commit(); };
+        node.addEventListener('pointermove', mv); node.addEventListener('pointerup', up); node.addEventListener('pointercancel', up);
+      }
+    });
+  }
+  function bindResize(h, n, st, ctx) {
+    h.addEventListener('pointerdown', e => {
+      e.preventDefault(); e.stopPropagation();
+      const r = n.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2, d0 = Math.hypot(e.clientX - cx, e.clientY - cy) || 1, w0 = st.w;
+      try { h.setPointerCapture(e.pointerId); } catch (x) {}
+      const mv = m => { st.w = Math.max(6, Math.min(90, w0 * Math.hypot(m.clientX - cx, m.clientY - cy) / d0)); n.style.width = st.w + '%'; };
+      const up = () => { h.removeEventListener('pointermove', mv); h.removeEventListener('pointerup', up); h.removeEventListener('pointercancel', up); ctx.commit(); };
+      h.addEventListener('pointermove', mv); h.addEventListener('pointerup', up); h.addEventListener('pointercancel', up);
+    });
+  }
+  function stkSelected() { return stk.ctx && stk.sel ? stk.ctx.get().find(x => x.id === stk.sel) : null; }
+  function stkBar() { if (!stk.tray) return; const bar = stk.tray.querySelector('.stk-bar'); bar.hidden = !stkSelected(); }
+  function stkTweak(fn) { const st = stkSelected(); if (!st) return; fn(st); stk.ctx.commit(); stkRender(); }
+  function stkBuildTray() {
+    const t = stk.tray, ctx = stk.ctx; t.replaceChildren();
+    const cs = season();
+    const order = STK_GROUPS.slice().sort((a, b) => (a.id === cs ? -1 : 0) - (b.id === cs ? -1 : 0));
+    if (!stk.tab) stk.tab = order[0].id;
+    const tabs = el('div', { class: 'stk-tabs', role: 'tablist' });
+    order.forEach(g => { const b = el('button', { type: 'button', class: 'stk-tab' + (g.id === stk.tab ? ' on' : ''), role: 'tab', 'aria-selected': String(g.id === stk.tab), text: g.n[stkLang()] }); b.dataset.noi18n = '1'; b.addEventListener('click', () => { stk.tab = g.id; stkBuildTray(); }); tabs.append(b); });
+    const grid = el('div', { class: 'stk-grid' });
+    Object.keys(STK).filter(k => STK[k].g === stk.tab && (stk.tab !== 'palabras' || k.endsWith(stkLang() ? '-en' : '-es'))).forEach(k => {
+      const b = el('button', { type: 'button', class: 'stk-pick', 'aria-label': stkName(k) }); b.innerHTML = STK[k].svg;
+      b.addEventListener('click', () => {
+        const g = STK[k].g, st = { id: uid(), k: k, x: 50 + (Math.random() * 16 - 8), y: 38 + (Math.random() * 16 - 8), w: STK_W[g] || 22, r: Math.round(Math.random() * 16 - 8) };
+        ctx.arr().push(st); stk.sel = st.id; ctx.commit(); stkRender(); stkBar();
+      });
+      grid.append(b);
+    });
+    const bar = el('div', { class: 'stk-bar', hidden: true });
+    const mk = (label, aria, fn, cls) => { const b = el('button', { type: 'button', class: 'stk-b' + (cls ? ' ' + cls : ''), 'aria-label': aria, text: label }); b.addEventListener('click', fn); return b; };
+    bar.append(
+      mk('−', 'Más pequeño', () => stkTweak(s => { s.w = Math.max(6, s.w * .85); })),
+      mk('+', 'Más grande', () => stkTweak(s => { s.w = Math.min(90, s.w * 1.18); })),
+      mk('⟲', 'Girar a la izquierda', () => stkTweak(s => { s.r = (s.r || 0) - 15; })),
+      mk('⟳', 'Girar a la derecha', () => stkTweak(s => { s.r = (s.r || 0) + 15; })),
+      mk('⧉', 'Duplicar', () => { const s = stkSelected(); if (!s) return; const c = Object.assign({}, s, { id: uid(), x: Math.min(95, s.x + 6), y: Math.min(95, s.y + 6) }); ctx.arr().push(c); stk.sel = c.id; ctx.commit(); stkRender(); stkBar(); }),
+      mk('🗑', 'Quitar sticker', () => { const s = stkSelected(); if (!s) return; const a = ctx.arr(); a.splice(a.indexOf(s), 1); stk.sel = null; ctx.commit(); stkRender(); stkBar(); }, 'del'),
+      mk('✓', 'Listo', () => { stk.sel = null; stkRender(); stkBar(); })
+    );
+    t.append(tabs, grid, bar); stkBar();
+  }
+  function stkOpen(ctx) {
+    stkClose();
+    stk.ctx = ctx; stk.sel = null; ctx.zone.classList.add('stk-edit'); ctx.btn.setAttribute('aria-pressed', 'true');
+    const t = el('div', { class: 'stk-tray' }); stk.tray = t; ctx.btn.after(t); stkBuildTray(); stkRender();
+    setTimeout(() => t.scrollIntoView({ block: 'nearest', behavior: reduceMotion() ? 'auto' : 'smooth' }), 60);
+  }
+  function stkClose() {
+    if (stk.ctx) { stk.ctx.zone.classList.remove('stk-edit'); stk.ctx.btn.setAttribute('aria-pressed', 'false'); const c = stk.ctx; stk.sel = null; stkRender(c); }
+    if (stk.tray) stk.tray.remove(); stk.tray = null; stk.ctx = null;
+  }
+  function stkToggle(mkCtx) { if (stk.tray) stkClose(); else stkOpen(mkCtx()); }
+  $('#dStkBtn').addEventListener('click', () => stkToggle(stkCtxDay));
+  $('#gStkBtn').addEventListener('click', () => stkToggle(stkCtxGoal));
+  document.addEventListener('keydown', e => { if ((e.key === 'Delete' || e.key === 'Backspace') && stk.ctx && stkSelected() && !/INPUT|TEXTAREA/.test((document.activeElement || {}).tagName || '')) { e.preventDefault(); const s = stkSelected(), a = stk.ctx.arr(); a.splice(a.indexOf(s), 1); stk.sel = null; stk.ctx.commit(); stkRender(); stkBar(); } });
+  I18N.onChange(() => { if (stk.tray) stkBuildTray(); if (stk.ctx) stkRender(); });
+  // Mostrar los stickers en cuanto se abre el día o la meta (aunque la bandeja esté cerrada)
+  function stkShowDay() { stkClose(); const c = stkCtxDay(); stkRender(c); }
+  function stkShowGoal() { stkClose(); const c = stkCtxGoal(); stkRender(c); }
+  // Los stickers también se ven pequeños dentro de la celda del calendario y en la tarjeta de la meta
+  const paintDayBase = paintDay;
+  paintDay = function (b, d, pop) { paintDayBase(b, d, pop); const i = data.days[d]; if (i && i.stk && i.stk.length) b.append(stkOverlay(i.stk)); };
+
   /* ================= Fechas importantes ================= */
   const DATE_KIND = { cumple: { name: 'Cumpleaños', icon: 'cake' }, aniv: { name: 'Aniversario', icon: 'heart' }, otro: { name: 'Otro', icon: 'sparkle' } };
   const ACT_COLORS = [
@@ -2416,7 +3021,7 @@
   }
 
   /* ================= Inicio ================= */
-  Promise.all([kvGet('prefs'), kvGet('sync-cfg'), kvGet('push-cfg'), loadActs(), loadVision(), loadNotified(), loadDates()]).then(([p, sc, pc]) => {
+  Promise.all([kvGet('prefs'), kvGet('sync-cfg'), kvGet('push-cfg'), loadActs(), loadHabits(), loadVision(), loadNotified(), loadDates()]).then(([p, sc, pc]) => {
     if (sc && sc.code) syncCfg = sc;
     if (pc && pc.secret) pushCfg = pc;
     if (p && typeof p === 'object') prefs = Object.assign(defaultPrefs(), p);
