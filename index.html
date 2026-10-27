@@ -310,14 +310,18 @@
   .hab-d.today .hd-c { box-shadow: 0 0 0 3px color-mix(in srgb, var(--hc) 30%, transparent); }
   .hab-empty { text-align: center; padding: 18px 8px; display: grid; gap: 10px; justify-items: center; }
   .wk-view { padding-bottom: 22px; }
-  .wk-pri { padding: 10px 14px 12px; margin-bottom: 12px; border-radius: 18px; background: #fff; border: 2px solid color-mix(in srgb, var(--accent) 45%, transparent); display: grid; gap: 8px; }
+  .wk-pri { padding: 10px 14px 12px; background-image: linear-gradient(135deg, color-mix(in srgb, var(--accent) 14%, #fff), #fff 60%) !important; margin-bottom: 12px; border-radius: 18px; background: #fff; border: 2px solid color-mix(in srgb, var(--accent) 45%, transparent); display: grid; gap: 8px; }
   .wk-prs { display: grid; grid-template-columns: 1fr; gap: 6px; }
   @media (min-width: 900px) { .wk-prs { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; } }
   .wk-h { margin: 0 0 2px; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
   .wk-pr { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 12px; border: 2px solid color-mix(in srgb, var(--accent) 50%, transparent); background: color-mix(in srgb, var(--accent) 6%, #fff); }
   .wk-in { margin: 0; padding: 4px 2px; min-width: 0; font-size: 14px; font-weight: 700; border: 0; background: transparent; border-radius: 6px; }
   .wk-in::placeholder { color: color-mix(in srgb, var(--accent) 60%, #fff); font-weight: 700; }
-  .wk-h { font-weight: 800; }
+  .wk-h { font-weight: 800; display: inline-block; justify-self: start; padding: 4px 14px; border-radius: 20px; background: var(--accent); color: var(--on-accent); letter-spacing: .08em; }
+  .wk-pr { border-left-width: 7px; border-color: var(--pc); background: color-mix(in srgb, var(--pc) 17%, #fff); box-shadow: 0 2px 6px color-mix(in srgb, var(--pc) 28%, transparent); }
+  .wk-pr:nth-child(1) { --pc: #F2457A; } .wk-pr:nth-child(2) { --pc: #FF8A2B; } .wk-pr:nth-child(3) { --pc: #F2B400; } .wk-pr:nth-child(4) { --pc: #22B07D; } .wk-pr:nth-child(5) { --pc: #4C7EDB; }
+  .wk-pr .chk { border-color: var(--pc); } .wk-pr .chk[aria-checked="true"] { background: var(--pc); color: #fff; }
+  .wk-in::placeholder { color: color-mix(in srgb, var(--pc) 85%, #555); }
   .wk-pr.done .wk-in { text-decoration: line-through; opacity: .6; }
   .wk-chips { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; margin-bottom: 12px; }
   .wk-chip { display: grid; justify-items: center; gap: 1px; padding: 6px 0 4px; border-radius: 16px; border: 1.5px solid var(--line); background: var(--surface); cursor: pointer; }
@@ -389,6 +393,20 @@
   .stk-edit .stk { pointer-events: auto; cursor: grab; }
   .stk-edit .stk:active { cursor: grabbing; }
   .stk.sel { outline: 2px dashed var(--accent); outline-offset: 4px; border-radius: 6px; z-index: 2; }
+  .stk img { display: block; width: 100%; height: auto; pointer-events: none; -webkit-user-drag: none; user-select: none; }
+  .photo-x { position: absolute; top: 10px; right: 10px; width: 38px; height: 38px; padding: 0; display: grid; place-items: center; border: 2px solid #fff; border-radius: 50%; background: #D64545; color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,.35); cursor: pointer; z-index: 2; }
+  .stk-up { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border: 2px dashed var(--accent) !important; color: var(--accent); font-size: 12px; font-weight: 800; background: transparent !important; min-height: 70px; }
+  .stk-my { position: relative; }
+  .stk-x { position: absolute; top: -6px; right: -6px; min-width: 26px; height: 26px; padding: 0 6px; display: grid; place-items: center; border: 2px solid #fff; border-radius: 13px; background: #D64545; color: #fff; font-size: 11px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.3); z-index: 2; }
+  .stk-note { grid-column: 1 / -1; margin: 4px 2px 0; font-size: 12px; color: var(--ink-soft); }
+  .bgpick .sw.add { display: grid; place-items: center; border: 2px dashed var(--accent); background: #fff; color: var(--accent); font-size: 20px; font-weight: 900; line-height: 1; padding: 0; }
+  .bgpick .sw.mine { background-size: cover !important; position: relative; }
+  .bgctl { flex-basis: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; font-size: 13px; }
+  .bgctl input[type=range] { width: 140px; accent-color: var(--accent); }
+  .bgctl .pill { cursor: pointer; }
+  .stk-rot { position: absolute; left: 50%; top: -42px; width: 26px; height: 26px; margin-left: -13px; border-radius: 50%; background: #fff; color: var(--accent); border: 3px solid var(--accent); box-shadow: 0 1px 4px rgba(0,0,0,.3); cursor: grab; touch-action: none; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 900; line-height: 1; }
+  .stk-rot::after { content: ''; position: absolute; left: 50%; top: 100%; width: 2px; height: 14px; margin-left: -1px; background: var(--accent); }
+  .stk-ang { position: absolute; left: 50%; top: -72px; transform: translateX(-50%); padding: 2px 8px; border-radius: 10px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 800; white-space: nowrap; pointer-events: none; }
   .stk-h { position: absolute; right: -14px; bottom: -14px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); border: 3px solid #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, .3); cursor: nwse-resize; touch-action: none; }
   .stk-btn { margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; }
   .stk-btn[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
@@ -398,10 +416,11 @@
   .stk-tab.on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
   .stk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 8px; max-height: 210px; overflow-y: auto; padding: 2px; }
   .stk-pick { display: grid; place-items: center; height: 66px; padding: 6px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; }
-  .stk-pick svg { max-width: 100%; max-height: 100%; width: auto; height: auto; }
+  .stk-pick svg, .stk-pick img { max-width: 100%; max-height: 100%; width: auto; height: auto; pointer-events: none; }
   .stk-pick:hover { border-color: var(--accent); }
   .stk-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); }
   .stk-b { min-width: 42px; height: 40px; padding: 0 10px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 18px; font-weight: 800; cursor: pointer; }
+  .stk-b.wide { font-size: 14px; }
   .stk-b.del { border-color: #D64545; } .stk-b:last-child { background: var(--accent); color: var(--on-accent); border-color: var(--accent); margin-left: auto; }
   .arep { display: inline-grid; place-items: center; margin-left: 6px; color: var(--ink-soft); }
   .aico { display: inline-grid; place-items: center; width: 18px; height: 18px; margin-right: 2px; color: var(--accent); }
@@ -694,6 +713,8 @@
     <button class="done-btn" id="dDone" type="button" aria-pressed="false"></button>
     <p class="sh-status js-status"></p>
     <input type="file" id="dFile" accept="image/*" hidden>
+    <input type="file" id="stkFile" accept="image/*" multiple hidden>
+    <input type="file" id="bgFile" accept="image/*" multiple hidden>
   </div>
 </div>
 
@@ -1177,6 +1198,33 @@
       img.src = src;
     }));
   }
+  // Sticker propio: reduce la imagen, quita el fondo blanco si no es transparente y recorta los bordes vacíos
+  function imgToSticker(file, max) {
+    return readFile(file).then(src => new Promise((res, rej) => {
+      const img = new Image();
+      img.onload = () => {
+        const sc = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight)), w = Math.max(1, Math.round(img.naturalWidth * sc)), h = Math.max(1, Math.round(img.naturalHeight * sc));
+        const c = document.createElement('canvas'); c.width = w; c.height = h; const x = c.getContext('2d', { willReadFrequently: true }); x.drawImage(img, 0, 0, w, h);
+        let id; try { id = x.getImageData(0, 0, w, h); } catch (e) { rej(e); return; }
+        const d = id.data, at = (px, py) => (py * w + px) * 4, white = i => d[i + 3] > 245 && d[i] > 232 && d[i + 1] > 232 && d[i + 2] > 232;
+        if ([[0, 0], [w - 1, 0], [0, h - 1], [w - 1, h - 1]].every(p => white(at(p[0], p[1])))) {
+          const seen = new Uint8Array(w * h), st = [];
+          const push = (px, py) => { if (px < 0 || py < 0 || px >= w || py >= h) return; const k = py * w + px; if (seen[k]) return; seen[k] = 1; if (white(k * 4)) { d[k * 4 + 3] = 0; st.push(k); } };
+          for (let i = 0; i < w; i++) { push(i, 0); push(i, h - 1); } for (let j = 0; j < h; j++) { push(0, j); push(w - 1, j); }
+          while (st.length) { const k = st.pop(), px = k % w, py = (k - px) / w; push(px + 1, py); push(px - 1, py); push(px, py + 1); push(px, py - 1); }
+          // borde suave: los píxeles claros pegados al fondo quitado se vuelven semitransparentes
+          for (let py = 1; py < h - 1; py++) for (let px = 1; px < w - 1; px++) { const i = at(px, py); if (d[i + 3] === 255 && (d[at(px + 1, py) + 3] === 0 || d[at(px - 1, py) + 3] === 0 || d[at(px, py + 1) + 3] === 0 || d[at(px, py - 1) + 3] === 0)) { const m = Math.min(d[i], d[i + 1], d[i + 2]); if (m > 200) d[i + 3] = Math.max(0, 255 - (m - 200) * 4); } }
+          x.putImageData(id, 0, 0);
+        }
+        let x0 = w, y0 = h, x1 = -1, y1 = -1; for (let py = 0; py < h; py++) for (let px = 0; px < w; px++) if (d[at(px, py) + 3] > 10) { if (px < x0) x0 = px; if (px > x1) x1 = px; if (py < y0) y0 = py; if (py > y1) y1 = py; }
+        if (x1 < 0) { rej(new Error('vacio')); return; }
+        const cw = x1 - x0 + 1, ch = y1 - y0 + 1, c2 = document.createElement('canvas'); c2.width = cw; c2.height = ch; c2.getContext('2d').drawImage(c, x0, y0, cw, ch, 0, 0, cw, ch);
+        let out = c2.toDataURL('image/webp', .9); if (out.indexOf('data:image/webp') !== 0) out = c2.toDataURL('image/png');
+        res(out);
+      };
+      img.onerror = () => rej(new Error('img')); img.src = src;
+    }));
+  }
   function renderPhotoBox(box, photo, alt, onPick, onRemove) {
     box.replaceChildren();
     if (photo) {
@@ -1184,7 +1232,8 @@
       const im = el('img', { alt: alt }); im.src = photo;
       const b1 = el('button', { type: 'button', class: 'pill', text: 'Cambiar' }); b1.addEventListener('click', onPick);
       const b2 = el('button', { type: 'button', class: 'pill', text: 'Quitar' }); b2.addEventListener('click', onRemove);
-      wrapEl.append(im, el('div', { class: 'photo-acts' }, b1, b2)); box.append(wrapEl);
+      const bx = el('button', { type: 'button', class: 'photo-x', 'aria-label': 'Quitar foto', title: 'Quitar foto' }); bx.innerHTML = svg('trash', 18, 2.4); bx.addEventListener('click', onRemove);
+      wrapEl.append(im, bx, el('div', { class: 'photo-acts' }, b1, b2)); box.append(wrapEl);
     } else {
       const add = el('button', { type: 'button', class: 'photo-add' });
       add.innerHTML = svg('camera', 24) + '<span>Agregar una foto</span>';
@@ -1213,10 +1262,36 @@
     const mk = (id, name, bg, on) => { const b = el('button', { type: 'button', class: 'sw', role: 'radio', 'aria-checked': String(on), 'aria-label': 'Fondo ' + name, title: name }); b.style.background = bg; b.addEventListener('click', () => { prefs.bg = id; savePrefs(); renderTheme(); }); box.append(b); };
     mk(null, 'automático', 'conic-gradient(#F4C9A8, #F7B6CF, #CBB5F5, #B7E4D2, #F4C9A8)', !prefs.bg);
     BG_CHOICES.forEach(c => mk(c[0], c[1], c[4] ? bgTile(c) + ' 0 0/22px 22px' : 'linear-gradient(135deg,' + c[2] + ',' + c[3] + ')', prefs.bg === c[0]));
+    (prefs.myBg || []).forEach(it => { mk('u:' + it.id, 'Mi fondo', 'url("' + it.src + '") center/cover', prefs.bg === 'u:' + it.id); box.lastChild.classList.add('mine'); });
+    const addB = el('button', { type: 'button', class: 'sw add', 'aria-label': 'Subir mi propio fondo', title: 'Subir mi propio fondo', text: '+' }); addB.addEventListener('click', () => { if ((prefs.myBg || []).length >= 8) { toast('Máximo 8 fondos propios. Quita uno para agregar otro.'); return; } $('#bgFile').click(); }); box.append(addB);
+    const cur = typeof prefs.bg === 'string' && prefs.bg.indexOf('u:') === 0 ? (prefs.myBg || []).find(x => 'u:' + x.id === prefs.bg) : null;
+    if (cur) {
+      const ctl = el('div', { class: 'bgctl' }); const lbT = el('span', { text: 'Claridad' });
+      const rg = el('input', { type: 'range', min: '0', max: '85', 'aria-label': 'Claridad del fondo' }); rg.value = prefs.bgVeil === undefined ? 30 : prefs.bgVeil;
+      rg.addEventListener('input', () => { prefs.bgVeil = +rg.value; savePrefs(); applyBgVeil(); });
+      const del = el('button', { type: 'button', class: 'pill', text: 'Quitar este fondo' }); del.addEventListener('click', () => { prefs.myBg = prefs.myBg.filter(x => x !== cur); prefs.bg = null; savePrefs(); renderTheme(); toast('Fondo quitado'); });
+      ctl.append(lbT, rg, del); box.append(ctl);
+    }
   }
+  function applyBgVeil() {
+    const rs = document.documentElement.style, v = (prefs.bgVeil === undefined ? 30 : prefs.bgVeil) / 100, vv = 'rgba(255,255,255,' + v + ')';
+    rs.setProperty('--bgimg', 'linear-gradient(' + vv + ',' + vv + '), var(--bgurl)'); rs.setProperty('--bgsz', 'auto, cover');
+  }
+  $('#bgFile').addEventListener('change', e => {
+    const files = [].slice.call(e.target.files); e.target.value = ''; if (!files.length) return;
+    (async () => {
+      let ok = 0, bad = 0;
+      for (const f of files) {
+        if ((prefs.myBg || []).length >= 8) break;
+        try { const src = await fileToDataURL(f, 1300, .78); prefs.myBg = prefs.myBg || []; const it = { id: uid(), src: src }; prefs.myBg.push(it); prefs.bg = 'u:' + it.id; ok++; } catch (err) { bad++; }
+      }
+      if (ok) { savePrefs(); renderTheme(); toast(ok === 1 ? 'Fondo agregado' : ok + ' fondos agregados'); }
+      if (bad) toast('Alguna imagen no se pudo leer.');
+    })();
+  });
   function renderTheme() {
     const s = season(), S = SEASONS[s];
-    { const bc = BG_CHOICES.find(c => c[0] === prefs.bg), rs = document.documentElement.style; if (bc) { rs.setProperty('--bga-l', bc[2]); rs.setProperty('--bgb-l', bc[3]); if (bc[4]) { rs.setProperty('--bgimg', 'linear-gradient(rgba(255,255,255,.52),rgba(255,255,255,.52)), ' + bgTile(bc)); rs.setProperty('--bgsz', 'auto, 56px 56px'); } else { rs.removeProperty('--bgimg'); rs.removeProperty('--bgsz'); } } else { rs.removeProperty('--bga-l'); rs.removeProperty('--bgb-l'); rs.removeProperty('--bgimg'); rs.removeProperty('--bgsz'); } }
+    { const bc = BG_CHOICES.find(c => c[0] === prefs.bg), rs = document.documentElement.style, cu = typeof prefs.bg === 'string' && prefs.bg.indexOf('u:') === 0 ? (prefs.myBg || []).find(x => 'u:' + x.id === prefs.bg) : null; if (cu) { rs.setProperty('--bga-l', '#FFF7F3'); rs.setProperty('--bgb-l', '#F7E4DC'); rs.setProperty('--bgurl', 'url("' + cu.src + '")'); applyBgVeil(); } else if (bc) { rs.removeProperty('--bgurl'); rs.setProperty('--bga-l', bc[2]); rs.setProperty('--bgb-l', bc[3]); if (bc[4]) { rs.setProperty('--bgimg', 'linear-gradient(rgba(255,255,255,.52),rgba(255,255,255,.52)), ' + bgTile(bc)); rs.setProperty('--bgsz', 'auto, 56px 56px'); } else { rs.removeProperty('--bgimg'); rs.removeProperty('--bgsz'); } } else { rs.removeProperty('--bga-l'); rs.removeProperty('--bgb-l'); rs.removeProperty('--bgimg'); rs.removeProperty('--bgsz'); } }
     renderBgPick();
     document.documentElement.dataset.season = s;
     // selector
@@ -2882,11 +2957,16 @@
   });
 
   /* ================= Stickers: colocar, mover, cambiar tamaño ================= */
-  const STK_W = { palabras: 40, cintas: 38, papel: 28, lazos: 24 };
+  const STK_W = { palabras: 40, cintas: 38, papel: 28, lazos: 24, mis: 30 };
   const stkLang = () => I18N.lang() === 'en' ? 1 : 0;
-  const stkName = k => (STK[k] || { n: ['', ''] }).n[stkLang()];
+  function stkDef(k) {
+    if (STK[k]) return STK[k];
+    if (typeof k === 'string' && k.indexOf('u:') === 0) { const it = (prefs.myStk || []).find(x => x.id === k.slice(2)); if (it) return { g: 'mis', n: ['Mi sticker', 'My sticker'], svg: '<img alt="" draggable="false" src="' + it.src + '">' }; }
+    return null;
+  }
+  const stkName = k => (stkDef(k) || { n: ['', ''] }).n[stkLang()];
   function stkNode(st, live) {
-    const s = STK[st.k]; if (!s) return null;
+    const s = stkDef(st.k); if (!s) return null;
     const d = el('div', { class: 'stk' }); d.dataset.id = st.id;
     d.style.left = st.x + '%'; d.style.top = st.y + '%'; d.style.width = st.w + '%'; d.style.setProperty('--r', (st.r || 0) + 'deg');
     d.innerHTML = s.svg;
@@ -2911,14 +2991,14 @@
     ctx.layer.replaceChildren();
     ctx.get().forEach(st => {
       const n = stkNode(st, true); if (!n) return;
-      if (stk.sel === st.id && stk.ctx && stk.ctx.layer === ctx.layer) { n.classList.add('sel'); const h = el('span', { class: 'stk-h', 'aria-label': 'Cambiar tamaño' }); n.append(h); bindResize(h, n, st, ctx); }
+      if (stk.sel === st.id && stk.ctx && stk.ctx.layer === ctx.layer) { n.classList.add('sel'); const h = el('span', { class: 'stk-h', 'aria-label': 'Cambiar tamaño' }); n.append(h); bindResize(h, n, st, ctx); const rh = el('span', { class: 'stk-rot', 'aria-label': 'Girar', text: '⟳' }); n.append(rh); bindRotate(rh, n, st, ctx); }
       bindDrag(n, st, ctx);
       ctx.layer.append(n);
     });
   }
   function bindDrag(n, st, ctx) {
     n.addEventListener('pointerdown', e => {
-      if (!ctx.zone.classList.contains('stk-edit') || e.target.classList.contains('stk-h')) return;
+      if (!ctx.zone.classList.contains('stk-edit') || e.target.classList.contains('stk-h') || e.target.classList.contains('stk-rot')) return;
       e.preventDefault(); e.stopPropagation();
       if (stk.sel !== st.id) { stk.sel = st.id; stkRender(ctx); stkBar(); const nn = ctx.layer.querySelector('.stk[data-id="' + st.id + '"]'); if (nn) { startDrag(nn, e); } return; }
       startDrag(n, e);
@@ -2941,23 +3021,70 @@
       h.addEventListener('pointermove', mv); h.addEventListener('pointerup', up); h.addEventListener('pointercancel', up);
     });
   }
+  function bindRotate(h, n, st, ctx) {
+    h.addEventListener('pointerdown', e => {
+      e.preventDefault(); e.stopPropagation();
+      const r = n.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      try { h.setPointerCapture(e.pointerId); } catch (x) {}
+      const tip = el('span', { class: 'stk-ang' }); n.append(tip);
+      const mv = m => {
+        let a = Math.atan2(m.clientY - cy, m.clientX - cx) * 180 / Math.PI + 90; a = ((a + 540) % 360) - 180;
+        [0, 45, 90, 135, 180, -45, -90, -135, -180].forEach(t => { if (Math.abs(a - t) < 6) a = t; });
+        st.r = Math.round(a); n.style.setProperty('--r', st.r + 'deg'); tip.textContent = st.r === 0 ? '0° · recto' : st.r + '°';
+      };
+      mv(e);
+      const up = () => { h.removeEventListener('pointermove', mv); h.removeEventListener('pointerup', up); h.removeEventListener('pointercancel', up); tip.remove(); ctx.commit(); };
+      h.addEventListener('pointermove', mv); h.addEventListener('pointerup', up); h.addEventListener('pointercancel', up);
+    });
+  }
   function stkSelected() { return stk.ctx && stk.sel ? stk.ctx.get().find(x => x.id === stk.sel) : null; }
   function stkBar() { if (!stk.tray) return; const bar = stk.tray.querySelector('.stk-bar'); bar.hidden = !stkSelected(); }
   function stkTweak(fn) { const st = stkSelected(); if (!st) return; fn(st); stk.ctx.commit(); stkRender(); }
+  function myStkDelete(id) {
+    const k = 'u:' + id;
+    prefs.myStk = (prefs.myStk || []).filter(x => x.id !== id); savePrefs();
+    Object.keys(data.days).forEach(d => { const i = data.days[d]; if (i && i.stk) i.stk = i.stk.filter(z => z.k !== k); });
+    data.goals.forEach(g => { if (g.stk) g.stk = g.stk.filter(z => z.k !== k); });
+    markDirty(); if (stk.sel && !stkSelected()) stk.sel = null;
+    renderCalendar(); renderGoals(); stkRender(); stkBar(); stkBuildTray(); toast('Sticker borrado');
+  }
+  $('#stkFile').addEventListener('change', e => {
+    const files = [].slice.call(e.target.files); e.target.value = ''; if (!files.length) return;
+    (async () => {
+      let ok = 0, bad = 0;
+      for (const f of files) {
+        if ((prefs.myStk || []).length >= 40) { toast('Máximo 40 stickers propios.'); break; }
+        try { const src = await imgToSticker(f, 440); prefs.myStk = prefs.myStk || []; prefs.myStk.push({ id: uid(), src: src }); ok++; } catch (err) { bad++; }
+      }
+      if (ok) { savePrefs(); stk.tab = 'mis'; if (stk.tray) stkBuildTray(); toast(ok === 1 ? 'Sticker agregado' : ok + ' stickers agregados'); }
+      if (bad) toast('Alguna imagen no se pudo leer.');
+    })();
+  });
   function stkBuildTray() {
     const t = stk.tray, ctx = stk.ctx; t.replaceChildren();
     const cs = season();
-    const order = STK_GROUPS.slice().sort((a, b) => (a.id === cs ? -1 : 0) - (b.id === cs ? -1 : 0));
-    if (!stk.tab) stk.tab = order[0].id;
+    const base = STK_GROUPS.slice().sort((a, b) => (a.id === cs ? -1 : 0) - (b.id === cs ? -1 : 0));
+    const order = [{ id: 'mis', n: ['Mis stickers', 'My stickers'] }].concat(base);
+    if (!stk.tab) stk.tab = base[0].id;
     const tabs = el('div', { class: 'stk-tabs', role: 'tablist' });
     order.forEach(g => { const b = el('button', { type: 'button', class: 'stk-tab' + (g.id === stk.tab ? ' on' : ''), role: 'tab', 'aria-selected': String(g.id === stk.tab), text: g.n[stkLang()] }); b.dataset.noi18n = '1'; b.addEventListener('click', () => { stk.tab = g.id; stkBuildTray(); }); tabs.append(b); });
     const grid = el('div', { class: 'stk-grid' });
-    Object.keys(STK).filter(k => STK[k].g === stk.tab && (stk.tab !== 'palabras' || k.endsWith(stkLang() ? '-en' : '-es'))).forEach(k => {
-      const b = el('button', { type: 'button', class: 'stk-pick', 'aria-label': stkName(k) }); b.innerHTML = STK[k].svg;
-      b.addEventListener('click', () => {
-        const g = STK[k].g, st = { id: uid(), k: k, x: 50 + (Math.random() * 16 - 8), y: 38 + (Math.random() * 16 - 8), w: STK_W[g] || 22, r: Math.round(Math.random() * 16 - 8) };
-        ctx.arr().push(st); stk.sel = st.id; ctx.commit(); stkRender(); stkBar();
+    const place = (k, g) => { const st = { id: uid(), k: k, x: 50 + (Math.random() * 16 - 8), y: 38 + (Math.random() * 16 - 8), w: STK_W[g] || 22, r: 0 }; ctx.arr().push(st); stk.sel = st.id; ctx.commit(); stkRender(); stkBar(); };
+    if (stk.tab === 'mis') {
+      const up = el('button', { type: 'button', class: 'stk-pick stk-up', 'aria-label': 'Subir un sticker' }); up.innerHTML = svg('camera', 22, 2) + '<span>Subir</span>';
+      up.addEventListener('click', () => { if ((prefs.myStk || []).length >= 40) { toast('Máximo 40 stickers propios. Borra alguno para agregar otro.'); return; } $('#stkFile').click(); });
+      grid.append(up);
+      (prefs.myStk || []).forEach(it => {
+        const w = el('div', { class: 'stk-my' }); const b = el('button', { type: 'button', class: 'stk-pick', 'aria-label': 'Mi sticker' }); b.innerHTML = '<img alt="" draggable="false" src="' + it.src + '">';
+        b.addEventListener('click', () => place('u:' + it.id, 'mis'));
+        const x = el('button', { type: 'button', class: 'stk-x', 'aria-label': 'Borrar este sticker' }); x.innerHTML = svg('trash', 14, 2.4); let armed = null;
+        x.addEventListener('click', e => { e.stopPropagation(); if (armed) { clearTimeout(armed); myStkDelete(it.id); return; } x.textContent = '¿Borrar?'; x.dataset.noi18n = '1'; armed = setTimeout(() => { armed = null; x.innerHTML = svg('trash', 14, 2.4); }, 3000); });
+        w.append(b, x); grid.append(w);
       });
+      grid.append(el('p', { class: 'stk-note', text: (prefs.myStk || []).length ? 'Toca la papelera y otra vez para borrar. Los PNG transparentes de Canva se ven mejor.' : 'Sube tus propios stickers desde tu teléfono o computadora (PNG transparente de Canva, o una foto con fondo blanco).' }));
+    } else Object.keys(STK).filter(k => STK[k].g === stk.tab && (stk.tab !== 'palabras' || k.endsWith(stkLang() ? '-en' : '-es'))).forEach(k => {
+      const b = el('button', { type: 'button', class: 'stk-pick', 'aria-label': stkName(k) }); b.innerHTML = STK[k].svg;
+      b.addEventListener('click', () => place(k, STK[k].g));
       grid.append(b);
     });
     const bar = el('div', { class: 'stk-bar', hidden: true });
@@ -2965,8 +3092,9 @@
     bar.append(
       mk('−', 'Más pequeño', () => stkTweak(s => { s.w = Math.max(6, s.w * .85); })),
       mk('+', 'Más grande', () => stkTweak(s => { s.w = Math.min(90, s.w * 1.18); })),
-      mk('⟲', 'Girar a la izquierda', () => stkTweak(s => { s.r = (s.r || 0) - 15; })),
-      mk('⟳', 'Girar a la derecha', () => stkTweak(s => { s.r = (s.r || 0) + 15; })),
+      mk('⟲', 'Girar a la izquierda', () => stkTweak(s => { s.r = (s.r || 0) - 5; })),
+      mk('⟳', 'Girar a la derecha', () => stkTweak(s => { s.r = (s.r || 0) + 5; })),
+      mk('Recto', 'Enderezar', () => stkTweak(s => { s.r = 0; }), 'wide'),
       mk('⧉', 'Duplicar', () => { const s = stkSelected(); if (!s) return; const c = Object.assign({}, s, { id: uid(), x: Math.min(95, s.x + 6), y: Math.min(95, s.y + 6) }); ctx.arr().push(c); stk.sel = c.id; ctx.commit(); stkRender(); stkBar(); }),
       mk('🗑', 'Quitar sticker', () => { const s = stkSelected(); if (!s) return; const a = ctx.arr(); a.splice(a.indexOf(s), 1); stk.sel = null; ctx.commit(); stkRender(); stkBar(); }, 'del'),
       mk('✓', 'Listo', () => { stk.sel = null; stkRender(); stkBar(); })
