@@ -375,6 +375,7 @@
   .tl-blk.pap { background-size: 48px 48px; }
   .adot.pap { background-size: 16px 16px; }
   .deco { display: inline-block; flex: none; animation: decoFloat 3.6s ease-in-out infinite; transform-origin: 50% 70%; filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.28)); }
+  .deco img { display: block; width: 100%; height: 100%; object-fit: contain; }
   .deco svg { display: block; width: 100%; height: 100%; overflow: visible; }
   .aico:has(.deco) { width: auto; height: auto; }
   .tl-blk:not(.pap) .aico:has(.deco), .inner.vivid .ico:has(.deco) { background: rgba(255,255,255,.92); border-radius: 50%; padding: 3px; box-sizing: content-box; }
@@ -401,9 +402,31 @@
   .stk-note { grid-column: 1 / -1; margin: 4px 2px 0; font-size: 12px; color: var(--ink-soft); }
   .bgpick .sw.add { display: grid; place-items: center; border: 2px dashed var(--accent); background: #fff; color: var(--accent); font-size: 20px; font-weight: 900; line-height: 1; padding: 0; }
   .bgpick .sw.mine { background-size: cover !important; position: relative; }
+  .bgtog { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; padding: 6px 14px; } .bgdot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--line); } .bgchev { font-size: 11px; }
   .bgctl { flex-basis: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; font-size: 13px; }
   .bgctl input[type=range] { width: 140px; accent-color: var(--accent); }
   .bgctl .pill { cursor: pointer; }
+  .wn-sub { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 2px 0 12px; font-size: 13px; font-weight: 700; color: var(--ink-soft); }
+  .wn-day { margin: 14px 0 6px; font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+  .wn-day::after { content: ''; flex: 1; height: 2px; border-radius: 2px; background: var(--line); }
+  .wn-day.today { color: var(--ink); }
+  .wn-grid { column-count: 1; column-gap: 12px; }
+  @media (min-width: 560px) { .wn-grid { column-count: 2; } } @media (min-width: 980px) { .wn-grid { column-count: 3; } }
+  .wn-card { position: relative; display: block; width: 100%; margin: 0 0 12px; padding: 14px 14px 12px; text-align: left; cursor: pointer; break-inside: avoid; border: 2px solid var(--nc); border-radius: 18px; background: color-mix(in srgb, var(--nc) 38%, #fff); color: #3A2A24; box-shadow: 0 3px 8px color-mix(in srgb, var(--nc) 35%, transparent); overflow: hidden; font: inherit; }
+  .wn-card::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 8px; background: var(--nc); }
+  .wn-kind { display: inline-flex; align-items: center; gap: 5px; margin: 6px 0 4px; padding: 2px 9px; border-radius: 99px; background: rgba(255,255,255,.75); font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+  .wn-kind svg { width: 13px; height: 13px; }
+  .wn-t { margin: 2px 0 4px; font-size: 17px; font-weight: 800; line-height: 1.2; overflow-wrap: anywhere; }
+  .wn-ln { display: flex; gap: 8px; align-items: flex-start; margin: 3px 0; font-size: 14px; line-height: 1.35; overflow-wrap: anywhere; position: relative; z-index: 1; }
+  .wn-ln .mk { flex: none; width: 18px; text-align: center; font-weight: 900; }
+  .wn-ln.q { font-style: italic; border-left: 3px solid rgba(0,0,0,.25); padding-left: 8px; }
+  .wn-ln.imp { font-weight: 800; }
+  .wn-ln.done .tx { text-decoration: line-through; opacity: .6; }
+  .wn-chk { flex: none; width: 20px; height: 20px; margin-top: 1px; padding: 0; display: grid; place-items: center; border: 2px solid #3A2A24; border-radius: 6px; background: rgba(255,255,255,.85); color: #3A2A24; cursor: pointer; }
+  .wn-card .stk-ov { z-index: 3; }
+  .wn-empty { margin: 22px 8px; text-align: center; color: var(--ink-soft); font-weight: 700; }
+  .wn-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+  .wn-tools button { padding: 6px 11px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 13px; font-weight: 800; cursor: pointer; color: var(--ink); }
   .stk-rot { position: absolute; left: 50%; top: -42px; width: 26px; height: 26px; margin-left: -13px; border-radius: 50%; background: #fff; color: var(--accent); border: 3px solid var(--accent); box-shadow: 0 1px 4px rgba(0,0,0,.3); cursor: grab; touch-action: none; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 900; line-height: 1; }
   .stk-rot::after { content: ''; position: absolute; left: 50%; top: 100%; width: 2px; height: 14px; margin-left: -1px; background: var(--accent); }
   .stk-ang { position: absolute; left: 50%; top: -72px; transform: translateX(-50%); padding: 2px 8px; border-radius: 10px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 800; white-space: nowrap; pointer-events: none; }
@@ -586,6 +609,7 @@
       <button class="nav-btn" type="button" data-nav="goals"><i data-ic="target"></i><span>Metas</span></button>
       <button class="nav-btn active" type="button" data-nav="cal"><i data-ic="calendar"></i><span>Calendario</span></button>
       <button class="nav-btn" type="button" data-nav="week"><i data-ic="calendar"></i><span>Semana</span></button>
+      <button class="nav-btn" type="button" data-nav="wn"><i data-ic="note"></i><span>Weekly Notes</span></button>
       <button class="nav-btn" type="button" data-nav="habits"><i data-ic="check"></i><span>Hábitos</span></button>
       <button class="nav-btn" type="button" data-nav="gallery"><i data-ic="image"></i><span>Galería</span></button>
       <button class="nav-btn" type="button" data-nav="vision"><i data-ic="eye"></i><span>My Vision</span></button>
@@ -648,6 +672,18 @@
     <div class="wk-chips" id="wkChips" role="group" aria-label="Días de la semana"></div>
     <div class="tl-legend"><span><i class="lg busy"></i>Ocupado</span><span><i class="lg free"></i>Disponible</span></div>
     <div class="tl" id="wkGrid"></div>
+  </section>
+
+  <section class="panel wn-view" id="wnView" hidden aria-label="Weekly Notes">
+    <div class="sec-row"><h2 class="sec-title"><span class="sec-ico"><i data-ic="note"></i></span>Weekly Notes</h2>
+      <button class="chip sm" type="button" id="wnAdd" style="--cat:var(--accent)"><i data-ic="plus"></i><span>Nueva nota</span></button></div>
+    <div class="hab-week">
+      <button class="icon-btn" type="button" id="wnPrev" aria-label="Semana anterior"><i data-ic="left"></i></button>
+      <div class="hab-wlbl" id="wnLbl"></div>
+      <button class="icon-btn" type="button" id="wnNext" aria-label="Semana siguiente"><i data-ic="right"></i></button>
+    </div>
+    <div class="wn-sub"><span id="wnCount"></span><button class="pill" type="button" id="wnToday" hidden>Ir a esta semana</button></div>
+    <div id="wnBody"></div>
   </section>
 
   <section class="panel hab-view" id="habitsView" hidden aria-label="Hábitos">
@@ -715,6 +751,7 @@
     <input type="file" id="dFile" accept="image/*" hidden>
     <input type="file" id="stkFile" accept="image/*" multiple hidden>
     <input type="file" id="bgFile" accept="image/*" multiple hidden>
+    <input type="file" id="papFile" accept="image/*" multiple hidden>
   </div>
 </div>
 
@@ -736,6 +773,34 @@
     <button class="ghost-btn" id="gDel" type="button"><i data-ic="trash"></i>Eliminar meta</button>
     <p class="sh-status js-status"></p>
     <input type="file" id="gFile" accept="image/*" hidden>
+  </div>
+</div>
+
+<!-- Weekly Notes -->
+<div class="scrim" id="m-wn">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="nHead" tabindex="-1">
+    <div class="sh-head">
+      <div><p class="sh-dow" id="nWeek"></p><h2 class="sh-date" id="nHead">Nota de la semana</h2></div>
+      <button class="icon-btn close" type="button" aria-label="Cerrar"></button>
+    </div>
+    <label class="lbl" for="nTitle">Título</label>
+    <input class="field" id="nTitle" type="text" maxlength="70" placeholder="Ej. Ideas para esta semana">
+    <p class="lbl">Tipo</p>
+    <div class="chips" id="nKinds" role="radiogroup" aria-label="Tipo de nota"></div>
+    <p class="lbl">Color</p>
+    <div class="acolors" id="nColors" role="radiogroup" aria-label="Color de la nota"></div>
+    <label class="lbl" for="nText">Escribe aquí</label>
+    <div class="wn-tools" id="nTools" role="group" aria-label="Insertar"></div>
+    <div class="stk-zone" id="nZone">
+      <textarea id="nText" maxlength="4000" style="min-height:190px" placeholder="Listas, ideas, recordatorios, reflexiones…"></textarea>
+      <div class="stk-layer" id="nLayer"></div>
+    </div>
+    <button class="ghost-btn stk-btn" id="nStkBtn" type="button" aria-pressed="false"><i data-ic="flower"></i>Stickers</button>
+    <label class="lbl" for="nDate">Fecha de la nota</label>
+    <input class="field" id="nDate" type="date">
+    <button class="done-btn solid" id="nDone" type="button">Listo</button>
+    <button class="ghost-btn" id="nDel" type="button"><i data-ic="trash"></i>Eliminar nota</button>
+    <p class="sh-status js-status"></p>
   </div>
 </div>
 
@@ -1149,7 +1214,7 @@
   let dirty = false, saveTimer = null, prefsTimer = null, navToken = 0;
   let openDay = null, openGoalId = null, modal = null, modalReturn = null, filterCat = null, newSwatch = SWATCHES[0];
 
-  const isDataKey = k => k === 'prefs' || k === 'acts' || k === 'habits' || /^w:\d{4}-\d{2}-\d{2}$/.test(k) || k === 'vision' || k === 'dates' || /^m:\d{4}-\d{2}$/.test(k);
+  const isDataKey = k => k === 'prefs' || k === 'acts' || k === 'habits' || /^w:\d{4}-\d{2}-\d{2}$/.test(k) || k === 'vision' || k === 'wnotes' || k === 'dates' || /^m:\d{4}-\d{2}$/.test(k);
   const monthKey = (y, m) => 'm:' + y + '-' + String(m + 1).padStart(2, '0');
   const daysInMonth = () => new Date(cur.y, cur.m + 1, 0).getDate();
   const season = () => prefs.season || seasonOfMonth(cur.m);
@@ -1177,8 +1242,8 @@
     prefsDirty = false;
     return kvSet('prefs', prefs).then(ok => { if (!ok) persistent = false; setStatus('saved'); scheduleSync(); });
   }
-  document.addEventListener('visibilitychange', () => { if (document.hidden) { flush(); flushPrefs(); flushVision(); } else { scheduleSync(600); localTick(); schedulePushSync(1500); if (leadPending) sendLead(leadPending); } });
-  window.addEventListener('pagehide', () => { flush(); flushPrefs(); flushVision(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) { flush(); flushPrefs(); flushVision(); flushWN(); } else { scheduleSync(600); localTick(); schedulePushSync(1500); if (leadPending) sendLead(leadPending); } });
+  window.addEventListener('pagehide', () => { flush(); flushPrefs(); flushVision(); flushWN(); });
   window.addEventListener('online', () => { scheduleSync(600); schedulePushSync(800); });
 
   /* ================= Fotos ================= */
@@ -1256,9 +1321,15 @@
     else b = '<rect width="56" height="56" fill="' + c1 + '"/><path transform="translate(14 17) scale(1.6)" d="M0 7C-9 0 -7 -8 0 -4C7 -8 9 0 0 7Z" fill="#fff"/><path transform="translate(42 45) scale(1.6)" d="M0 7C-9 0 -7 -8 0 -4C7 -8 9 0 0 7Z" fill="#fff"/><path transform="translate(42 14) scale(.8)" d="M0 7C-9 0 -7 -8 0 -4C7 -8 9 0 0 7Z" fill="' + c2 + '"/><path transform="translate(14 45) scale(.8)" d="M0 7C-9 0 -7 -8 0 -4C7 -8 9 0 0 7Z" fill="' + c2 + '"/>';
     return 'url("data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56">' + b + '</svg>') + '")';
   };
+  let bgOpen = false;
   function renderBgPick() {
     const box = $('#bgPick'); box.replaceChildren();
-    const lb = el('span', { text: 'Fondo' }); box.append(lb);
+    const curC = BG_CHOICES.find(c => c[0] === prefs.bg), curU = typeof prefs.bg === 'string' && prefs.bg.indexOf('u:') === 0 ? (prefs.myBg || []).find(x => 'u:' + x.id === prefs.bg) : null;
+    const curBg = curU ? 'url("' + curU.src + '") center/cover' : curC ? (curC[4] ? bgTile(curC) + ' 0 0/16px 16px' : 'linear-gradient(135deg,' + curC[2] + ',' + curC[3] + ')') : 'conic-gradient(#F4C9A8, #F7B6CF, #CBB5F5, #B7E4D2, #F4C9A8)';
+    const tg = el('button', { type: 'button', class: 'pill bgtog', 'aria-expanded': String(bgOpen) });
+    tg.innerHTML = '<span class="bgdot"></span><span>Fondo</span><span class="bgchev">' + (bgOpen ? '▴' : '▾') + '</span>'; tg.firstChild.style.background = curBg;
+    tg.addEventListener('click', () => { bgOpen = !bgOpen; renderBgPick(); }); box.append(tg);
+    if (!bgOpen) return;
     const mk = (id, name, bg, on) => { const b = el('button', { type: 'button', class: 'sw', role: 'radio', 'aria-checked': String(on), 'aria-label': 'Fondo ' + name, title: name }); b.style.background = bg; b.addEventListener('click', () => { prefs.bg = id; savePrefs(); renderTheme(); }); box.append(b); };
     mk(null, 'automático', 'conic-gradient(#F4C9A8, #F7B6CF, #CBB5F5, #B7E4D2, #F4C9A8)', !prefs.bg);
     BG_CHOICES.forEach(c => mk(c[0], c[1], c[4] ? bgTile(c) + ' 0 0/22px 22px' : 'linear-gradient(135deg,' + c[2] + ',' + c[3] + ')', prefs.bg === c[0]));
@@ -1269,7 +1340,7 @@
       const ctl = el('div', { class: 'bgctl' }); const lbT = el('span', { text: 'Claridad' });
       const rg = el('input', { type: 'range', min: '0', max: '85', 'aria-label': 'Claridad del fondo' }); rg.value = prefs.bgVeil === undefined ? 30 : prefs.bgVeil;
       rg.addEventListener('input', () => { prefs.bgVeil = +rg.value; savePrefs(); applyBgVeil(); });
-      const del = el('button', { type: 'button', class: 'pill', text: 'Quitar este fondo' }); del.addEventListener('click', () => { prefs.myBg = prefs.myBg.filter(x => x !== cur); prefs.bg = null; savePrefs(); renderTheme(); toast('Fondo quitado'); });
+      const del = el('button', { type: 'button', class: 'pill', text: 'Quitar este fondo' }); del.addEventListener('click', () => myBgDelete(cur.id));
       ctl.append(lbT, rg, del); box.append(ctl);
     }
   }
@@ -1279,15 +1350,10 @@
   }
   $('#bgFile').addEventListener('change', e => {
     const files = [].slice.call(e.target.files); e.target.value = ''; if (!files.length) return;
-    (async () => {
-      let ok = 0, bad = 0;
-      for (const f of files) {
-        if ((prefs.myBg || []).length >= 8) break;
-        try { const src = await fileToDataURL(f, 1300, .78); prefs.myBg = prefs.myBg || []; const it = { id: uid(), src: src }; prefs.myBg.push(it); prefs.bg = 'u:' + it.id; ok++; } catch (err) { bad++; }
-      }
-      if (ok) { savePrefs(); renderTheme(); toast(ok === 1 ? 'Fondo agregado' : ok + ' fondos agregados'); }
-      if (bad) toast('Alguna imagen no se pudo leer.');
-    })();
+    addMyBgFiles(files).then(r => {
+      if (r.ok) { prefs.bg = 'u:' + r.last.id; savePrefs(); renderTheme(); toast(r.ok === 1 ? 'Fondo agregado' : r.ok + ' fondos agregados'); }
+      if (r.bad) toast('Alguna imagen no se pudo leer.');
+    });
   });
   function renderTheme() {
     const s = season(), S = SEASONS[s];
@@ -1465,7 +1531,7 @@
     const id = modal; modal = null;
     $('#' + id).classList.remove('open'); document.body.style.overflow = '';
     if (onClose[id]) onClose[id]();
-    flush(); flushPrefs(); flushVision(); scheduleSync();
+    flush(); flushPrefs(); flushVision(); flushWN(); scheduleSync();
     if (!silent && modalReturn && modalReturn.focus && document.contains(modalReturn)) modalReturn.focus();
   }
   document.querySelectorAll('.scrim').forEach(s => s.addEventListener('click', e => { if (e.target === s && s.id !== 'lb') closeModal(); }));
@@ -1474,19 +1540,59 @@
 
   /* ---------- Día ---------- */
   const ensureDay = d => data.days[d] || (data.days[d] = { text: '', photo: null, done: false, cat: null });
+  const avgHex = src => new Promise(res => { const im = new Image(); im.onload = () => { try { const c = document.createElement('canvas'); c.width = c.height = 1; const x = c.getContext('2d'); x.drawImage(im, 0, 0, 1, 1); const d = x.getImageData(0, 0, 1, 1).data; res('#' + [d[0], d[1], d[2]].map(v => v.toString(16).padStart(2, '0')).join('')); } catch (e) { res('#C58A8A'); } }; im.onerror = () => res('#C58A8A'); im.src = src; });
+  const papUp = { target: null };
+  function paperAddBtn(target) {
+    const b = el('button', { type: 'button', class: 'sw add', 'aria-label': 'Subir mi propio papel', title: 'Subir mi propio papel o fondo', text: '+' });
+    b.style.width = b.style.height = '40px';
+    b.addEventListener('click', () => { if ((prefs.myBg || []).length >= 8) { toast('Máximo 8 fondos propios. Quita uno para agregar otro.'); return; } papUp.target = target; $('#papFile').click(); });
+    return b;
+  }
+  function paperWrap(b, id) {
+    const w = el('div', { class: 'stk-my' }); const x = el('button', { type: 'button', class: 'stk-x', 'aria-label': 'Borrar este papel' }); x.innerHTML = svg('trash', 12, 2.4); let armed = null;
+    x.addEventListener('click', e => { e.stopPropagation(); if (armed) { clearTimeout(armed); myBgDelete(id); return; } x.textContent = '¿Borrar?'; x.dataset.noi18n = '1'; armed = setTimeout(() => { armed = null; x.innerHTML = svg('trash', 12, 2.4); }, 3000); });
+    w.append(b, x); return w;
+  }
+  function myBgDelete(id) {
+    const k = 'u:' + id;
+    prefs.myBg = (prefs.myBg || []).filter(x => x.id !== id); if (prefs.bg === k) prefs.bg = null; savePrefs();
+    let ch = false; actsRec.list.forEach(a => { if (a.color === k) { a.color = null; ch = true; } }); if (actColorId === k) actColorId = null; if (ch) saveActs();
+    Object.keys(data.days).forEach(d => { if (data.days[d] && data.days[d].paper === k) delete data.days[d].paper; });
+    markDirty(); renderTheme(); renderCalendar(); try { renderActColors(); } catch (e) {} try { renderDayPaper(); } catch (e) {} toast('Fondo borrado');
+  }
+  async function addMyBgFiles(files) {
+    let ok = 0, bad = 0, last = null;
+    for (const f of files) {
+      if ((prefs.myBg || []).length >= 8) break;
+      try { const src = await fileToDataURL(f, 1300, .78), pap = await fileToDataURL(f, 360, .72), hex = await avgHex(pap); prefs.myBg = prefs.myBg || []; last = { id: uid(), src: src, pap: pap, hex: hex }; prefs.myBg.push(last); ok++; } catch (err) { bad++; }
+    }
+    return { ok: ok, bad: bad, last: last };
+  }
+  $('#papFile').addEventListener('change', e => {
+    const files = [].slice.call(e.target.files); e.target.value = ''; if (!files.length) return;
+    addMyBgFiles(files).then(r => {
+      if (r.ok) {
+        savePrefs(); const id = 'u:' + r.last.id;
+        if (papUp.target === 'act') { actColorId = id; renderActColors(); } else if (papUp.target === 'day') { ensureDay(openDay).paper = id; commitDay(openDay); renderDayPaper(); }
+        renderBgPick(); toast(r.ok === 1 ? 'Papel agregado' : r.ok + ' papeles agregados');
+      }
+      if (r.bad) toast('Alguna imagen no se pudo leer.'); papUp.target = null;
+    });
+  });
   function renderDayPaper() {
     const box = $('#dPaper'); box.replaceChildren(); const cur2 = (data.days[openDay] || {}).paper;
     const none = el('button', { type: 'button', class: 'sw', role: 'radio', 'aria-checked': String(!cur2), 'aria-label': 'Sin papel' });
     none.style.setProperty('--cat', 'var(--soft)'); none.innerHTML = svg('x', 14, 2.6); none.style.display = 'grid'; none.style.placeItems = 'center'; none.style.color = 'var(--ink-soft)'; none.style.width = none.style.height = '40px';
     none.addEventListener('click', () => { const i = data.days[openDay]; if (i) { delete i.paper; commitDay(openDay); } renderDayPaper(); });
     box.append(none);
-    PAPERS.forEach(p => {
+    allPapers().forEach(p => {
       const b = el('button', { type: 'button', class: 'sw pap', role: 'radio', 'aria-checked': String(cur2 === p.id), 'aria-label': p.name, title: p.name });
       paperStyle(b, p.id, '24px 24px'); b.style.width = b.style.height = '40px';
       if (cur2 === p.id) { b.innerHTML = svg('check', 16, 3.2); b.style.color = '#fff'; b.style.filter = 'drop-shadow(0 1px 2px rgba(0,0,0,.6))'; b.style.display = 'grid'; b.style.placeItems = 'center'; }
       b.addEventListener('click', () => { ensureDay(openDay).paper = p.id; commitDay(openDay); renderDayPaper(); });
-      box.append(b);
+      box.append(p.mine ? paperWrap(b, p.mine) : b);
     });
+    box.append(paperAddBtn('day'));
   }
   function commitDay(d) {
     const i = data.days[d];
@@ -1637,6 +1743,8 @@
     $('#galleryView').hidden = v !== 'gallery';
     $('#habitsView').hidden = v !== 'habits';
     $('#weekView').hidden = v !== 'week';
+    $('#wnView').hidden = v !== 'wn';
+    if (v === 'wn') renderWN();
     if (v === 'week') renderWeek();
     if (v === 'habits') renderHabits();
     document.querySelectorAll('.nav-btn[data-nav]').forEach(b => b.classList.toggle('active', b.dataset.nav === v));
@@ -1677,6 +1785,7 @@
   $('#addBtn').addEventListener('click', e => {
     closeModal(true);
     if (view === 'vision') { newVisionNote(); return; }
+    if (view === 'wn') { newWN(); return; }
     if (view === 'goals') {
       if (data.goals.length >= MAX_GOALS) { toast('Ya tienes el máximo de metas este mes'); return; }
       const g = { id: uid(), text: '', done: false, photo: null };
@@ -1692,7 +1801,7 @@
     catch (e) { res([]); }
   }));
   async function exportBackup() {
-    await flush(); await flushPrefs(); await flushVision();
+    await flush(); await flushPrefs(); await flushVision(); await flushWN();
     const keys = (await kvKeys()).filter(isDataKey), out = { app: 'mi-calendario', version: 1, exported: new Date().toISOString(), items: {} };
     for (const k of keys) out.items[k] = await kvGet(k);
     const blob = new Blob([JSON.stringify(out)], { type: 'application/json' });
@@ -1716,7 +1825,7 @@
     prefs = Object.assign(defaultPrefs(), p && typeof p === 'object' ? p : {});
     if (prefs.season && !SEASONS[prefs.season]) prefs.season = null;
     renderTheme(); renderChips(); renderHeader(); syncSeg();
-    await Promise.all([loadActs(), loadHabits(), loadVision(), loadDates()]); renderVision(); schedulePushSync();
+    await Promise.all([loadActs(), loadHabits(), loadVision(), loadWN(), loadDates()]); renderVision(); renderWN(); schedulePushSync();
     await showMonth();
     toast('Respaldo importado (' + n + ' elementos)');
   }
@@ -1808,7 +1917,7 @@
     if (!syncCfg || syncBusy || ['m-day', 'm-goal', 'm-vis', 'm-act'].indexOf(modal) >= 0) return;
     syncBusy = true; syncMsg = 'Sincronizando…'; renderSync();
     try {
-      await flush(); await flushPrefs(); await flushVision();
+      await flush(); await flushPrefs(); await flushVision(); await flushWN();
       const idx = await api('GET', 'index');
       const remote = (idx && idx.items) || {};
       const localKeys = (await kvKeys()).filter(isDataKey);
@@ -1826,7 +1935,7 @@
             const val = await internalize(r.value);
             if (val && typeof val === 'object') {
               val._u = r.u; await kvSet(k, val);
-              if (k === 'prefs') refreshPrefs = true; else if (k === 'acts') refreshActs = true; else if (k === 'habits') { await loadHabits(); renderHabits(); } else if (k === 'vision') refreshVis = true; else if (k === 'dates') { await loadDates(); refresh = true; } else if (k === dataKey) refresh = true;
+              if (k === 'prefs') refreshPrefs = true; else if (k === 'acts') refreshActs = true; else if (k === 'habits') { await loadHabits(); renderHabits(); } else if (k === 'vision') refreshVis = true; else if (k === 'wnotes') { await loadWN(); renderWN(); } else if (k === 'dates') { await loadDates(); refresh = true; } else if (k === dataKey) refresh = true;
             }
           }
         }
@@ -2132,13 +2241,14 @@
       box.append(b);
     });
     const pb = $('#aPaper'); pb.replaceChildren();
-    PAPERS.forEach(p => {
+    allPapers().forEach(p => {
       const b = el('button', { type: 'button', class: 'sw pap', role: 'radio', 'aria-checked': String(actColorId === p.id), 'aria-label': p.name, title: p.name });
       paperStyle(b, p.id, '24px 24px'); b.style.width = b.style.height = '40px';
       if (actColorId === p.id) { b.innerHTML = svg('check', 16, 3.2, 'none'); b.style.color = '#fff'; b.style.filter = 'drop-shadow(0 1px 2px rgba(0,0,0,.6))'; b.style.display = 'grid'; b.style.placeItems = 'center'; }
       b.addEventListener('click', () => { actColorId = p.id; renderActColors(); });
-      pb.append(b);
+      pb.append(p.mine ? paperWrap(b, p.mine) : b);
     });
+    pb.append(paperAddBtn('act'));
   }
   function renderDurRep() {
     const hasTime = !!$('#aTime').value;
@@ -2170,15 +2280,23 @@
     none.innerHTML = svg('x', 16, 2.6); none.style.display = 'grid'; none.style.placeItems = 'center';
     none.addEventListener('click', () => { actIconId = null; renderActIcons(); });
     box.append(none);
-    const list = ACT_DECOS.map(k => 'k:' + k); if (actIconId && list.indexOf(actIconId) < 0) list.unshift(actIconId);
+    const list = ACT_DECOS.map(k => 'k:' + k).concat((prefs.myStk || []).map(m => 'k:u:' + m.id)); if (actIconId && list.indexOf(actIconId) < 0) list.unshift(actIconId);
     list.forEach(k => {
-      const b = el('button', { type: 'button', class: 'sw swi dk', role: 'radio', 'aria-checked': String(actIconId === k), 'aria-label': isDeco(k) ? STK[k.slice(2)].n[0] : (ACT_ICON_NAMES[k] || k) });
+      const b = el('button', { type: 'button', class: 'sw swi dk', role: 'radio', 'aria-checked': String(actIconId === k), 'aria-label': isDeco(k) ? stkDef(k.slice(2)).n[0] : (ACT_ICON_NAMES[k] || k) });
       b.style.display = 'grid'; b.style.placeItems = 'center';
       if (actIconId === k) b.style.boxShadow = '0 0 0 3px var(--accent)';
       b.innerHTML = isDeco(k) ? icoHtml(k, 32) : svg(k, 20, 2);
       b.addEventListener('click', () => { actIconId = k; renderActIcons(); });
-      box.append(b);
+      if (k.indexOf('k:u:') === 0) {
+        const w = el('div', { class: 'stk-my' }); const x = el('button', { type: 'button', class: 'stk-x', 'aria-label': 'Borrar este sticker' }); x.innerHTML = svg('trash', 12, 2.4); let armed = null;
+        x.addEventListener('click', e => { e.stopPropagation(); if (armed) { clearTimeout(armed); myStkDelete(k.slice(4)); return; } x.textContent = '¿Borrar?'; x.dataset.noi18n = '1'; armed = setTimeout(() => { armed = null; x.innerHTML = svg('trash', 12, 2.4); }, 3000); });
+        w.append(b, x); box.append(w);
+      } else box.append(b);
     });
+    const upb = el('button', { type: 'button', class: 'sw swi dk', 'aria-label': 'Subir mi propio sticker', title: 'Subir mi propio sticker', text: '+' });
+    upb.style.cssText = 'display:grid;place-items:center;border:2px dashed var(--accent);color:var(--accent);font-size:22px;font-weight:900;background:transparent';
+    upb.addEventListener('click', () => { if ((prefs.myStk || []).length >= 40) { toast('Máximo 40 stickers propios. Borra alguno para agregar otro.'); return; } stkUp.target = 'act'; $('#stkFile').click(); });
+    box.append(upb);
   }
   function openActModal(o) {
     const a = o.id ? actsRec.list.find(x => x.id === o.id) : null;
@@ -2239,7 +2357,7 @@
   async function showNote(title, opts) {
     const o = Object.assign({ icon: 'icons/icon-192.png', badge: 'icons/badge-96.png' }, opts || {});
     title = I18N.t(title); if (o.body) o.body = I18N.t(o.body);
-    try { const reg = await navigator.serviceWorker.getRegistration(); if (reg) { await reg.showNotification(title, o); return true; } } catch (e) {}
+    try { const reg = await navigator.serviceWorker.getRegistration(); if (reg) { if (o.tag) { try { if ((await reg.getNotifications({ tag: o.tag })).length) return true; } catch (e) {} } await reg.showNotification(title, o); return true; } } catch (e) {}
     try { new Notification(title, o); return true; } catch (e) {}
     return false;
   }
@@ -3040,23 +3158,39 @@
   function stkSelected() { return stk.ctx && stk.sel ? stk.ctx.get().find(x => x.id === stk.sel) : null; }
   function stkBar() { if (!stk.tray) return; const bar = stk.tray.querySelector('.stk-bar'); bar.hidden = !stkSelected(); }
   function stkTweak(fn) { const st = stkSelected(); if (!st) return; fn(st); stk.ctx.commit(); stkRender(); }
+  function mineCells(grid, place) {
+    const up = el('button', { type: 'button', class: 'stk-pick stk-up', 'aria-label': 'Subir un sticker' }); up.innerHTML = svg('camera', 22, 2) + '<span>Subir</span>';
+    up.addEventListener('click', () => { if ((prefs.myStk || []).length >= 40) { toast('Máximo 40 stickers propios. Borra alguno para agregar otro.'); return; } $('#stkFile').click(); });
+    grid.append(up);
+    (prefs.myStk || []).forEach(it => {
+      const w = el('div', { class: 'stk-my' }); const b = el('button', { type: 'button', class: 'stk-pick', 'aria-label': 'Mi sticker' }); b.innerHTML = '<img alt="" draggable="false" src="' + it.src + '">';
+      b.addEventListener('click', () => place('u:' + it.id, 'mis'));
+      const x = el('button', { type: 'button', class: 'stk-x', 'aria-label': 'Borrar este sticker' }); x.innerHTML = svg('trash', 14, 2.4); let armed = null;
+      x.addEventListener('click', e => { e.stopPropagation(); if (armed) { clearTimeout(armed); myStkDelete(it.id); return; } x.textContent = '¿Borrar?'; x.dataset.noi18n = '1'; armed = setTimeout(() => { armed = null; x.innerHTML = svg('trash', 14, 2.4); }, 3000); });
+      w.append(b, x); grid.append(w);
+    });
+    grid.append(el('p', { class: 'stk-note', text: (prefs.myStk || []).length ? 'Toca la papelera y otra vez para borrar. Los PNG transparentes de Canva se ven mejor.' : 'Sube tus propios stickers desde tu teléfono o computadora (PNG transparente de Canva, o una foto con fondo blanco).' }));
+  }
+  const stkUp = { target: null };
   function myStkDelete(id) {
     const k = 'u:' + id;
     prefs.myStk = (prefs.myStk || []).filter(x => x.id !== id); savePrefs();
     Object.keys(data.days).forEach(d => { const i = data.days[d]; if (i && i.stk) i.stk = i.stk.filter(z => z.k !== k); });
     data.goals.forEach(g => { if (g.stk) g.stk = g.stk.filter(z => z.k !== k); });
-    markDirty(); if (stk.sel && !stkSelected()) stk.sel = null;
+    let ch = false; actsRec.list.forEach(a => { if (a.icon === 'k:' + k) { a.icon = null; ch = true; } }); if (actIconId === 'k:' + k) actIconId = null; if (ch) saveActs();
+    wn.items.forEach(n => { if (n.stk) n.stk = n.stk.filter(z => z.k !== k); }); markWN();
+    markDirty(); if (stk.sel && !stkSelected()) stk.sel = null; try { renderActIcons(); } catch (e) {}
     renderCalendar(); renderGoals(); stkRender(); stkBar(); stkBuildTray(); toast('Sticker borrado');
   }
   $('#stkFile').addEventListener('change', e => {
     const files = [].slice.call(e.target.files); e.target.value = ''; if (!files.length) return;
     (async () => {
-      let ok = 0, bad = 0;
+      let ok = 0, bad = 0, lastId = null;
       for (const f of files) {
         if ((prefs.myStk || []).length >= 40) { toast('Máximo 40 stickers propios.'); break; }
-        try { const src = await imgToSticker(f, 440); prefs.myStk = prefs.myStk || []; prefs.myStk.push({ id: uid(), src: src }); ok++; } catch (err) { bad++; }
+        try { const src = await imgToSticker(f, 440); prefs.myStk = prefs.myStk || []; lastId = uid(); prefs.myStk.push({ id: lastId, src: src }); ok++; } catch (err) { bad++; }
       }
-      if (ok) { savePrefs(); stk.tab = 'mis'; if (stk.tray) stkBuildTray(); toast(ok === 1 ? 'Sticker agregado' : ok + ' stickers agregados'); }
+      if (ok) { savePrefs(); if (stk.tray) stkBuildTray(); if (stkUp.target === 'act' && lastId) { actIconId = 'k:u:' + lastId; renderActIcons(); } stkUp.target = null; toast(ok === 1 ? 'Sticker agregado' : ok + ' stickers agregados'); }
       if (bad) toast('Alguna imagen no se pudo leer.');
     })();
   });
@@ -3064,29 +3198,18 @@
     const t = stk.tray, ctx = stk.ctx; t.replaceChildren();
     const cs = season();
     const base = STK_GROUPS.slice().sort((a, b) => (a.id === cs ? -1 : 0) - (b.id === cs ? -1 : 0));
-    const order = [{ id: 'mis', n: ['Mis stickers', 'My stickers'] }].concat(base);
+    const order = base;
     if (!stk.tab) stk.tab = base[0].id;
     const tabs = el('div', { class: 'stk-tabs', role: 'tablist' });
     order.forEach(g => { const b = el('button', { type: 'button', class: 'stk-tab' + (g.id === stk.tab ? ' on' : ''), role: 'tab', 'aria-selected': String(g.id === stk.tab), text: g.n[stkLang()] }); b.dataset.noi18n = '1'; b.addEventListener('click', () => { stk.tab = g.id; stkBuildTray(); }); tabs.append(b); });
     const grid = el('div', { class: 'stk-grid' });
     const place = (k, g) => { const st = { id: uid(), k: k, x: 50 + (Math.random() * 16 - 8), y: 38 + (Math.random() * 16 - 8), w: STK_W[g] || 22, r: 0 }; ctx.arr().push(st); stk.sel = st.id; ctx.commit(); stkRender(); stkBar(); };
-    if (stk.tab === 'mis') {
-      const up = el('button', { type: 'button', class: 'stk-pick stk-up', 'aria-label': 'Subir un sticker' }); up.innerHTML = svg('camera', 22, 2) + '<span>Subir</span>';
-      up.addEventListener('click', () => { if ((prefs.myStk || []).length >= 40) { toast('Máximo 40 stickers propios. Borra alguno para agregar otro.'); return; } $('#stkFile').click(); });
-      grid.append(up);
-      (prefs.myStk || []).forEach(it => {
-        const w = el('div', { class: 'stk-my' }); const b = el('button', { type: 'button', class: 'stk-pick', 'aria-label': 'Mi sticker' }); b.innerHTML = '<img alt="" draggable="false" src="' + it.src + '">';
-        b.addEventListener('click', () => place('u:' + it.id, 'mis'));
-        const x = el('button', { type: 'button', class: 'stk-x', 'aria-label': 'Borrar este sticker' }); x.innerHTML = svg('trash', 14, 2.4); let armed = null;
-        x.addEventListener('click', e => { e.stopPropagation(); if (armed) { clearTimeout(armed); myStkDelete(it.id); return; } x.textContent = '¿Borrar?'; x.dataset.noi18n = '1'; armed = setTimeout(() => { armed = null; x.innerHTML = svg('trash', 14, 2.4); }, 3000); });
-        w.append(b, x); grid.append(w);
-      });
-      grid.append(el('p', { class: 'stk-note', text: (prefs.myStk || []).length ? 'Toca la papelera y otra vez para borrar. Los PNG transparentes de Canva se ven mejor.' : 'Sube tus propios stickers desde tu teléfono o computadora (PNG transparente de Canva, o una foto con fondo blanco).' }));
-    } else Object.keys(STK).filter(k => STK[k].g === stk.tab && (stk.tab !== 'palabras' || k.endsWith(stkLang() ? '-en' : '-es'))).forEach(k => {
+    Object.keys(STK).filter(k => STK[k].g === stk.tab && (stk.tab !== 'palabras' || k.endsWith(stkLang() ? '-en' : '-es'))).forEach(k => {
       const b = el('button', { type: 'button', class: 'stk-pick', 'aria-label': stkName(k) }); b.innerHTML = STK[k].svg;
       b.addEventListener('click', () => place(k, STK[k].g));
       grid.append(b);
     });
+    mineCells(grid, place);
     const bar = el('div', { class: 'stk-bar', hidden: true });
     const mk = (label, aria, fn, cls) => { const b = el('button', { type: 'button', class: 'stk-b' + (cls ? ' ' + cls : ''), 'aria-label': aria, text: label }); b.addEventListener('click', fn); return b; };
     bar.append(
@@ -3114,6 +3237,144 @@
   function stkToggle(mkCtx) { if (stk.tray) stkClose(); else stkOpen(mkCtx()); }
   $('#dStkBtn').addEventListener('click', () => stkToggle(stkCtxDay));
   $('#gStkBtn').addEventListener('click', () => stkToggle(stkCtxGoal));
+
+  /* ================= Weekly Notes (cuaderno semanal) ================= */
+  const WN_KINDS = [{ id: 'nota', n: 'Nota', ic: 'note' }, { id: 'lista', n: 'Lista', ic: 'check' }, { id: 'idea', n: 'Idea', ic: 'sparkle' }, { id: 'recordatorio', n: 'Recordatorio', ic: 'bell' }, { id: 'reflexion', n: 'Reflexión', ic: 'heart' }];
+  const WN_COLORS = [['rosa', 'Rosa', '#F6A5C2'], ['durazno', 'Durazno', '#FFB98A'], ['sol', 'Sol', '#FFD84D'], ['menta', 'Menta', '#7FD9B0'], ['cielo', 'Cielo', '#82BFF5'], ['lila', 'Lila', '#B79BF0'], ['coral', 'Coral', '#FF8F7A'], ['blanco', 'Blanco', '#E6D9CF']];
+  const WN_TOOLS = [['[ ] ', '☐ Tarea'], ['- ', '• Punto'], ['* ', '★ Idea'], ['! ', '❗ Importante'], ['> ', '💭 Reflexión']];
+  let wn = { items: [] }, wnDirty = false, wnTimer = null, wnOff = 0, openWN = null, wnDelArm = null;
+  async function loadWN() { const v = await kvGet('wnotes'); wn = v && Array.isArray(v.items) ? v : { items: [] }; }
+  function markWN() { wn._u = Date.now(); wnDirty = true; setStatus('saving'); clearTimeout(wnTimer); wnTimer = setTimeout(flushWN, 400); }
+  function flushWN() {
+    clearTimeout(wnTimer);
+    if (!wnDirty) return Promise.resolve();
+    wnDirty = false;
+    return kvSet('wnotes', wn).then(ok => { if (!ok) persistent = false; setStatus('saved'); scheduleSync(); });
+  }
+  const wnById = id => wn.items.find(x => x.id === id);
+  const wnColor = id => (WN_COLORS.find(c => c[0] === id) || WN_COLORS[0])[2];
+  const wnKind = id => WN_KINDS.find(k => k.id === id) || WN_KINDS[0];
+  function wnWeekOf(ds) { const d = parseDs(ds); d.setHours(12, 0, 0, 0); const back = (d.getDay() - prefs.weekStart + 7) % 7; d.setDate(d.getDate() - back); return dstr(d.getFullYear(), d.getMonth(), d.getDate()); }
+  function wnLine(raw) {
+    const m = /^(\[( |x|X)\] |- |\* |! |> )(.*)$/.exec(raw);
+    if (!m) return { t: 'p', tx: raw };
+    const p = m[1];
+    if (p[0] === '[') return { t: 'chk', on: m[2] !== ' ', tx: m[3] };
+    return { t: p[0] === '-' ? 'dot' : p[0] === '*' ? 'star' : p[0] === '!' ? 'imp' : 'q', tx: m[3] };
+  }
+  function wnCard(n) {
+    const card = el('div', { class: 'wn-card', role: 'button', tabindex: '0', 'aria-label': 'Abrir nota ' + (n.title || '') });
+    card.style.setProperty('--nc', wnColor(n.color));
+    const kd = wnKind(n.kind), kb = el('span', { class: 'wn-kind' }); kb.innerHTML = svg(kd.ic, 13, 2.4) + '<span></span>'; kb.lastChild.textContent = kd.n; card.append(kb);
+    if (n.title) card.append(el('h3', { class: 'wn-t', text: n.title }));
+    const lines = (n.text || '').split('\n'); let shown = 0;
+    lines.forEach((raw, i) => {
+      if (!raw.trim() || shown >= 14) return; shown++;
+      const L = wnLine(raw), row = el('div', { class: 'wn-ln' + (L.t === 'q' ? ' q' : '') + (L.t === 'imp' ? ' imp' : '') + (L.t === 'chk' && L.on ? ' done' : '') });
+      if (L.t === 'chk') {
+        const c = el('button', { type: 'button', class: 'wn-chk', role: 'checkbox', 'aria-checked': String(L.on), 'aria-label': 'Tarea' }); c.innerHTML = L.on ? svg('check', 13, 3.4) : '';
+        c.addEventListener('click', e => { e.stopPropagation(); const ls = (n.text || '').split('\n'); ls[i] = (L.on ? '[ ] ' : '[x] ') + L.tx; n.text = ls.join('\n'); n.updated = Date.now(); markWN(); renderWN(); });
+        row.append(c);
+      } else if (L.t !== 'p' && L.t !== 'q') row.append(el('span', { class: 'mk', text: L.t === 'dot' ? '•' : L.t === 'star' ? '★' : '❗' }));
+      row.append(el('span', { class: 'tx', text: L.tx })); card.append(row);
+    });
+    if (lines.filter(l => l.trim()).length > 14) card.append(el('div', { class: 'wn-ln', text: '…' }));
+    if (n.stk && n.stk.length) card.append(stkOverlay(n.stk));
+    const open = () => openWNote(n.id, card);
+    card.addEventListener('click', open); card.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target === card) { e.preventDefault(); open(); } });
+    return card;
+  }
+  function renderWN() {
+    const days = habWeekDays(wnOff), start = days[0], today = todayStr();
+    const f = ds => parseDs(ds).toLocaleDateString(I18N.locale(), { day: 'numeric', month: 'short' });
+    $('#wnLbl').textContent = wnOff === 0 ? 'Esta semana' : f(days[0]) + ' – ' + f(days[6]);
+    const list = wn.items.filter(n => days.indexOf(n.date) >= 0);
+    $('#wnCount').textContent = f(days[0]) + ' – ' + f(days[6]) + ' · ' + (list.length === 1 ? '1 nota' : list.length + ' notas');
+    $('#wnToday').hidden = wnOff === 0;
+    const body = $('#wnBody'); body.replaceChildren();
+    if (!list.length) { body.append(el('p', { class: 'wn-empty', text: wnOff === 0 ? 'Todavía no hay notas esta semana. Toca “Nueva nota” para empezar tu cuaderno.' : 'No escribiste notas en esta semana.' })); return; }
+    days.forEach(ds => {
+      const ns = list.filter(n => n.date === ds).sort((a, b) => (a.created || 0) - (b.created || 0)); if (!ns.length) return;
+      const d = parseDs(ds), h = el('div', { class: 'wn-day' + (ds === today ? ' today' : '') }); h.textContent = DOW_FULL[d.getDay()] + ' ' + d.getDate() + ' ' + d.toLocaleDateString(I18N.locale(), { month: 'short' }) + (ds === today ? ' · hoy' : '');
+      const g = el('div', { class: 'wn-grid' }); ns.forEach(n => g.append(wnCard(n))); body.append(h, g);
+    });
+  }
+  $('#wnPrev').addEventListener('click', () => { wnOff--; renderWN(); });
+  $('#wnNext').addEventListener('click', () => { wnOff++; renderWN(); });
+  $('#wnToday').addEventListener('click', () => { wnOff = 0; renderWN(); });
+  $('#wnAdd').addEventListener('click', () => newWN());
+  function newWN() {
+    const days = habWeekDays(wnOff), t = todayStr();
+    const n = { id: uid(), date: days.indexOf(t) >= 0 ? t : days[0], title: '', text: '', kind: 'nota', color: 'rosa', stk: [], created: Date.now() };
+    wn.items.push(n); markWN(); openWNote(n.id, $('#wnAdd'), true);
+  }
+  function stkCtxNote() {
+    return { zone: $('#nZone'), layer: $('#nLayer'), btn: $('#nStkBtn'), get: () => (wnById(openWN) || {}).stk || [], arr: () => { const n = wnById(openWN); return n.stk || (n.stk = []); }, commit: () => { const n = wnById(openWN); if (n) n.updated = Date.now(); markWN(); renderWN(); } };
+  }
+  function renderWNPickers() {
+    const n = wnById(openWN); if (!n) return;
+    const kb = $('#nKinds'); kb.replaceChildren();
+    WN_KINDS.forEach(k => {
+      const b = el('button', { type: 'button', class: 'chip sm', role: 'radio', 'aria-checked': String(n.kind === k.id) });
+      b.style.setProperty('--cat', 'var(--accent)'); b.innerHTML = svg(k.ic, 16, 2.2) + '<span></span>'; b.lastChild.textContent = k.n;
+      b.addEventListener('click', () => { n.kind = k.id; markWN(); renderWN(); renderWNPickers(); }); kb.append(b);
+    });
+    const cb = $('#nColors'); cb.replaceChildren();
+    WN_COLORS.forEach(c => {
+      const b = el('button', { type: 'button', class: 'sw', role: 'radio', 'aria-checked': String(n.color === c[0]), 'aria-label': c[1], title: c[1] });
+      b.style.setProperty('--cat', c[2]); if (n.color === c[0]) b.innerHTML = svg('check', 16, 3, '#fff');
+      b.addEventListener('click', () => { n.color = c[0]; markWN(); renderWN(); renderWNPickers(); }); cb.append(b);
+    });
+  }
+  function openWNote(id, trigger, isNew) {
+    const n = wnById(id); if (!n) return;
+    openWN = id; wnDelArm = null; $('#nDel').lastChild.textContent = 'Eliminar nota';
+    $('#nHead').textContent = isNew ? 'Nueva nota' : 'Editar nota';
+    const w = wnWeekOf(n.date), f = ds => parseDs(ds).toLocaleDateString(I18N.locale(), { day: 'numeric', month: 'short' }), wd = habWeekDays(0);
+    $('#nWeek').textContent = 'Semana del ' + f(w);
+    $('#nTitle').value = n.title || ''; $('#nText').value = n.text || ''; $('#nDate').value = n.date;
+    renderWNPickers(); stkClose(); stkRender(stkCtxNote());
+    openModal('m-wn', { from: trigger, focus: isNew ? '#nTitle' : '#nText' });
+  }
+  onClose['m-wn'] = () => {
+    stkClose();
+    const n = wnById(openWN);
+    if (n && !(n.title || '').trim() && !(n.text || '').trim() && !(n.stk && n.stk.length)) { wn.items = wn.items.filter(x => x !== n); markWN(); }
+    openWN = null; wnDelArm = null; renderWN();
+  };
+  $('#nTitle').addEventListener('input', e => { const n = wnById(openWN); if (n) { n.title = e.target.value; n.updated = Date.now(); markWN(); } });
+  $('#nText').addEventListener('input', e => { const n = wnById(openWN); if (n) { n.text = e.target.value; n.updated = Date.now(); markWN(); } });
+  $('#nDate').addEventListener('change', e => {
+    const n = wnById(openWN); if (!n || !/^\d{4}-\d{2}-\d{2}$/.test(e.target.value)) return;
+    n.date = e.target.value; n.updated = Date.now(); markWN();
+    wnOff = Math.round((parseDs(wnWeekOf(n.date)) - parseDs(wnWeekOf(todayStr()))) / (7 * 864e5)); $('#nWeek').textContent = 'Semana del ' + parseDs(wnWeekOf(n.date)).toLocaleDateString(I18N.locale(), { day: 'numeric', month: 'short' });
+  });
+  $('#nDone').addEventListener('click', () => closeModal());
+  $('#nDel').addEventListener('click', () => {
+    const n = wnById(openWN); if (!n) return;
+    if (!wnDelArm) { wnDelArm = setTimeout(() => { wnDelArm = null; $('#nDel').lastChild.textContent = 'Eliminar nota'; }, 3500); $('#nDel').lastChild.textContent = '¿Seguro? Toca otra vez'; return; }
+    clearTimeout(wnDelArm); wnDelArm = null;
+    wn.items = wn.items.filter(x => x !== n); markWN(); closeModal(); toast('Nota eliminada');
+  });
+  $('#nStkBtn').addEventListener('click', () => stkToggle(stkCtxNote));
+  (function () {
+    const box = $('#nTools'), ta = $('#nText');
+    const ins = pre => {
+      const v = ta.value, s0 = ta.selectionStart, ls = v.lastIndexOf('\n', s0 - 1) + 1; let le = v.indexOf('\n', s0); if (le < 0) le = v.length;
+      const line = v.slice(ls, le), old = /^(\[( |x|X)\] |- |\* |! |> )/.exec(line), body = old ? line.slice(old[0].length) : line;
+      ta.value = v.slice(0, ls) + pre + body + v.slice(le); const pos = ls + pre.length + body.length; ta.setSelectionRange(pos, pos); ta.focus(); ta.dispatchEvent(new Event('input'));
+    };
+    WN_TOOLS.forEach(t => { const b = el('button', { type: 'button', text: t[1] }); b.dataset.noi18n = '1'; b.addEventListener('click', () => ins(t[0])); box.append(b); });
+    ta.addEventListener('keydown', e => {
+      if (e.key !== 'Enter' || e.shiftKey || e.isComposing) return;
+      const v = ta.value, s0 = ta.selectionStart, ls = v.lastIndexOf('\n', s0 - 1) + 1, line = v.slice(ls, s0), m = /^(\[( |x|X)\] |- |\* |! |> )/.exec(line);
+      if (!m) return; e.preventDefault();
+      if (line.length === m[0].length) { ta.value = v.slice(0, ls) + v.slice(s0); ta.setSelectionRange(ls, ls); }
+      else { const pre = m[0][0] === '[' ? '[ ] ' : m[0]; ta.value = v.slice(0, s0) + '\n' + pre + v.slice(s0); const pos = s0 + 1 + pre.length; ta.setSelectionRange(pos, pos); }
+      ta.dispatchEvent(new Event('input'));
+    });
+  })();
+  loadWN().then(() => { if (view === 'wn') renderWN(); });
   document.addEventListener('keydown', e => { if ((e.key === 'Delete' || e.key === 'Backspace') && stk.ctx && stkSelected() && !/INPUT|TEXTAREA/.test((document.activeElement || {}).tagName || '')) { e.preventDefault(); const s = stkSelected(), a = stk.ctx.arr(); a.splice(a.indexOf(s), 1); stk.sel = null; stk.ctx.commit(); stkRender(); stkBar(); } });
   I18N.onChange(() => { if (stk.tray) stkBuildTray(); if (stk.ctx) stkRender(); });
   // Mostrar los stickers en cuanto se abre el día o la meta (aunque la bandeja esté cerrada)
@@ -3155,8 +3416,8 @@
 
   const ACT_DECOS = ['ch-brillo', 'ch-corazon', 'ch-corona', 'ch-diamante', 'ch-labios', 'ch-tacon', 'ch-bolso', 'ch-gafas', 'ch-esmalte', 'ch-perfume', 'ch-tijeras', 'ch-peine', 'ch-cafe', 'ch-luna', 'sp-mariposa', 'sp-cerezo', 'sp-tulipan', 'sp-margarita', 'sp-flor-rosa', 'su-sol', 'su-limon', 'wi-estrella', 'bw-rosa', 'au-hoja1', 'su-concha', 'sp-mariposa2'];
   const DECO_EMOJI = { 'ch-brillo': '✨', 'ch-corazon': '💗', 'ch-corona': '👑', 'ch-diamante': '💎', 'ch-labios': '💋', 'ch-tacon': '👠', 'ch-bolso': '👜', 'ch-gafas': '🕶️', 'ch-esmalte': '💅', 'ch-perfume': '🌸', 'ch-tijeras': '✂️', 'ch-peine': '💇', 'ch-cafe': '☕', 'ch-luna': '🌙', 'sp-mariposa': '🦋', 'sp-mariposa2': '🦋', 'sp-cerezo': '🌸', 'sp-tulipan': '🌷', 'sp-margarita': '🌼', 'sp-flor-rosa': '🌺', 'su-sol': '☀️', 'su-limon': '🍋', 'wi-estrella': '⭐', 'bw-rosa': '🎀', 'au-hoja1': '🍂', 'su-concha': '🐚' };
-  const isDeco = id => typeof id === 'string' && id.slice(0, 2) === 'k:' && !!STK[id.slice(2)];
-  const icoHtml = (id, size) => isDeco(id) ? '<span class="deco" style="width:' + (size || 20) + 'px;height:' + (size || 20) + 'px">' + STK[id.slice(2)].svg + '</span>' : svg(id, size, 2.1);
+  const isDeco = id => typeof id === 'string' && id.slice(0, 2) === 'k:' && !!stkDef(id.slice(2));
+  const icoHtml = (id, size) => isDeco(id) ? '<span class="deco" style="width:' + (size || 20) + 'px;height:' + (size || 20) + 'px">' + stkDef(id.slice(2)).svg + '</span>' : svg(id, size, 2.1);
   const ACT_ICON_NAMES = { flower: 'Flor', heart: 'Corazón', star: 'Estrella', sparkle: 'Brillo', sun: 'Sol', leaf: 'Hoja', cake: 'Pastel', plane: 'Viaje', bulb: 'Idea', bell: 'Campana', camera: 'Cámara', home: 'Casa', book: 'Libro', target: 'Meta', coin: 'Dinero', laptop: 'Trabajo', snow: 'Nieve', flag: 'Bandera' };
 
   /* ---- Papeles estampados (flores, cuadros, corazones, lunares) ---- */
@@ -3186,8 +3447,10 @@
     ['cor-lila', 'Corazones lilas', 'Lilac hearts', 'corazon', '#9B6DF0', '#FFE14D'], ['cor-azul', 'Corazones azules', 'Blue hearts', 'corazon', '#3F95EC', '#FFE14D'],
     ['lun-amarillo', 'Lunares amarillos', 'Yellow dots', 'lunar', '#FFB800'], ['lun-coral', 'Lunares coral', 'Coral dots', 'lunar', '#FF5E4D']
   ].map(p => ({ id: p[0], name: p[1], en: p[2], hex: p[4], url: 'url("data:image/svg+xml,' + encodeURIComponent(papTile(p[3], p[4], p[5])) + '")', paper: true }));
-  const paperById = id => PAPERS.find(p => p.id === id);
-  const paperStyle = (el2, id, size) => { const p = paperById(id); if (!p) return false; el2.style.backgroundImage = p.url; el2.style.backgroundColor = p.hex; if (size) el2.style.backgroundSize = size; return true; };
+  const myPapers = () => (prefs.myBg || []).map(it => ({ id: 'u:' + it.id, name: 'Mi papel', en: 'My paper', hex: it.hex || '#C58A8A', url: 'url("' + (it.pap || it.src) + '")', paper: true, cover: true, mine: it.id }));
+  const allPapers = () => PAPERS.concat(myPapers());
+  const paperById = id => PAPERS.find(p => p.id === id) || (typeof id === 'string' && id.indexOf('u:') === 0 ? myPapers().find(p => p.id === id) : undefined);
+  const paperStyle = (el2, id, size) => { const p = paperById(id); if (!p) return false; el2.style.backgroundImage = p.url; el2.style.backgroundColor = p.hex; if (p.cover) { el2.style.backgroundSize = 'cover'; el2.style.backgroundPosition = 'center'; } else if (size) el2.style.backgroundSize = size; return true; };
   const actColorHex = id => (ACT_COLORS.find(c => c.id === id) || paperById(id) || {}).hex;
   function nthWeekday(year, month, weekday, n) {
     const first = new Date(year, month, 1);

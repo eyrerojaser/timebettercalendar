@@ -89,6 +89,13 @@ export async function handlePush(req, store, deps) {
     const reminders = cleanReminders(body.reminders, now, sent);
     await store.setJSON(recKey, { sub: { endpoint: body.sub.endpoint, keys: { p256dh: body.sub.keys.p256dh, auth: body.sub.keys.auth } }, reminders, sent, updated: now });
     index.ids[ns] = now;
+    // Un mismo teléfono no debe quedar registrado dos veces (p. ej. tras reinstalar la app o borrar datos):
+    // si otra ficha usa esta misma dirección push, se borra, así llega un solo aviso.
+    for (const other of Object.keys(index.ids)) {
+      if (other === ns) continue;
+      const orec = await store.get(`d/${other}`, { type: 'json' });
+      if (!orec || !orec.sub || orec.sub.endpoint === body.sub.endpoint) { await store.delete(`d/${other}`); delete index.ids[other]; }
+    }
     await store.setJSON('index', index);
     return json({ ok: true, count: reminders.length });
   }

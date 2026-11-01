@@ -4,7 +4,7 @@
 // El código nunca se guarda: solo se guarda su huella (SHA-256).
 
 const MAX_BODY = 5_500_000;                       // el límite de una función de Netlify es ~6 MB
-const KEY_OK = /^(prefs|acts|vision|m:\d{4}-\d{2}|p:[0-9a-f]{64})$/;
+const KEY_OK = /^(prefs|acts|vision|wnotes|m:\d{4}-\d{2}|p:[0-9a-f]{64})$/;
 const CODE_OK = /^[A-Z2-9]{24}$/;
 
 const json = (obj, status = 200) =>

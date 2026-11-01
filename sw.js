@@ -1,7 +1,7 @@
 /* TIME · service worker
    Guarda la app en el dispositivo para que abra al instante y funcione sin Internet.
    Si cambias algún archivo de la app, sube el número de VERSION para que se actualice. */
-const VERSION = 'time-v29';
+const VERSION = 'time-v31';
 const ASSETS = [
   './', './index.html', './i18n.js', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png', './icons/apple-touch-icon.png', './icons/badge-96.png',
@@ -63,7 +63,11 @@ self.addEventListener('push', (e) => {
     data: { url: d.url || './' }
   };
   if (d.tag) opts.tag = d.tag;      // mismo "tag" = no se duplica si la app también lo avisó
-  e.waitUntil(self.registration.showNotification(d.title || 'TIME', opts));
+  // Si la app ya mostró este mismo aviso (misma etiqueta), se reemplaza en silencio: nunca suena dos veces.
+  e.waitUntil((async () => {
+    try { if (opts.tag) { const ex = await self.registration.getNotifications({ tag: opts.tag }); if (ex.length) opts.silent = true; } } catch (_) {}
+    await self.registration.showNotification(d.title || 'TIME', opts);
+  })());
 });
 
 self.addEventListener('notificationclick', (e) => {
