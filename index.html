@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-season="otono">
+<html lang="es" data-season="rosa">
 <head>
 <meta charset="utf-8">
 <script>try{if(localStorage.getItem("time-lic")!=="1")document.documentElement.classList.add("unk")}catch(e){document.documentElement.classList.add("unk")}setTimeout(function(){document.documentElement.classList.remove("unk")},4000)</script>
@@ -28,6 +28,10 @@
   @font-face { font-family: 'Playfair Display'; font-weight: 500; font-style: italic; font-display: swap; src: url(fonts/playfair-display-latin-500-italic.woff2) format('woff2'); }
 
   /* ============ Temas por estación ============ */
+  :root[data-season="rosa"] {
+    --accent-l: #8C1D4A; --accent-d: #F29AB9; --soft-l: #FBDDE6; --soft-d: #4A2A38;
+    --bga-l: #FFF3F6; --bgb-l: #FADBE5; --bga-d: #261820; --bgb-d: #1C1217;
+  }
   :root[data-season="otono"] {
     --accent-l: #8E3B22; --accent-d: #F0966C; --soft-l: #F8E2D3; --soft-d: #4A2C22;
     --bga-l: #FCF3EC; --bgb-l: #F5DFCF; --bga-d: #241814; --bgb-d: #1A110E;
@@ -403,6 +407,7 @@
   .stk-note { grid-column: 1 / -1; margin: 4px 2px 0; font-size: 12px; color: var(--ink-soft); }
   .bgpick .sw.add { display: grid; place-items: center; border: 2px dashed var(--accent); background: #fff; color: var(--accent); font-size: 20px; font-weight: 900; line-height: 1; padding: 0; }
   .bgpick .sw.mine { background-size: cover !important; position: relative; }
+  .bgtog { background: var(--accent) !important; color: var(--on-accent) !important; border-color: transparent !important; }
   .bgtog { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; padding: 6px 14px; } .bgdot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--line); } .bgchev { font-size: 11px; }
   .bgctl { flex-basis: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; font-size: 13px; }
   .bgctl input[type=range] { width: 140px; accent-color: var(--accent); }
@@ -411,26 +416,37 @@
   :root { --wn-l1: color-mix(in srgb, var(--accent) 42%, var(--bg-a)); --wn-l2: color-mix(in srgb, var(--accent) 85%, var(--bg-a)); --wn-l3: color-mix(in srgb, #E5A94A 62%, var(--bg-a)); }
   .wnp-zone { position: relative; margin: 2px 0 4px; }
   .wnp-zone .stk-layer { border-radius: 30px; }
-  .wnp { --nc: var(--wn-c, var(--accent)); position: relative; isolation: isolate; overflow: hidden; border-radius: 30px; padding: clamp(18px, 3.4vw, 36px) clamp(12px, 3vw, 34px) clamp(54px, 9vw, 96px); border: 1px solid var(--line);
+  .wnp { --nc: var(--wn-c, var(--accent)); position: relative; isolation: isolate; overflow: hidden; border-radius: 30px; padding: clamp(18px, 3.4vw, 36px) clamp(12px, 3vw, 34px) clamp(54px, 9vw, 96px); border: 2px solid color-mix(in srgb, var(--nc) 45%, transparent);
     background: radial-gradient(90% 60% at 86% 0%, color-mix(in srgb, var(--nc) 16%, transparent), transparent 70%), radial-gradient(80% 60% at 8% 100%, color-mix(in srgb, var(--nc) 13%, transparent), transparent 70%), linear-gradient(165deg, color-mix(in srgb, var(--nc) 6%, var(--surface)), color-mix(in srgb, var(--nc) 15%, var(--bg-a)));
     box-shadow: 0 14px 30px -18px color-mix(in srgb, var(--nc) 55%, transparent); }
   .wnp > svg { position: absolute; z-index: 0; pointer-events: none; height: auto; }
   .wnp-d1 { top: -6px; left: -8px; width: min(46%, 250px); } .wnp-d2 { top: 0; right: 0; width: min(36%, 190px); }
   .wnp-d3 { bottom: -10px; left: -10px; width: min(56%, 320px); } .wnp-d4 { bottom: -8px; right: -10px; width: min(50%, 270px); }
   @media (max-width: 559px) { .wnp-d2 { width: 26%; } .wnb-h { font-size: 10.5px; letter-spacing: .06em; } }
-  .wnp .sw1 { fill: none; stroke: color-mix(in srgb, var(--nc) 60%, var(--bg-a)); stroke-width: 3.4; stroke-linecap: round; stroke-dasharray: .1 6.5; }
-  .wnp-title { position: relative; z-index: 1; margin: 4px 0 clamp(16px, 3vw, 26px); text-align: center; font: 600 clamp(24px, 4.6vw, 40px)/1 var(--font-body); letter-spacing: .42em; text-indent: .42em; text-transform: uppercase; color: color-mix(in srgb, var(--nc) 55%, var(--ink)); text-shadow: 2px 2px 0 color-mix(in srgb, var(--nc) 24%, transparent); }
+  .wnp .sw1 { fill: none; stroke: color-mix(in srgb, var(--nc) 85%, var(--bg-a)); stroke-width: 4; stroke-linecap: round; stroke-dasharray: .1 6.5; }
+  .wnp-title { position: relative; z-index: 1; margin: 4px 0 clamp(16px, 3vw, 26px); text-align: center; font: 600 clamp(24px, 4.6vw, 40px)/1 var(--font-body); letter-spacing: .42em; text-indent: .42em; text-transform: uppercase; color: color-mix(in srgb, var(--nc) 55%, var(--ink)); text-shadow: 2px 2px 0 color-mix(in srgb, var(--nc) 30%, transparent); }
   .wnp-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px, 1.9vw, 18px); }
-  .wnb { display: flex; flex-direction: column; min-width: 0; padding: 12px 14px 12px; border-radius: clamp(18px, 3vw, 30px); cursor: text; background: color-mix(in srgb, var(--nc) 27%, var(--surface)); border: 1px solid color-mix(in srgb, var(--nc) 30%, transparent); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4); transition: box-shadow .15s, background .15s; }
-  .wnb:focus-within { box-shadow: 0 0 0 3px color-mix(in srgb, var(--nc) 48%, transparent); background: color-mix(in srgb, var(--nc) 31%, var(--surface)); }
+  .wnb { display: flex; flex-direction: column; min-width: 0; padding: 12px 14px 12px; border-radius: clamp(18px, 3vw, 30px); cursor: text; background: color-mix(in srgb, var(--nc) 30%, var(--surface)); border: 2px solid color-mix(in srgb, var(--nc) 62%, transparent); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4); transition: box-shadow .15s, background .15s; }
+  .wnb:focus-within { box-shadow: 0 0 0 3px color-mix(in srgb, var(--nc) 55%, transparent); background: color-mix(in srgb, var(--nc) 34%, var(--surface)); }
   .wnb.big, .wnb.wide { grid-column: 1 / -1; }
-  .wnb-h { width: 100%; min-width: 0; box-sizing: border-box; padding: 2px 0 6px; border: 0; outline: 0; background: transparent; font: 800 11.5px/1.2 var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: color-mix(in srgb, var(--nc) 50%, var(--ink)); }
-  .wnb-h::placeholder { color: color-mix(in srgb, var(--nc) 60%, var(--ink-soft)); opacity: .85; }
+  .wnb-h { width: 100%; min-width: 0; box-sizing: border-box; padding: 2px 0 6px; border: 0; outline: 0; background: transparent; font: 800 11.5px/1.2 var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: color-mix(in srgb, var(--nc) 38%, var(--ink)); }
+  .wnb-h::placeholder { color: color-mix(in srgb, var(--nc) 42%, var(--ink)); opacity: 1; }
   .wnb-t { flex: 1; width: 100%; box-sizing: border-box; min-height: 96px; padding: 0; border: 0; outline: 0; resize: none; overflow: hidden; background: transparent; color: var(--ink); font: 600 15px/1.5 var(--font-body); }
   .wnb .wnb-h:focus-visible, .wnb .wnb-t:focus-visible { outline: 0; box-shadow: none; }
-  .wnb-t::placeholder { color: var(--ink-soft); opacity: .55; font-weight: 500; }
+  .wnb-t::placeholder { color: var(--ink-soft); opacity: .85; font-weight: 600; }
   .wnb.big .wnb-t { min-height: 150px; } .wnb.wide .wnb-t { min-height: 64px; }
   @media (min-width: 760px) { .wnb { padding: 16px 20px 14px; } .wnb-t { font-size: 16px; min-height: 130px; } .wnb.big .wnb-t { min-height: 170px; } .wnb-h { font-size: 12.5px; } }
+    /* Nota rápida con el mismo diseño de la página */
+  .wnq { --nc: var(--accent); position: relative; isolation: isolate; border: 2px solid color-mix(in srgb, var(--nc) 45%, transparent); background: radial-gradient(90% 40% at 90% 0%, color-mix(in srgb, var(--nc) 16%, transparent), transparent 70%), linear-gradient(165deg, color-mix(in srgb, var(--nc) 6%, var(--surface)), color-mix(in srgb, var(--nc) 14%, var(--bg-a))); }
+  .wnq > * { position: relative; z-index: 1; } .wnq > .wnq-d { position: absolute; z-index: 0; top: 0; right: 64px; width: 120px; pointer-events: none; opacity: .9; }
+  .wnq .sh-date { color: color-mix(in srgb, var(--nc) 55%, var(--ink)); }
+  .wnq .lbl { font-size: 11.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: color-mix(in srgb, var(--nc) 40%, var(--ink)); }
+  .wnq .field, .wnq textarea { border: 2px solid color-mix(in srgb, var(--nc) 62%, transparent); background: color-mix(in srgb, var(--nc) 26%, var(--surface)); border-radius: 22px; font-weight: 600; }
+  .wnq textarea { padding: 16px 18px; }
+  .wnq textarea::placeholder, .wnq .field::placeholder { color: var(--ink-soft); opacity: .85; }
+  .wnq textarea:focus, .wnq .field:focus { outline: 0; box-shadow: 0 0 0 3px color-mix(in srgb, var(--nc) 55%, transparent); }
+  .wnq .chip { border-color: color-mix(in srgb, var(--nc) 55%, transparent); background: color-mix(in srgb, var(--nc) 20%, var(--surface)); }
+  .wnq .wn-tools button { border: 2px solid color-mix(in srgb, var(--nc) 50%, transparent); background: color-mix(in srgb, var(--nc) 18%, var(--surface)); }
   .wn-qh { margin: 22px 2px 10px; font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
   .wn-sub { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 2px 0 12px; font-size: 13px; font-weight: 700; color: var(--ink-soft); }
   .wn-day { margin: 14px 0 6px; font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 8px; }
@@ -928,7 +944,8 @@
 
 <!-- Weekly Notes -->
 <div class="scrim" id="m-wn">
-  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="nHead" tabindex="-1">
+  <div class="sheet wnq" id="nSheet" role="dialog" aria-modal="true" aria-labelledby="nHead" tabindex="-1">
+    <svg class="wnq-d wnq-d1" viewBox="0 0 220 130" aria-hidden="true"><use href="#wnLeaf" transform="translate(130 20) rotate(24) scale(1)"/><use href="#wnLeaf2" transform="translate(150 50) rotate(60) scale(.8)"/><use href="#wnLeaf" transform="translate(176 24) rotate(-10) scale(.9)"/></svg>
     <div class="sh-head">
       <div><p class="sh-dow" id="nWeek"></p><h2 class="sh-date" id="nHead">Nota de la semana</h2></div>
       <button class="icon-btn close" type="button" aria-label="Cerrar"></button>
@@ -1509,7 +1526,7 @@
     const s = season(), S = SEASONS[s];
     { const bc = BG_CHOICES.find(c => c[0] === prefs.bg), rs = document.documentElement.style, cu = typeof prefs.bg === 'string' && prefs.bg.indexOf('u:') === 0 ? (prefs.myBg || []).find(x => 'u:' + x.id === prefs.bg) : null; if (cu) { rs.setProperty('--bga-l', '#FFF7F3'); rs.setProperty('--bgb-l', '#F7E4DC'); rs.setProperty('--bgurl', 'url("' + cu.src + '")'); applyBgVeil(); } else if (bc) { rs.removeProperty('--bgurl'); rs.setProperty('--bga-l', bc[2]); rs.setProperty('--bgb-l', bc[3]); if (bc[4]) { rs.setProperty('--bgimg', 'linear-gradient(rgba(255,255,255,.52),rgba(255,255,255,.52)), ' + bgTile(bc)); rs.setProperty('--bgsz', 'auto, 56px 56px'); } else { rs.removeProperty('--bgimg'); rs.removeProperty('--bgsz'); } } else { rs.removeProperty('--bga-l'); rs.removeProperty('--bgb-l'); rs.removeProperty('--bgimg'); rs.removeProperty('--bgsz'); } }
     renderBgPick();
-    document.documentElement.dataset.season = s;
+    document.documentElement.dataset.season = prefs.season ? s : 'rosa';   // Automático = la paleta rosa/vino de la bienvenida (el arte sigue el mes)
     // selector
     const box = $('#seasons'); box.replaceChildren();
     const autoBtn = el('button', { type: 'button', class: 'spill' + (!prefs.season ? ' on' : ''), 'aria-pressed': String(!prefs.season), 'aria-label': 'Automático, según el mes' });
@@ -3524,6 +3541,7 @@
   }
   function renderWNPickers() {
     const n = wnById(openWN); if (!n) return;
+    $('#nSheet').style.setProperty('--nc', wnColor(n.color));
     const kb = $('#nKinds'); kb.replaceChildren();
     WN_KINDS.forEach(k => {
       const b = el('button', { type: 'button', class: 'chip sm', role: 'radio', 'aria-checked': String(n.kind === k.id) });
