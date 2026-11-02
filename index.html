@@ -2,6 +2,7 @@
 <html lang="es" data-season="otono">
 <head>
 <meta charset="utf-8">
+<script>try{if(localStorage.getItem("time-lic")!=="1")document.documentElement.classList.add("unk")}catch(e){document.documentElement.classList.add("unk")}setTimeout(function(){document.documentElement.classList.remove("unk")},4000)</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>TIME · Better Calendar</title>
 <meta name="color-scheme" content="light dark">
@@ -406,6 +407,31 @@
   .bgctl { flex-basis: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; font-size: 13px; }
   .bgctl input[type=range] { width: 140px; accent-color: var(--accent); }
   .bgctl .pill { cursor: pointer; }
+  /* ---------- Weekly Notes: página de 6 cuadros ---------- */
+  :root { --wn-l1: color-mix(in srgb, var(--accent) 42%, var(--bg-a)); --wn-l2: color-mix(in srgb, var(--accent) 85%, var(--bg-a)); --wn-l3: color-mix(in srgb, #E5A94A 62%, var(--bg-a)); }
+  .wnp-zone { position: relative; margin: 2px 0 4px; }
+  .wnp-zone .stk-layer { border-radius: 30px; }
+  .wnp { --nc: var(--wn-c, var(--accent)); position: relative; isolation: isolate; overflow: hidden; border-radius: 30px; padding: clamp(18px, 3.4vw, 36px) clamp(12px, 3vw, 34px) clamp(54px, 9vw, 96px); border: 1px solid var(--line);
+    background: radial-gradient(90% 60% at 86% 0%, color-mix(in srgb, var(--nc) 16%, transparent), transparent 70%), radial-gradient(80% 60% at 8% 100%, color-mix(in srgb, var(--nc) 13%, transparent), transparent 70%), linear-gradient(165deg, color-mix(in srgb, var(--nc) 6%, var(--surface)), color-mix(in srgb, var(--nc) 15%, var(--bg-a)));
+    box-shadow: 0 14px 30px -18px color-mix(in srgb, var(--nc) 55%, transparent); }
+  .wnp > svg { position: absolute; z-index: 0; pointer-events: none; height: auto; }
+  .wnp-d1 { top: -6px; left: -8px; width: min(46%, 250px); } .wnp-d2 { top: 0; right: 0; width: min(36%, 190px); }
+  .wnp-d3 { bottom: -10px; left: -10px; width: min(56%, 320px); } .wnp-d4 { bottom: -8px; right: -10px; width: min(50%, 270px); }
+  @media (max-width: 559px) { .wnp-d2 { width: 26%; } .wnb-h { font-size: 10.5px; letter-spacing: .06em; } }
+  .wnp .sw1 { fill: none; stroke: color-mix(in srgb, var(--nc) 60%, var(--bg-a)); stroke-width: 3.4; stroke-linecap: round; stroke-dasharray: .1 6.5; }
+  .wnp-title { position: relative; z-index: 1; margin: 4px 0 clamp(16px, 3vw, 26px); text-align: center; font: 600 clamp(24px, 4.6vw, 40px)/1 var(--font-body); letter-spacing: .42em; text-indent: .42em; text-transform: uppercase; color: color-mix(in srgb, var(--nc) 55%, var(--ink)); text-shadow: 2px 2px 0 color-mix(in srgb, var(--nc) 24%, transparent); }
+  .wnp-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px, 1.9vw, 18px); }
+  .wnb { display: flex; flex-direction: column; min-width: 0; padding: 12px 14px 12px; border-radius: clamp(18px, 3vw, 30px); cursor: text; background: color-mix(in srgb, var(--nc) 27%, var(--surface)); border: 1px solid color-mix(in srgb, var(--nc) 30%, transparent); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4); transition: box-shadow .15s, background .15s; }
+  .wnb:focus-within { box-shadow: 0 0 0 3px color-mix(in srgb, var(--nc) 48%, transparent); background: color-mix(in srgb, var(--nc) 31%, var(--surface)); }
+  .wnb.big, .wnb.wide { grid-column: 1 / -1; }
+  .wnb-h { width: 100%; min-width: 0; box-sizing: border-box; padding: 2px 0 6px; border: 0; outline: 0; background: transparent; font: 800 11.5px/1.2 var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: color-mix(in srgb, var(--nc) 50%, var(--ink)); }
+  .wnb-h::placeholder { color: color-mix(in srgb, var(--nc) 60%, var(--ink-soft)); opacity: .85; }
+  .wnb-t { flex: 1; width: 100%; box-sizing: border-box; min-height: 96px; padding: 0; border: 0; outline: 0; resize: none; overflow: hidden; background: transparent; color: var(--ink); font: 600 15px/1.5 var(--font-body); }
+  .wnb .wnb-h:focus-visible, .wnb .wnb-t:focus-visible { outline: 0; box-shadow: none; }
+  .wnb-t::placeholder { color: var(--ink-soft); opacity: .55; font-weight: 500; }
+  .wnb.big .wnb-t { min-height: 150px; } .wnb.wide .wnb-t { min-height: 64px; }
+  @media (min-width: 760px) { .wnb { padding: 16px 20px 14px; } .wnb-t { font-size: 16px; min-height: 130px; } .wnb.big .wnb-t { min-height: 170px; } .wnb-h { font-size: 12.5px; } }
+  .wn-qh { margin: 22px 2px 10px; font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
   .wn-sub { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 2px 0 12px; font-size: 13px; font-weight: 700; color: var(--ink-soft); }
   .wn-day { margin: 14px 0 6px; font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 8px; }
   .wn-day::after { content: ''; flex: 1; height: 2px; border-radius: 2px; background: var(--line); }
@@ -507,23 +533,75 @@
   .lb img { max-width: min(92vw, 720px); max-height: 76vh; border-radius: 20px; object-fit: contain; }
 
   /* ---------- Registro (página de bienvenida) ---------- */
-  #gate { z-index: 90; position: fixed; inset: 0; display: none; flex-direction: column; align-items: center; overflow-y: auto; background: linear-gradient(180deg, color-mix(in srgb, var(--soft) 70%, var(--bg-a)), var(--bg-a) 55%); padding: calc(34px + env(safe-area-inset-top, 0px)) 22px calc(34px + env(safe-area-inset-bottom, 0px)); }
-  #gate.open { display: flex; }
+  #gate { --accent: #8C1D4A; z-index: 90; position: fixed; inset: 0; display: none; overflow-y: auto; overflow-x: hidden; color-scheme: light; color: #4A1830; font-family: var(--font-body);
+    background: radial-gradient(120% 80% at 18% 12%, #FFF6F8 0%, transparent 60%), radial-gradient(90% 70% at 90% 100%, #F9CCDB 0%, transparent 65%), linear-gradient(165deg, #FFEFF3 0%, #FBDDE6 55%, #F6CBD9 100%); }
+  #gate.open { display: block; animation: gtIn .45s ease both; }
+  @keyframes gtIn { from { opacity: 0; } to { opacity: 1; } }
+  html.unk .app, html.unk #gate { visibility: hidden; }
   .langsw { position: absolute; top: calc(10px + env(safe-area-inset-top, 0px)); right: 12px; z-index: 8; display: inline-flex; border: 1.5px solid var(--accent); border-radius: 99px; overflow: hidden; background: color-mix(in srgb, var(--surface, #fff) 85%, transparent); }
   .langsw button { border: 0; background: transparent; color: var(--accent); font: 800 12px/1 'Nunito', system-ui, sans-serif; letter-spacing: .04em; padding: 7px 11px; cursor: pointer; }
   .langsw button[aria-pressed="true"] { background: var(--accent); color: #fff; }
   .langsw button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-  .gate-wrap { position: relative; width: 100%; max-width: 440px; margin: auto; }
-  .gate-deco { position: absolute; top: -18px; right: -6px; width: 128px; height: auto; pointer-events: none; }
-  .gate-logo { margin: 0; font-family: var(--font-serif); font-weight: 700; letter-spacing: .16em; font-size: clamp(36px, 10vw, 46px); color: var(--accent); }
-  .gate-logo span { display: inline-block; width: 20px; height: 20px; margin-left: 4px; vertical-align: -2px; }
-  .gate-kicker { margin: 2px 0 20px; font-size: 12.5px; font-weight: 800; letter-spacing: .08em; color: var(--ink-soft); text-transform: uppercase; }
-  .gate-sheet { width: 100%; padding: 28px 22px calc(26px + env(safe-area-inset-bottom, 0px)); border-radius: 28px; background: var(--surface); border: 1px solid var(--line); text-align: center; }
-  .gate-sheet h2 { margin: 0 0 8px; font-family: var(--font-logo); font-weight: 400; font-size: 40px; color: var(--accent); }
-  .gate-sheet p.gate-sub { margin: 0 0 22px; font-size: 14.5px; line-height: 1.5; color: var(--ink-soft); }
-  .gate-sheet .gfield { text-align: left; margin-bottom: 12px; }
-  .gate-legal a { color: var(--ink-soft); text-decoration: underline; }
-  .gate-err { min-height: 18px; margin: 2px 0 10px; font-size: 13px; font-weight: 700; color: #B0453D; }
+  .gt-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+  .gt-flora { position: fixed; pointer-events: none; z-index: 0; }
+  .gt-flora svg { display: block; width: 100%; height: auto; }
+  .gt-flora.tr { top: -2vw; right: -2vw; width: clamp(150px, 25vw, 360px); }
+  .gt-flora.bl { bottom: -2vw; left: -2vw; width: clamp(140px, 22vw, 330px); }
+  .gt-main { position: relative; z-index: 1; min-height: 100%; box-sizing: border-box; width: 100%; max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 480px); grid-template-rows: 1fr auto auto 1fr; column-gap: clamp(28px, 6vw, 90px); align-items: center; padding: calc(30px + env(safe-area-inset-top, 0px)) 28px calc(30px + env(safe-area-inset-bottom, 0px)); }
+  .gt-stage { grid-column: 1; grid-row: 1 / span 4; display: grid; place-items: center; --pw: clamp(220px, calc((100vh - 90px) / 2.2), 400px); padding: 10px 0; }
+  .gt-brand { grid-column: 2; grid-row: 2; text-align: center; }
+  .gt-act { grid-column: 2; grid-row: 3; text-align: center; margin-top: 30px; }
+  .gt-cal { width: clamp(46px, 5vw, 62px); height: auto; color: #8C1D4A; margin: 0 auto 6px; display: block; }
+  .gt-logo { margin: 0; font: 700 clamp(70px, 9.6vw, 134px)/.92 var(--font-serif); letter-spacing: .005em; color: #8C1D4A; background: linear-gradient(175deg, #6E1A5A 0%, #9A1B4F 45%, #7A1040 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 4px 8px rgba(140, 29, 74, .18)); }
+  .gt-script { display: flex; align-items: center; justify-content: center; gap: clamp(10px, 1.6vw, 20px); margin: 4px 0 0; font: 400 clamp(36px, 4.3vw, 60px)/1.1 var(--font-logo); color: #5E1230; }
+  .gt-script span { white-space: nowrap; }
+  .gt-script::before, .gt-script::after { content: ''; flex: 0 1 clamp(26px, 5vw, 70px); height: 2px; background: #6B1636; border-radius: 2px; }
+  .gt-tag { margin: clamp(14px, 2.4vh, 28px) auto 0; max-width: 420px; font: italic 500 clamp(20px, 2.3vw, 31px)/1.35 var(--font-serif); color: #55223F; text-wrap: balance; }
+  .gt-cta { display: flex; align-items: center; justify-content: center; gap: 14px; box-sizing: border-box; width: 100%; min-height: 66px; padding: 0 28px; border-radius: 99px; text-decoration: none; font: 700 clamp(19px, 2vw, 26px)/1 var(--font-body); letter-spacing: .01em; color: #fff; background: linear-gradient(180deg, #B22462 0%, #85123F 100%); box-shadow: 0 14px 26px -8px rgba(133, 18, 63, .55), inset 0 1px 0 rgba(255, 255, 255, .35); transition: transform .15s, box-shadow .15s, filter .15s; }
+  .gt-cta:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 18px 30px -8px rgba(133, 18, 63, .6), inset 0 1px 0 rgba(255, 255, 255, .35); }
+  .gt-cta:active { transform: translateY(0); }
+  .gt-cta svg { width: 26px; height: 26px; flex: none; }
+  .gt-have { margin: clamp(26px, 4.4vh, 46px) 0 0; font: 800 clamp(17px, 1.6vw, 21px)/1.2 var(--font-body); color: #2E1220; }
+  .gt-input { position: relative; margin-top: 14px; }
+  .gt-input svg { position: absolute; left: 18px; top: 50%; width: 26px; height: 26px; margin-top: -13px; color: #6B1636; pointer-events: none; }
+  .gt-input input { box-sizing: border-box; width: 100%; height: 58px; padding: 0 16px 0 58px; border: 1.5px solid #CDB0BC; border-radius: 16px; background: rgba(255, 255, 255, .88); color: #3A1628; font: 600 17px var(--font-body); letter-spacing: .04em; outline: none; transition: border-color .15s, box-shadow .15s; }
+  .gt-input input::placeholder { color: #8B7480; font-weight: 500; letter-spacing: 0; }
+  .gt-input input:focus { border-color: #B22462; box-shadow: 0 0 0 4px rgba(178, 36, 98, .16); }
+  .gt-go { box-sizing: border-box; width: 100%; height: 56px; margin-top: 12px; border: 0; border-radius: 16px; cursor: pointer; background: #F4B9CB; color: #7A0F3E; font: 800 clamp(18px, 1.7vw, 21px)/1 var(--font-body); transition: background .15s, transform .15s; }
+  .gt-go:hover { background: #EFA3BC; } .gt-go:active { transform: scale(.99); } .gt-go:disabled { opacity: .6; cursor: default; }
+  .gt-go:focus-visible, .gt-cta:focus-visible, #gate a:focus-visible { outline: 3px solid #B22462; outline-offset: 3px; }
+  .gate-err { min-height: 0; margin: 8px 0 0; font-size: 13.5px; font-weight: 700; color: #B0302F; text-align: center; }
+  .gate-err:empty { display: none; }
+  .gt-link { display: inline-block; margin-top: 16px; font: 800 14.5px/1.3 var(--font-body); color: #8C1D4A; text-decoration: underline; text-underline-offset: 3px; }
+  #recBox { margin-top: 8px; text-align: left; } #recBox label { display: block; margin: 0 0 6px 4px; font-size: 13px; font-weight: 800; color: #5E2441; }
+  #recBox .gt-input svg { display: none; } #recBox .gt-input input { padding-left: 16px; }
+  .gt-legal { margin: 22px 0 0; font-size: 12.5px; line-height: 1.6; color: #7C5367; } .gt-legal a { color: #7C5367; text-decoration: underline; }
+  .gt-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  /* iPhone */
+  .gt-phone { position: relative; width: var(--pw); box-sizing: border-box; padding: calc(var(--pw) * .028); border-radius: calc(var(--pw) * .165); transform: rotate(-9deg); transform-origin: 50% 55%;
+    background: linear-gradient(140deg, #F6F2EE 0%, #CFC8C0 22%, #F1ECE7 48%, #BDB5AC 78%, #E9E3DD 100%);
+    box-shadow: inset 0 0 0 calc(var(--pw) * .005) #9A928A, inset 0 0 0 calc(var(--pw) * .012) rgba(255, 255, 255, .55), 0 40px 60px -26px rgba(122, 20, 64, .55), 0 14px 28px -10px rgba(122, 20, 64, .3); animation: gtPhone .9s cubic-bezier(.2, .8, .2, 1) both; }
+  @keyframes gtPhone { from { opacity: 0; transform: translateY(26px) rotate(-5deg); } to { opacity: 1; transform: rotate(-9deg); } }
+  .gt-phone::before, .gt-phone::after { content: ''; position: absolute; width: calc(var(--pw) * .012); border-radius: 3px; background: linear-gradient(90deg, #B1A9A0, #E4DED8); }
+  .gt-phone::before { left: calc(var(--pw) * -.009); top: 20%; height: 12%; box-shadow: 0 calc(var(--pw) * .2) 0 #C9C2BA; }
+  .gt-phone::after { right: calc(var(--pw) * -.009); top: 26%; height: 17%; }
+  .gt-screen { position: relative; overflow: hidden; border-radius: calc(var(--pw) * .138); background: #FFF3F6; box-shadow: 0 0 0 calc(var(--pw) * .02) #14090E; }
+  .gt-screen img { display: block; width: 100%; height: auto; }
+  .gt-isl { position: absolute; z-index: 2; top: calc(var(--pw) * .034); left: 50%; width: calc(var(--pw) * .27); height: calc(var(--pw) * .076); margin-left: calc(var(--pw) * -.135); border-radius: 99px; background: #0B0407; box-shadow: inset calc(var(--pw) * .06) 0 0 -1px #1A0F14; }
+  .gt-glare { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(115deg, rgba(255, 255, 255, .28) 0%, rgba(255, 255, 255, 0) 32%); }
+  @media (max-width: 859px) {
+    .gt-main { grid-template-columns: minmax(0, 440px); justify-content: center; grid-template-rows: auto; padding-top: calc(54px + env(safe-area-inset-top, 0px)); }
+    .gt-brand, .gt-stage, .gt-act { grid-column: 1; grid-row: auto; }
+    .gt-brand { order: 1; } .gt-stage { order: 2; } .gt-act { order: 3; margin-top: 8px; }
+    .gt-logo { font-size: clamp(64px, 21vw, 100px); } .gt-script { font-size: clamp(34px, 10.5vw, 52px); }
+    .gt-tag { font-size: clamp(18px, 5.2vw, 23px); }
+    .gt-stage { --pw: min(56vw, 236px); height: calc(var(--pw) * 1.5); align-items: start; margin: 8px 0 0; overflow: hidden; -webkit-mask-image: linear-gradient(#000 74%, transparent); mask-image: linear-gradient(#000 74%, transparent); padding-top: 16px; }
+    .gt-phone { transform-origin: 50% 40%; }
+    .gt-flora.tr { width: 44vw; top: -6vw; right: -8vw; } .gt-flora.bl { display: none; }
+    .gt-cta { min-height: 60px; }
+  }
+  @media (max-width: 859px) and (max-height: 700px) { .gt-stage { --pw: min(44vw, 180px); } }
+  @media (min-width: 860px) and (max-height: 640px) { .gt-stage { --pw: 220px; } .gt-logo { font-size: clamp(60px, 8vw, 100px); } }
 
   /* ---------- Fechas importantes ---------- */
   .day .special { position: absolute; top: 5px; right: 5px; width: 13px; height: 13px; color: var(--accent); }
@@ -569,28 +647,78 @@
 </style>
 </head>
 <body>
-<div class="open" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateH">
+<svg class="gt-defs" id="gtDefs" aria-hidden="true" focusable="false"><defs>
+    <linearGradient id="gtPg" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#D8477F"/><stop offset=".5" stop-color="#F6AFC8"/><stop offset="1" stop-color="#FFEFF4"/></linearGradient>
+    <linearGradient id="gtLg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9DB98A"/><stop offset="1" stop-color="#5F8957"/></linearGradient>
+    <path id="gtPet" d="M0 0C-27 -8 -31 -41 -5 -51L0 -45L5 -51C31 -41 27 -8 0 0Z" fill="url(#gtPg)" stroke="#E27AA0" stroke-width=".7"/>
+    <g id="gtBlossom">
+      <use href="#gtPet"/><use href="#gtPet" transform="rotate(72)"/><use href="#gtPet" transform="rotate(144)"/><use href="#gtPet" transform="rotate(216)"/><use href="#gtPet" transform="rotate(288)"/>
+      <g stroke="#D4608D" stroke-width=".8" fill="none" opacity=".55"><path d="M0 -6V-32"/><path d="M0 -6V-32" transform="rotate(72)"/><path d="M0 -6V-32" transform="rotate(144)"/><path d="M0 -6V-32" transform="rotate(216)"/><path d="M0 -6V-32" transform="rotate(288)"/></g>
+      <circle r="7" fill="#C2275F"/>
+      <g stroke="#8A1445" stroke-width="1.1" stroke-linecap="round"><path d="M0 0L-3 -17"/><path d="M0 0L5 -16"/><path d="M0 0L14 -9"/><path d="M0 0L13 7"/><path d="M0 0L3 17"/><path d="M0 0L-9 13"/><path d="M0 0L-15 4"/><path d="M0 0L-12 -10"/></g>
+      <g fill="#E9B83C"><circle cx="-3" cy="-17" r="2"/><circle cx="5" cy="-16" r="2"/><circle cx="14" cy="-9" r="2"/><circle cx="13" cy="7" r="2"/><circle cx="3" cy="17" r="2"/><circle cx="-9" cy="13" r="2"/><circle cx="-15" cy="4" r="2"/><circle cx="-12" cy="-10" r="2"/></g>
+    </g>
+    <g id="gtLeaf"><path d="M0 0C12 -20 42 -22 60 0C42 22 12 20 0 0Z" fill="url(#gtLg)"/><path d="M3 0L52 0" stroke="#fff" stroke-opacity=".5" stroke-width="1.2"/><path d="M18 0L34 -9M18 0L34 9M32 0L46 -6M32 0L46 6" stroke="#fff" stroke-opacity=".35" stroke-width="1" fill="none"/></g>
+    <g id="gtBud"><ellipse cx="0" cy="-9" rx="6" ry="10" fill="url(#gtPg)" stroke="#E27AA0" stroke-width=".7"/><path d="M-5 -2C-4 4 4 4 5 -2" fill="#8DB07C"/></g>
+    <g id="wnLeaf"><path d="M0 0C10 -17 36 -20 56 0C36 20 10 17 0 0Z" style="fill:var(--wn-l1)"/><path d="M2 0C16 -8 36 -9 54 0" style="fill:none;stroke:var(--wn-l2);stroke-width:1.1;opacity:.55"/></g>
+    <g id="wnLeaf2"><path d="M0 0C10 -17 36 -20 56 0C36 20 10 17 0 0Z" style="fill:var(--wn-l3)"/><path d="M2 0C16 -8 36 -9 54 0" style="fill:none;stroke:var(--wn-l2);stroke-width:1;opacity:.35"/></g>
+  </defs></svg>
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gateH">
+
+  <div class="gt-flora tr" aria-hidden="true"><svg viewBox="0 0 300 300">
+    <path d="M308 22C250 44 196 90 150 170" fill="none" stroke="#7E9C6D" stroke-width="3" stroke-linecap="round"/>
+    <path d="M200 70C190 100 196 124 214 150" fill="none" stroke="#7E9C6D" stroke-width="2.4" stroke-linecap="round"/>
+    <use href="#gtLeaf" transform="translate(270 38) rotate(145) scale(1.15)"/><use href="#gtLeaf" transform="translate(232 62) rotate(28) scale(1.2)"/>
+    <use href="#gtLeaf" transform="translate(205 100) rotate(168) scale(1)"/><use href="#gtLeaf" transform="translate(178 135) rotate(48) scale(.95)"/>
+    <use href="#gtLeaf" transform="translate(212 150) rotate(95) scale(.8)"/><use href="#gtLeaf" transform="translate(152 168) rotate(120) scale(.8)"/>
+    <use href="#gtBud" transform="translate(238 118) rotate(24) scale(.9)"/><use href="#gtBud" transform="translate(150 196) rotate(8) scale(.8)"/>
+    <use href="#gtBlossom" transform="translate(268 30) rotate(8) scale(1.38)"/><use href="#gtBlossom" transform="translate(222 84) rotate(32) scale(.98)"/><use href="#gtBlossom" transform="translate(186 150) rotate(-14) scale(.72)"/>
+  </svg></div>
+
+  <div class="gt-flora bl" aria-hidden="true"><svg viewBox="0 0 300 300">
+    <path d="M-6 304C40 250 110 220 170 150" fill="none" stroke="#7E9C6D" stroke-width="3" stroke-linecap="round"/>
+    <path d="M70 238C60 208 80 180 120 170" fill="none" stroke="#7E9C6D" stroke-width="2.4" stroke-linecap="round"/>
+    <use href="#gtLeaf" transform="translate(120 210) rotate(-35) scale(1.25)"/><use href="#gtLeaf" transform="translate(70 262) rotate(-62) scale(1.1)"/>
+    <use href="#gtLeaf" transform="translate(150 172) rotate(-72) scale(1)"/><use href="#gtLeaf" transform="translate(92 190) rotate(-110) scale(.9)"/>
+    <use href="#gtLeaf" transform="translate(20 214) rotate(-20) scale(1)"/>
+    <use href="#gtBud" transform="translate(170 140) rotate(30) scale(.85)"/>
+    <use href="#gtBlossom" transform="translate(44 262) rotate(-12) scale(1.95)"/><use href="#gtBlossom" transform="translate(126 176) rotate(20) scale(1.05)"/><use href="#gtBlossom" transform="translate(182 120) rotate(-30) scale(.62)"/>
+  </svg></div>
+
   <div class="langsw" role="group" aria-label="Idioma"><button type="button" data-lang="es" aria-pressed="true">ES</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
-  <div class="gate-wrap">
-    <svg class="gate-deco" id="gateDeco" viewBox="0 0 220 130" aria-hidden="true"></svg>
-    <p class="gate-logo">TIME<span id="gateHeart"></span></p>
-    <p class="gate-kicker">Better Calendar</p>
-    <div class="gate-sheet">
-      <h2 id="gateH">¡Bienvenida!</h2>
-      <p class="gate-sub">Tu espacio para planear tus metas, cuidar tus días y soñar en grande.<br>Escribe el código de compra que te aparece al pagar para empezar.</p>
-      <div class="gfield"><label class="lbl" for="gCode">Código de compra</label><input class="field" id="gCode" type="text" maxlength="20" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX-XXXX"></div>
-      <p class="gate-err" id="gateErr"></p>
-      <button class="done-btn solid" id="gateGo" type="button">Activar mi calendario</button>
-      <p class="gate-sub" id="gateBuy" style="margin:18px 0 0" hidden>¿Aún no tienes código? <a id="gateBuyLink" href="#" style="color:var(--accent);font-weight:800">Compra tu calendario aquí</a></p>
-      <p class="gate-sub" style="margin:12px 0 0"><a id="gateLost" href="#" style="color:var(--accent);font-weight:800">¿Perdiste tu código? Recupéralo con tu correo</a></p>
-      <div id="recBox" hidden style="margin-top:12px">
-        <div class="gfield"><label class="lbl" for="rEmail">Correo con el que compraste</label><input class="field" id="rEmail" type="email" maxlength="160" autocomplete="email" inputmode="email"></div>
-        <p class="gate-err" id="recMsg" role="status"></p>
-        <button class="done-btn solid" id="recGo" type="button" style="margin-top:0">Enviarme el código</button>
-      </div>
-      <p class="gate-sub gate-legal" style="margin:16px 0 0;font-size:12.5px"><a href="reembolsos.html" target="_blank" rel="noopener">Política de reembolsos</a> · <a href="terminos.html" target="_blank" rel="noopener">Términos y condiciones</a> · <a href="privacidad.html" target="_blank" rel="noopener">Política de privacidad</a></p>
+
+  <main class="gt-main">
+    <div class="gt-brand">
+      <svg class="gt-cal" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="11" width="52" height="46" rx="9"/><path d="M19 4v13M45 4v13M6 24h52"/><path d="M32 49c-9-6-12-10-12-14.5a6.5 6.5 0 0 1 12-3.4 6.5 6.5 0 0 1 12 3.4C44 39 41 43 32 49z"/></svg>
+      <h1 class="gt-logo" id="gateH">TIME</h1>
+      <p class="gt-script"><span>Better Calendar</span></p>
+      <p class="gt-tag">Planea, organiza y alcanza tus metas</p>
     </div>
-  </div>
+
+    <div class="gt-stage" aria-hidden="false">
+      <div class="gt-phone">
+        <i class="gt-isl"></i><i class="gt-glare"></i>
+        <div class="gt-screen"><img id="gtShot" src="img/welcome-phone-es.webp" width="390" height="844" alt="Calendario TIME en un iPhone" decoding="async"></div>
+      </div>
+    </div>
+
+    <div class="gt-act">
+      <a class="gt-cta" id="gateBuyLink" href="comprar.html"><span>Obtener mi calendario</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+      <p class="gt-have">¿Ya tienes un código?</p>
+      <label class="gt-sr" for="gCode">Código de compra</label>
+      <div class="gt-input"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="16.5" r="4"/><path d="M10.5 13.5L20 4M16 8l3 3M13.5 10.5l2 2"/></svg><input id="gCode" type="text" maxlength="20" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Escribe tu código de activación"></div>
+      <p class="gate-err" id="gateErr" role="alert"></p>
+      <button class="gt-go" id="gateGo" type="button">Activar ahora</button>
+      <a class="gt-link" id="gateLost" href="#">¿Perdiste tu código? Recupéralo con tu correo</a>
+      <div id="recBox" hidden>
+        <label for="rEmail">Correo con el que compraste</label>
+        <div class="gt-input" style="margin-top:0"><input id="rEmail" type="email" maxlength="160" autocomplete="email" inputmode="email"></div>
+        <p class="gate-err" id="recMsg" role="status"></p>
+        <button class="gt-go" id="recGo" type="button">Enviarme el código</button>
+      </div>
+      <p class="gt-legal"><a href="reembolsos.html" target="_blank" rel="noopener">Política de reembolsos</a> · <a href="terminos.html" target="_blank" rel="noopener">Términos y condiciones</a> · <a href="privacidad.html" target="_blank" rel="noopener">Política de privacidad</a></p>
+    </div>
+  </main>
 </div>
 
 <div class="app">
@@ -683,6 +811,28 @@
       <button class="icon-btn" type="button" id="wnNext" aria-label="Semana siguiente"><i data-ic="right"></i></button>
     </div>
     <div class="wn-sub"><span id="wnCount"></span><button class="pill" type="button" id="wnToday" hidden>Ir a esta semana</button></div>
+    <div class="stk-zone wnp-zone" id="wpZone">
+      <article class="wnp" id="wnPage" aria-label="Página de notas de la semana">
+        <svg class="wnp-sw wnp-d1" viewBox="0 0 300 200" aria-hidden="true"><path class="sw1" d="M-10 52C34 8 74 84 124 46S196 -6 252 30"/><path class="sw1" d="M-10 76C30 34 70 104 118 70S190 22 240 52" style="opacity:.45"/></svg>
+        <svg class="wnp-d2" id="wpDeco" viewBox="0 0 220 130" aria-hidden="true"></svg>
+        <svg class="wnp-d3" viewBox="0 0 260 250" aria-hidden="true">
+          <path d="M6 252C40 190 96 140 176 96" fill="none" style="stroke:var(--wn-l2)" stroke-width="2.2" stroke-linecap="round" opacity=".7"/>
+          <use href="#wnLeaf" transform="translate(34 206) rotate(-72) scale(1.15)"/><use href="#wnLeaf2" transform="translate(52 192) rotate(-18) scale(.95)"/>
+          <use href="#wnLeaf" transform="translate(76 168) rotate(-96) scale(1.1)"/><use href="#wnLeaf" transform="translate(98 150) rotate(-30) scale(1.05)"/>
+          <use href="#wnLeaf2" transform="translate(126 124) rotate(-70) scale(.9)"/><use href="#wnLeaf" transform="translate(150 108) rotate(-20) scale(.95)"/>
+          <use href="#wnLeaf" transform="translate(176 96) rotate(-48) scale(.8)"/>
+          <path d="M0 214C26 190 44 188 74 196" fill="none" style="stroke:var(--wn-l2)" stroke-width="1.6" stroke-linecap="round" opacity=".5"/>
+          <use href="#wnLeaf" transform="translate(40 232) rotate(-8) scale(.9)"/><use href="#wnLeaf2" transform="translate(6 196) rotate(-52) scale(.8)"/>
+        </svg>
+        <svg class="wnp-sw wnp-d4" viewBox="0 0 300 200" aria-hidden="true"><path class="sw1" d="M310 150C268 196 226 118 178 156S104 206 52 170"/><path class="sw1" d="M310 124C272 168 232 96 186 130S114 180 66 146" style="opacity:.45"/></svg>
+        <h3 class="wnp-title">Notas</h3>
+        <div class="wnp-grid" id="wpGrid"></div>
+      </article>
+      <div class="stk-layer" id="wpLayer"></div>
+    </div>
+    <p class="lbl" style="margin:14px 0 6px">Color</p>
+    <div class="acolors" id="wpColors" role="radiogroup" aria-label="Color de los cuadros"></div>
+    <button class="ghost-btn stk-btn" id="wpStkBtn" type="button" aria-pressed="false"><i data-ic="flower"></i>Stickers</button>
     <div id="wnBody"></div>
   </section>
 
@@ -1381,9 +1531,8 @@
     $('#heroDeco').innerHTML = '<g transform="translate(790 -6)">' + CLUSTER[s]() + '</g><g transform="translate(830 346) scale(.85 -.85)">' + CLUSTER[s]() + '</g>';
     $('#topDeco').innerHTML = CLUSTER[s]();
     $('#vDeco').innerHTML = CLUSTER[s]();
-    $('#gateDeco').innerHTML = CLUSTER[s]();
+    $('#wpDeco').innerHTML = CLUSTER[s]();
     renderHeroParticles();
-    $('#gateHeart').innerHTML = svg('sparkle', 20, 2, 'currentColor');
     $('#goalIco').innerHTML = svg(S.icon, 30, 1.8);
     setThemeColor();
   }
@@ -1744,6 +1893,7 @@
     $('#habitsView').hidden = v !== 'habits';
     $('#weekView').hidden = v !== 'week';
     $('#wnView').hidden = v !== 'wn';
+    if (v !== 'wn' && stk.ctx && stk.ctx.zone && stk.ctx.zone.id === 'wpZone') stkClose();
     if (v === 'wn') renderWN();
     if (v === 'week') renderWeek();
     if (v === 'habits') renderHabits();
@@ -2616,8 +2766,8 @@
   /* ================= Licencia (código de compra) ================= */
   const newDeviceId = () => { const a = new Uint8Array(16); crypto.getRandomValues(a); return Array.from(a, x => x.toString(16).padStart(2, '0')).join(''); };
   const RECHECK_MS = 24 * 3600 * 1000;
-  function closeGate() { $('#gate').classList.remove('open'); document.body.style.overflow = ''; }
-  function openGate(msg) { $('#gate').classList.add('open'); gateErr(msg || ''); loadBuyUrl(); }
+  function closeGate() { $('#gate').classList.remove('open'); document.documentElement.classList.remove('unk'); document.body.style.overflow = ''; try { localStorage.setItem('time-lic', '1'); } catch (e) {} }
+  function openGate(msg) { $('#gate').classList.add('open'); document.documentElement.classList.remove('unk'); try { localStorage.removeItem('time-lic'); } catch (e) {} gateErr(msg || ''); loadBuyUrl(); }
   function gateErr(msg) { $('#gateErr').textContent = msg || ''; }
   let buyLoaded = false;
   async function loadBuyUrl() {
@@ -2625,7 +2775,7 @@
     try {
       const r = await fetch('/api/license?a=info', { cache: 'no-store' });
       const j = await r.json();
-      if (j && j.buyUrl) { $('#gateBuyLink').href = j.buyUrl; $('#gateBuy').hidden = false; }
+      if (j && j.buyUrl) $('#gateBuyLink').href = j.buyUrl;
     } catch (e) {}
   }
   async function callLicense(code, device) {
@@ -2655,7 +2805,7 @@
     }
     openGate();
     if (qCode) { $('#gCode').value = qCode; try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {} $('#gateGo').click(); }
-    else $('#gCode').focus();
+    else if (window.innerWidth >= 860) $('#gCode').focus();
   }
   $('#gateGo').addEventListener('click', async () => {
     const code = $('#gCode').value.trim();
@@ -2677,12 +2827,14 @@
 
   const setGuide = () => { $('#guideLink').href = I18N.lang() === 'en' ? 'guias/quick-guide-en.pdf' : 'guias/guia-rapida.pdf'; };
   setGuide(); I18N.onChange(setGuide);
+  const setShot = () => { $('#gtShot').src = 'img/welcome-phone-' + (I18N.lang() === 'en' ? 'en' : 'es') + '.webp'; };
+  setShot(); I18N.onChange(setShot);
 
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   const REC_MSG = {
     ok: 'Si ese correo tiene una compra, te enviamos el código. Revisa también tu carpeta de spam.',
     bad_email: 'Escribe un correo válido.',
-    mail_not_configured: 'La recuperación por correo no está disponible ahora. Escríbenos a eyredigitalstudio@outlook.com y te ayudamos.',
+    mail_not_configured: 'La recuperación por correo no está disponible ahora. Escríbenos a edigitalstudio25@gmail.com y te ayudamos.',
     too_many_requests: 'Demasiados intentos. Espera un rato e inténtalo de nuevo.',
     fail: 'No se pudo enviar el correo. Inténtalo de nuevo en un momento.'
   };
@@ -3178,7 +3330,7 @@
     Object.keys(data.days).forEach(d => { const i = data.days[d]; if (i && i.stk) i.stk = i.stk.filter(z => z.k !== k); });
     data.goals.forEach(g => { if (g.stk) g.stk = g.stk.filter(z => z.k !== k); });
     let ch = false; actsRec.list.forEach(a => { if (a.icon === 'k:' + k) { a.icon = null; ch = true; } }); if (actIconId === 'k:' + k) actIconId = null; if (ch) saveActs();
-    wn.items.forEach(n => { if (n.stk) n.stk = n.stk.filter(z => z.k !== k); }); markWN();
+    wn.items.forEach(n => { if (n.stk) n.stk = n.stk.filter(z => z.k !== k); }); Object.keys(wn.pages || {}).forEach(w => { const p = wn.pages[w]; if (p && p.stk) p.stk = p.stk.filter(z => z.k !== k); }); markWN();
     markDirty(); if (stk.sel && !stkSelected()) stk.sel = null; try { renderActIcons(); } catch (e) {}
     renderCalendar(); renderGoals(); stkRender(); stkBar(); stkBuildTray(); toast('Sticker borrado');
   }
@@ -3242,8 +3394,8 @@
   const WN_KINDS = [{ id: 'nota', n: 'Nota', ic: 'note' }, { id: 'lista', n: 'Lista', ic: 'check' }, { id: 'idea', n: 'Idea', ic: 'sparkle' }, { id: 'recordatorio', n: 'Recordatorio', ic: 'bell' }, { id: 'reflexion', n: 'Reflexión', ic: 'heart' }];
   const WN_COLORS = [['rosa', 'Rosa', '#F6A5C2'], ['durazno', 'Durazno', '#FFB98A'], ['sol', 'Sol', '#FFD84D'], ['menta', 'Menta', '#7FD9B0'], ['cielo', 'Cielo', '#82BFF5'], ['lila', 'Lila', '#B79BF0'], ['coral', 'Coral', '#FF8F7A'], ['blanco', 'Blanco', '#E6D9CF']];
   const WN_TOOLS = [['[ ] ', '☐ Tarea'], ['- ', '• Punto'], ['* ', '★ Idea'], ['! ', '❗ Importante'], ['> ', '💭 Reflexión']];
-  let wn = { items: [] }, wnDirty = false, wnTimer = null, wnOff = 0, openWN = null, wnDelArm = null;
-  async function loadWN() { const v = await kvGet('wnotes'); wn = v && Array.isArray(v.items) ? v : { items: [] }; }
+  let wn = { items: [], pages: {} }, wnDirty = false, wnTimer = null, wnOff = 0, openWN = null, wnDelArm = null;
+  async function loadWN() { const v = await kvGet('wnotes'); wn = v && Array.isArray(v.items) ? v : { items: [] }; if (!wn.pages || typeof wn.pages !== 'object') wn.pages = {}; }
   function markWN() { wn._u = Date.now(); wnDirty = true; setStatus('saving'); clearTimeout(wnTimer); wnTimer = setTimeout(flushWN, 400); }
   function flushWN() {
     clearTimeout(wnTimer);
@@ -3291,18 +3443,77 @@
     const list = wn.items.filter(n => days.indexOf(n.date) >= 0);
     $('#wnCount').textContent = f(days[0]) + ' – ' + f(days[6]) + ' · ' + (list.length === 1 ? '1 nota' : list.length + ' notas');
     $('#wnToday').hidden = wnOff === 0;
+    renderWNPage();
     const body = $('#wnBody'); body.replaceChildren();
-    if (!list.length) { body.append(el('p', { class: 'wn-empty', text: wnOff === 0 ? 'Todavía no hay notas esta semana. Toca “Nueva nota” para empezar tu cuaderno.' : 'No escribiste notas en esta semana.' })); return; }
+    if (!list.length) return;
+    body.append(el('h3', { class: 'wn-qh', text: 'Notas rápidas' }));
     days.forEach(ds => {
       const ns = list.filter(n => n.date === ds).sort((a, b) => (a.created || 0) - (b.created || 0)); if (!ns.length) return;
       const d = parseDs(ds), h = el('div', { class: 'wn-day' + (ds === today ? ' today' : '') }); h.textContent = DOW_FULL[d.getDay()] + ' ' + d.getDate() + ' ' + d.toLocaleDateString(I18N.locale(), { month: 'short' }) + (ds === today ? ' · hoy' : '');
       const g = el('div', { class: 'wn-grid' }); ns.forEach(n => g.append(wnCard(n))); body.append(h, g);
     });
   }
-  $('#wnPrev').addEventListener('click', () => { wnOff--; renderWN(); });
-  $('#wnNext').addEventListener('click', () => { wnOff++; renderWN(); });
-  $('#wnToday').addEventListener('click', () => { wnOff = 0; renderWN(); });
+  $('#wnPrev').addEventListener('click', () => { stkClose(); wnOff--; renderWN(); });
+  $('#wnNext').addEventListener('click', () => { stkClose(); wnOff++; renderWN(); });
+  $('#wnToday').addEventListener('click', () => { stkClose(); wnOff = 0; renderWN(); });
   $('#wnAdd').addEventListener('click', () => newWN());
+
+  /* ---- Página semanal: 1 cuadro grande, 4 centrales y 1 horizontal ---- */
+  const WP_BOXES = [['big', 'Enfoque de la semana'], ['', 'Pendientes'], ['', 'Ideas'], ['', 'Citas'], ['', 'Gratitud'], ['wide', 'Reflexión de la semana']];
+  let wpBuilt = null;
+  const wnPageKey = () => habWeekDays(wnOff)[0];
+  function wnPageRec(create) {
+    if (!wn.pages) wn.pages = {};
+    const k = wnPageKey();
+    if (!wn.pages[k] && create) wn.pages[k] = { b: ['', '', '', '', '', ''], h: ['', '', '', '', '', ''], c: null, stk: [] };
+    return wn.pages[k];
+  }
+  function wpFit() {
+    document.querySelectorAll('#wpGrid .wnb-t').forEach(t => { t.style.height = 'auto'; if (t.scrollHeight > 0) t.style.height = Math.max(t.scrollHeight, 0) + 'px'; });
+  }
+  function wpColorId(rec) { const id = (rec && rec.c) || wn.pc || null; return id && id !== 'tema' ? id : null; }
+  function wpApplyColor(rec) { const id = wpColorId(rec), pg = $('#wnPage'); if (id) pg.style.setProperty('--wn-c', wnColor(id)); else pg.style.removeProperty('--wn-c'); }
+  function renderWpColors(rec) {
+    const cb = $('#wpColors'), cur = wpColorId(rec) || 'tema'; cb.replaceChildren();
+    [['tema', 'Tema', 'var(--accent)']].concat(WN_COLORS).forEach(c => {
+      const b = el('button', { type: 'button', class: 'sw', role: 'radio', 'aria-checked': String(cur === c[0]), 'aria-label': c[1], title: c[1] });
+      b.style.setProperty('--cat', c[2]); if (cur === c[0]) b.innerHTML = svg('check', 16, 3, '#fff');
+      b.addEventListener('click', () => { const r = wnPageRec(true); r.c = c[0]; wn.pc = c[0]; r.u = Date.now(); markWN(); wpApplyColor(r); renderWpColors(r); });
+      cb.append(b);
+    });
+  }
+  function renderWNPage() {
+    const grid = $('#wpGrid'), k = wnPageKey(), rec = wnPageRec(false);
+    if (grid.contains(document.activeElement)) { wpApplyColor(rec); return; }          // no pisar lo que se está escribiendo
+    if (wpBuilt !== k || !grid.children.length) {
+      grid.replaceChildren();
+      WP_BOXES.forEach((bx, i) => {
+        const box = el('div', { class: 'wnb' + (bx[0] ? ' ' + bx[0] : '') });
+        const h = el('input', { class: 'wnb-h', type: 'text', maxlength: '40', placeholder: bx[1], 'aria-label': 'Título del cuadro' });
+        const t = el('textarea', { class: 'wnb-t', maxlength: '2000', rows: '3', placeholder: 'Escribe aquí…', 'aria-label': bx[1] });
+        h.value = (rec && rec.h && rec.h[i]) || ''; t.value = (rec && rec.b && rec.b[i]) || '';
+        const touch = () => { const r = wnPageRec(true); r.u = Date.now(); markWN(); };
+        h.addEventListener('input', () => { const r = wnPageRec(true); r.h[i] = h.value; touch(); });
+        t.addEventListener('input', () => { const r = wnPageRec(true); r.b[i] = t.value; touch(); wpFit(); });
+        h.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); t.focus(); } });
+        box.addEventListener('click', e => { if (e.target === box) t.focus(); });
+        box.append(h, t); grid.append(box);
+      });
+      wpBuilt = k;
+    } else {
+      grid.querySelectorAll('.wnb').forEach((box, i) => { box.firstChild.value = (rec && rec.h && rec.h[i]) || ''; box.lastChild.value = (rec && rec.b && rec.b[i]) || ''; });
+    }
+    wpApplyColor(rec); renderWpColors(rec);
+    stkRender(stkCtxPage());
+    requestAnimationFrame(wpFit);
+  }
+  function stkCtxPage() {
+    return { zone: $('#wpZone'), layer: $('#wpLayer'), btn: $('#wpStkBtn'), get: () => (wnPageRec(false) || {}).stk || [], arr: () => { const r = wnPageRec(true); return r.stk || (r.stk = []); }, commit: () => { const r = wnPageRec(true); r.u = Date.now(); markWN(); } };
+  }
+  $('#wpStkBtn').addEventListener('click', () => stkToggle(stkCtxPage));
+  window.addEventListener('resize', () => { if (view === 'wn') wpFit(); });
+  I18N.onChange(() => { wpBuilt = null; if (view === 'wn') renderWNPage(); });
+  document.fonts && document.fonts.ready.then(() => { if (view === 'wn') wpFit(); });
   function newWN() {
     const days = habWeekDays(wnOff), t = todayStr();
     const n = { id: uid(), date: days.indexOf(t) >= 0 ? t : days[0], title: '', text: '', kind: 'nota', color: 'rosa', stk: [], created: Date.now() };
