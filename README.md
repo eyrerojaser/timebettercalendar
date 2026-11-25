@@ -102,3 +102,18 @@ Para cambiar el bono, sube tu PDF a `bonus/` con **el mismo nombre** (`TIME-Plan
 - **Semana:** prioridades de la semana y horas ocupadas/disponibles (time blocking). Tocar una hora libre crea una actividad en ese horario.
 - **Stickers:** en el día y en las metas, botón "Stickers". Se colocan sobre las notas y las fotos, se mueven, cambian de tamaño, giran y se borran. Se ven también en la celda del calendario y en la tarjeta de la meta. Colecciones: primavera, verano, otoño, invierno, lazos, washi tape, papel y palabras (en español y en inglés).
 - **Avisos con color:** el aviso lleva el emoji del adorno y un icono del color de la actividad (`icons/n/`). Al tocarlo, la app abre el día y resalta esa tarea.
+
+## Programa de afiliadas (noviembre 2026)
+
+Cada persona se registra en `afiliados.html`, recibe por correo su enlace (`/r/CODIGO`, que lleva a la página de compra) y su panel privado (`/afiliados.html?k=...`). Si alguien compra TIME con ese enlace, la afiliada gana **$5**, que se le paga **sola** a su cuenta de Stripe (Stripe Connect Express) pasados 7 días (el periodo de garantía). Si hay reembolso o disputa, la comisión se cancela (y si ya se pagó, se revierte la transferencia).
+
+**Qué tienes que hacer una sola vez (en Netlify y Stripe):**
+1. En Stripe: Connect → activa Connect (cuentas Express).
+2. En Stripe: Developers → API keys → **Crear clave restringida** con permiso de *escritura* en: Connect (Accounts, Account Links) y Transfers. Llámala `STRIPE_CONNECT_KEY` y pégala **solo en Netlify** → Site configuration → Environment variables. No la compartas con nadie.
+3. Confirma que ya están las variables de correo `SMTP_*` (las mismas del correo de recuperación).
+4. El webhook de Stripe debe incluir los eventos `checkout.session.completed`, `charge.refunded` y `charge.dispute.created`.
+5. El Payment Link de TIME debe aceptar `client_reference_id` (lo acepta por defecto).
+6. Opcional: `AFFILIATE_AMOUNT_CENTS` (500 = $5) y `AFFILIATE_HOLD_DAYS` (7; 0 = pagar enseguida).
+7. Vuelve a publicar el sitio y haz una compra de prueba con un enlace de afiliada.
+
+Pagos: una función diaria (`affiliate-payout`) paga las comisiones que ya cumplieron los días de espera. Todo queda guardado en el almacén `calendar-affiliates`.

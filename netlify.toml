@@ -7,3 +7,10 @@
 
 [functions]
   directory = "netlify/functions"
+
+# Enlace corto de afiliada: /r/CODIGO  ->  página de compra con el código
+[[redirects]]
+  from = "/r/:code"
+  to = "/comprar.html?ref=:code"
+  status = 302
+  force = true

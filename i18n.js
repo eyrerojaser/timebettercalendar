@@ -154,6 +154,7 @@
     'Respaldo': 'Backup', 'Descargar respaldo': 'Download backup', 'Importar respaldo': 'Import backup', 'Respaldo descargado': 'Backup downloaded',
     'Descarga una copia de todo (metas, días y fotos) o pasa tu calendario a otro dispositivo. Al importar, se reemplazan los meses que vengan en el archivo.': 'Download a copy of everything (goals, days and photos) or move your calendar to another device. When you import, the months in the file are replaced.',
     'Ese archivo no es un respaldo de TIME': 'That file is not a TIME backup', 'Ese archivo no es un respaldo válido': 'That file is not a valid backup',
+    'Gana dinero recomendando TIME': 'Earn money recommending TIME', 'Recibe $5 por cada persona que compre TIME con tu enlace. Se paga solo, a tu cuenta.': 'Get $5 for every person who buys TIME with your link. It is paid automatically to your account.', 'Quiero mi enlace de afiliada': 'I want my affiliate link',
     'Instalar app': 'Install app', 'Instalar en este dispositivo': 'Install on this device', '¡App instalada!': 'App installed!',
     'Ábrela como una app, con su propio ícono y sin la barra del navegador.': 'Open it like an app, with its own icon and no browser bar.',
     'En iPhone o iPad: toca el botón Compartir de Safari y elige “Agregar a pantalla de inicio”.': 'On iPhone or iPad: tap Safari’s Share button and choose “Add to Home Screen”.',

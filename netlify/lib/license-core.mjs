@@ -12,6 +12,8 @@
 //
 // La llave de Stripe (STRIPE_SECRET_KEY) y el secreto del webhook (STRIPE_WEBHOOK_SECRET) viven solo en las variables de Netlify.
 
+import { recordCommission, cancelCommissionByPayment } from './affiliate-core.mjs';
+
 export const MAX_DEVICES = 4;
 const ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';      // sin 0/O/1/I para no confundir al escribir
 const SESSION_OK = /^cs_(live|test)_[A-Za-z0-9]{10,250}$/;
@@ -165,13 +167,20 @@ export async function handleWebhook(req, store, deps) {
   switch (event.type) {
     case 'checkout.session.completed':
     case 'checkout.session.async_payment_succeeded':
-      if (isPaidPayment(obj) && rightProduct(obj, deps)) await ensureLicense(store, obj, now);
+      if (isPaidPayment(obj) && rightProduct(obj, deps)) {
+        await ensureLicense(store, obj, now);
+        if (deps.affStore) { try { await recordCommission(deps.affStore, obj, now, deps); } catch (e) { /* la comisión nunca debe frenar la licencia */ } }
+      }
       break;
     case 'charge.refunded':
-      if (obj.refunded === true || (obj.amount && obj.amount_refunded >= obj.amount)) await revokeByPaymentIntent(store, obj.payment_intent, 'refunded', now);
+      if (obj.refunded === true || (obj.amount && obj.amount_refunded >= obj.amount)) {
+        await revokeByPaymentIntent(store, obj.payment_intent, 'refunded', now);
+        if (deps.affStore) { try { await cancelCommissionByPayment(deps.affStore, obj.payment_intent, 'refunded', now, deps); } catch (e) {} }
+      }
       break;
     case 'charge.dispute.created':
       await revokeByPaymentIntent(store, obj.payment_intent, 'dispute', now);
+      if (deps.affStore) { try { await cancelCommissionByPayment(deps.affStore, obj.payment_intent, 'dispute', now, deps); } catch (e) {} }
       break;
     default: break;
   }

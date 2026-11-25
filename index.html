@@ -1066,6 +1066,11 @@
       <p class="hint" id="installHint"></p>
       <button class="done-btn solid" id="installBtn" type="button" hidden style="margin-top:0">Instalar en este dispositivo</button>
     </div>
+    <div id="affSec">
+      <p class="lbl sec-gap">Gana dinero recomendando TIME</p>
+      <p class="hint">Recibe $5 por cada persona que compre TIME con tu enlace. Se paga solo, a tu cuenta.</p>
+      <a class="ghost-btn" id="affLink" href="afiliados.html" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none">Quiero mi enlace de afiliada</a>
+    </div>
     </div>
     <p class="sh-status js-status"></p>
     <button class="done-btn solid" id="sDone" type="button">Listo</button>
@@ -1186,6 +1191,7 @@
 
 <div class="toast" id="toast" role="status" hidden></div>
 
+<script src="ref.js"></script>
 <script src="i18n.js"></script>
 <script>
 (function () {
@@ -2793,7 +2799,7 @@
     try {
       const r = await fetch('/api/license?a=info', { cache: 'no-store' });
       const j = await r.json();
-      if (j && j.buyUrl) $('#gateBuyLink').href = j.buyUrl;
+      if (j && j.buyUrl) $('#gateBuyLink').href = (window.timeRef ? window.timeRef.buyUrl(j.buyUrl) : j.buyUrl);
     } catch (e) {}
   }
   async function callLicense(code, device) {

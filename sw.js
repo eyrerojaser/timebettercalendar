@@ -1,9 +1,9 @@
 /* TIME · service worker
    Guarda la app en el dispositivo para que abra al instante y funcione sin Internet.
    Si cambias algún archivo de la app, sube el número de VERSION para que se actualice. */
-const VERSION = 'time-v36';
+const VERSION = 'time-v37';
 const ASSETS = [
-  './', './index.html', './i18n.js', './manifest.webmanifest',
+  './', './index.html', './i18n.js', './ref.js', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png', './icons/apple-touch-icon.png', './icons/badge-96.png',
   './fonts/great-vibes-latin-400-normal.woff2',
   './fonts/dancing-script-latin-500-normal.woff2', './fonts/dancing-script-latin-700-normal.woff2',

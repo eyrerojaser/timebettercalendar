@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Afiliadas · TIME Better Calendar</title>
+<meta name="description" content="Gana $5 por cada persona que compre TIME, Better Calendar con tu enlace. Pago automático.">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+  @font-face { font-family:'Playfair Display'; font-weight:700; font-display:swap; src:url(fonts/playfair-display-latin-700-normal.woff2) format('woff2'); }
+  @font-face { font-family:'Nunito'; font-weight:400; font-display:swap; src:url(fonts/nunito-latin-400-normal.woff2) format('woff2'); }
+  @font-face { font-family:'Nunito'; font-weight:700; font-display:swap; src:url(fonts/nunito-latin-700-normal.woff2) format('woff2'); }
+  @font-face { font-family:'Nunito'; font-weight:800; font-display:swap; src:url(fonts/nunito-latin-800-normal.woff2) format('woff2'); }
+  :root { --bg:#FCF3EC; --surface:#fff; --ink:#3A2A22; --soft:#7A6358; --accent:#8C3520; --line:rgba(140,53,32,.16); --ok:#2e7d4f; --warn:#b26a00; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#241A16; --surface:#2F231D; --ink:#F3E7DE; --soft:#C7B3A6; --accent:#E8955F; --line:rgba(232,149,95,.24); --ok:#7ad39a; --warn:#f0b35a; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:'Nunito',system-ui,sans-serif; line-height:1.55; padding-bottom:env(safe-area-inset-bottom,0); }
+  .wrap { max-width:860px; margin:0 auto; padding:0 20px; }
+  header { display:flex; align-items:center; justify-content:space-between; padding:18px 0; }
+  .brand { font:700 26px 'Playfair Display',serif; letter-spacing:.16em; color:var(--accent); text-decoration:none; }
+  .brand small { display:block; font:800 10px 'Nunito'; letter-spacing:.2em; color:var(--soft); margin-top:2px; }
+  .langsw { display:inline-flex; border:1.5px solid var(--accent); border-radius:99px; overflow:hidden; }
+  .langsw button { border:0; background:transparent; color:var(--accent); font:800 12px/1 'Nunito',sans-serif; letter-spacing:.04em; padding:8px 12px; cursor:pointer; }
+  .langsw button[aria-pressed="true"] { background:var(--accent); color:#fff; }
+  h1 { font:700 clamp(32px,6vw,52px)/1.08 'Playfair Display',serif; color:var(--accent); margin:18px 0 14px; }
+  h2 { font:700 clamp(24px,4vw,32px)/1.15 'Playfair Display',serif; color:var(--accent); margin:0 0 16px; }
+  .lead { font-size:clamp(17px,2.4vw,20px); color:var(--soft); margin:0 0 24px; max-width:44ch; }
+  section { padding:34px 0; border-top:1px solid var(--line); }
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:22px; padding:20px; }
+  .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; counter-reset:s; }
+  .steps .card { position:relative; padding-top:54px; }
+  .steps .card:before { counter-increment:s; content:counter(s); position:absolute; left:20px; top:16px; width:30px; height:30px; border-radius:50%; background:var(--accent); color:#fff; font-weight:800; display:grid; place-items:center; }
+  .steps h3 { margin:0 0 6px; font-size:18px; } .steps p { margin:0; color:var(--soft); font-size:15.5px; }
+  label { display:block; font-weight:800; margin:14px 0 6px; font-size:15px; }
+  input[type=text], input[type=email] { width:100%; padding:14px 16px; font:inherit; color:var(--ink); background:var(--bg); border:1.5px solid var(--line); border-radius:14px; }
+  .chk { display:flex; gap:10px; align-items:flex-start; margin:16px 0; font-size:14.5px; color:var(--soft); font-weight:600; }
+  .chk input { margin-top:4px; width:18px; height:18px; accent-color:var(--accent); }
+  .hp { position:absolute; left:-9999px; }
+  .btn { display:inline-block; background:var(--accent); color:#fff; border:0; cursor:pointer; text-decoration:none; font:800 17px 'Nunito',sans-serif; padding:15px 30px; border-radius:99px; }
+  .btn.ghost { background:transparent; color:var(--accent); border:2px solid var(--accent); }
+  .btn[disabled] { opacity:.6; cursor:wait; }
+  .msg { margin:14px 0 0; padding:12px 14px; border-radius:12px; font-weight:700; font-size:15px; }
+  .msg.ok { background:rgba(46,125,79,.14); color:var(--ok); } .msg.err { background:rgba(178,60,40,.14); color:#b23c28; }
+  @media (prefers-color-scheme: dark) { .msg.err { color:#ff9a86; } }
+  .linkbox { display:flex; gap:10px; flex-wrap:wrap; align-items:center; background:var(--bg); border:2px dashed var(--accent); border-radius:16px; padding:14px; }
+  .linkbox code { flex:1 1 220px; word-break:break-all; font:700 15px ui-monospace,monospace; }
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0; }
+  .stat { text-align:center; padding:16px 8px; } .stat b { display:block; font:700 28px 'Playfair Display',serif; color:var(--accent); } .stat span { color:var(--soft); font-size:13.5px; font-weight:700; }
+  table { width:100%; border-collapse:collapse; font-size:15px; } th,td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--line); } th { color:var(--soft); font-size:13px; text-transform:uppercase; letter-spacing:.04em; }
+  .tag { display:inline-block; padding:3px 10px; border-radius:99px; font-size:13px; font-weight:800; } .tag.paid { background:rgba(46,125,79,.16); color:var(--ok); } .tag.pending { background:rgba(178,106,0,.16); color:var(--warn); } .tag.canceled, .tag.blocked { background:rgba(120,120,120,.18); color:var(--soft); }
+  .terms { color:var(--soft); font-size:14.5px; } .terms li { margin:6px 0; }
+  footer { border-top:1px solid var(--line); padding:24px 0 40px; text-align:center; color:var(--soft); font-size:14px; } footer a { color:var(--accent); font-weight:800; }
+  [hidden] { display:none !important; }
+  html[lang="en"] [data-es], html:not([lang="en"]) [data-en] { display:none !important; }
+  @media (max-width:700px) { .steps { grid-template-columns:1fr; } .stats { grid-template-columns:1fr 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="comprar.html">TIME<small>BETTER CALENDAR</small></a>
+    <div class="langsw" role="group" aria-label="Idioma"><button type="button" data-lang="es" aria-pressed="true">ES</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+  </header>
+
+  <!-- Página pública: explica y deja registrarse -->
+  <div id="pub">
+    <h1><span data-es>Gana $5 cada vez que alguien compre TIME con tu enlace.</span><span data-en>Earn $5 every time someone buys TIME with your link.</span></h1>
+    <p class="lead"><span data-es>Te registras, compartes tu enlace y te pagamos solos. Sin papeleo y sin tener que escribirnos.</span><span data-en>Sign up, share your link and get paid automatically. No paperwork and no need to contact us.</span></p>
+
+    <section>
+      <h2><span data-es>Cómo funciona</span><span data-en>How it works</span></h2>
+      <div class="steps">
+        <div class="card"><h3><span data-es>Regístrate</span><span data-en>Sign up</span></h3><p><span data-es>Pon tu nombre y tu correo. Te llega tu enlace personal y tu panel privado.</span><span data-en>Enter your name and email. You get your personal link and private panel by email.</span></p></div>
+        <div class="card"><h3><span data-es>Comparte tu enlace</span><span data-en>Share your link</span></h3><p><span data-es>Mándalo a tus amigas, ponlo en tus redes o en tu bio. Queda guardado 30 días.</span><span data-en>Send it to friends, post it on social media or in your bio. It is remembered for 30 days.</span></p></div>
+        <div class="card"><h3><span data-es>Cobra tus $5</span><span data-en>Get your $5</span></h3><p><span data-es>Cuando alguien compra con tu enlace, ganas $5. Se paga solo a tu cuenta, pasados los días de garantía.</span><span data-en>When someone buys with your link, you earn $5. It is paid to your account automatically, after the guarantee period.</span></p></div>
+      </div>
+    </section>
+
+    <section id="registro">
+      <h2><span data-es>Quiero mi enlace</span><span data-en>I want my link</span></h2>
+      <form class="card" id="joinForm" novalidate>
+        <label for="jn"><span data-es>Tu nombre</span><span data-en>Your name</span></label>
+        <input type="text" id="jn" maxlength="80" autocomplete="name" required>
+        <label for="je"><span data-es>Tu correo</span><span data-en>Your email</span></label>
+        <input type="email" id="je" maxlength="160" autocomplete="email" required>
+        <input class="hp" type="text" id="jh" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <label class="chk"><input type="checkbox" id="jt"><span><span data-es>Acepto las condiciones del programa (abajo).</span><span data-en>I accept the program terms (below).</span></span></label>
+        <button class="btn" type="submit" id="jb"><span data-es>Crear mi enlace</span><span data-en>Create my link</span></button>
+        <p class="msg" id="jm" hidden></p>
+      </form>
+    </section>
+
+    <section>
+      <h2><span data-es>Condiciones</span><span data-en>Terms</span></h2>
+      <ul class="terms">
+        <li data-es>Ganas $5 por cada compra pagada de TIME hecha con tu enlace.</li><li data-en>You earn $5 for each paid purchase of TIME made with your link.</li>
+        <li data-es>La comisión se paga automáticamente a tu cuenta de Stripe después de 7 días, que es el periodo de garantía. Si la compra se reembolsa o se disputa, la comisión se cancela.</li><li data-en>The commission is paid automatically to your Stripe account after 7 days, the guarantee period. If the purchase is refunded or disputed, the commission is cancelled.</li>
+        <li data-es>No cuenta comprarte a ti misma con tu propio enlace.</li><li data-en>Buying through your own link does not count.</li>
+        <li data-es>Para recibir el dinero tienes que conectar una cuenta de pago con Stripe (una sola vez, con tus datos y tu banco). Los impuestos de lo que ganes son tu responsabilidad.</li><li data-en>To receive the money you must connect a payout account with Stripe (one time, with your details and bank). Taxes on what you earn are your responsibility.</li>
+        <li data-es>Cuando compartas tu enlace, di claramente que ganas una comisión si alguien compra. No uses spam ni anuncios engañosos.</li><li data-en>When you share your link, clearly say you earn a commission if someone buys. No spam or misleading ads.</li>
+        <li data-es>Podemos pausar o cancelar tu participación si se usa de forma abusiva.</li><li data-en>We may pause or cancel your participation if it is misused.</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- Panel privado de cada afiliada (se abre con el enlace del correo: ?k=…) -->
+  <div id="dash" hidden>
+    <h1><span data-es>Tu panel de afiliada</span><span data-en>Your affiliate panel</span></h1>
+    <p class="lead" id="dHello"></p>
+    <div class="card">
+      <h2 style="font-size:22px"><span data-es>Tu enlace</span><span data-en>Your link</span></h2>
+      <div class="linkbox"><code id="dLink"></code><button class="btn ghost" type="button" id="dCopy"><span data-es>Copiar</span><span data-en>Copy</span></button><a class="btn" id="dWa" target="_blank" rel="noopener"><span data-es>Compartir por WhatsApp</span><span data-en>Share on WhatsApp</span></a></div>
+    </div>
+    <div class="stats">
+      <div class="card stat"><b id="sClicks">0</b><span data-es>Visitas</span><span data-en>Visits</span></div>
+      <div class="card stat"><b id="sSales">0</b><span data-es>Ventas</span><span data-en>Sales</span></div>
+      <div class="card stat"><b id="sPending">$0</b><span data-es>Por pagar</span><span data-en>Pending</span></div>
+      <div class="card stat"><b id="sPaid">$0</b><span data-es>Pagado</span><span data-en>Paid</span></div>
+    </div>
+    <div class="card" id="payCard">
+      <h2 style="font-size:22px"><span data-es>Tu cuenta de pago</span><span data-en>Your payout account</span></h2>
+      <p id="payText" style="color:var(--soft);margin:0 0 14px"></p>
+      <button class="btn" type="button" id="payBtn" hidden></button>
+      <p class="msg err" id="payErr" hidden></p>
+    </div>
+    <section>
+      <h2 style="font-size:22px"><span data-es>Tus ventas</span><span data-en>Your sales</span></h2>
+      <p id="noSales" style="color:var(--soft)"><span data-es>Todavía no hay ventas. ¡Comparte tu enlace!</span><span data-en>No sales yet. Share your link!</span></p>
+      <table id="tbl" hidden><thead><tr><th><span data-es>Fecha</span><span data-en>Date</span></th><th><span data-es>Comisión</span><span data-en>Commission</span></th><th><span data-es>Estado</span><span data-en>Status</span></th></tr></thead><tbody id="rows"></tbody></table>
+    </section>
+  </div>
+
+  <footer>
+    <span>TIME · Better Calendar · Eyre Digital Studio</span><br>
+    <a href="mailto:edigitalstudio25@gmail.com">edigitalstudio25@gmail.com</a>
+    <br><a href="comprar.html"><span data-es>Ver TIME</span><span data-en>See TIME</span></a> · <a href="terminos.html"><span data-es>Términos y condiciones</span><span data-en>Terms and conditions</span></a> · <a href="privacidad.html"><span data-es>Privacidad</span><span data-en>Privacy</span></a>
+  </footer>
+</div>
+<script src="i18n.js"></script>
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var es = function () { return document.documentElement.getAttribute('lang') !== 'en'; };
+  var T = function (a, b) { return es() ? a : b; };
+  var api = function (body) { return fetch('/api/affiliate', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) }).then(function (r) { return r.json().then(function (j) { j._s = r.status; return j; }); }); };
+  var money = function (c) { return '$' + (c / 100).toFixed(2).replace(/\.00$/, ''); };
+  var show = function (el, text, cls) { el.hidden = false; el.className = 'msg ' + cls; el.textContent = text; };
+
+  // ----- Registro -----
+  $('#joinForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var m = $('#jm'), b = $('#jb'); m.hidden = true;
+    var name = $('#jn').value.trim(), email = $('#je').value.trim();
+    if (name.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return show(m, T('Revisa tu nombre y tu correo.', 'Check your name and email.'), 'err');
+    if (!$('#jt').checked) return show(m, T('Marca que aceptas las condiciones.', 'Please accept the terms.'), 'err');
+    b.disabled = true;
+    api({ action: 'join', name: name, email: email, terms: true, hp: $('#jh').value, lang: es() ? 'es' : 'en' }).then(function (j) {
+      b.disabled = false;
+      if (j.ok) { show(m, T('¡Listo! Te enviamos tu enlace y tu panel por correo. Revisa también la carpeta de spam.', 'Done! We emailed you your link and panel. Check your spam folder too.'), 'ok'); $('#joinForm').reset(); }
+      else if (j.error === 'too_many') show(m, T('Demasiados intentos. Prueba más tarde.', 'Too many attempts. Try again later.'), 'err');
+      else if (j.error === 'mail_not_configured' || j.error === 'mail_failed') show(m, T('No pudimos enviar el correo ahora. Escríbenos a edigitalstudio25@gmail.com.', 'We could not send the email right now. Write to edigitalstudio25@gmail.com.'), 'err');
+      else show(m, T('Algo salió mal. Revisa tus datos e inténtalo otra vez.', 'Something went wrong. Check your details and try again.'), 'err');
+    }).catch(function () { b.disabled = false; show(m, T('Sin conexión. Inténtalo otra vez.', 'No connection. Try again.'), 'err'); });
+  });
+
+  // ----- Panel privado -----
+  var k = (/[?&]k=([a-f0-9]{48})/.exec(location.search) || [])[1];
+  if (!k) return;
+  $('#pub').hidden = true; $('#dash').hidden = false;
+  var data = null;
+  function draw() {
+    if (!data) return;
+    var a = data.affiliate, s = data.stats;
+    $('#dHello').textContent = T('Hola, ' + a.name.split(' ')[0] + '. Ganas ' + money(s.commission) + ' por cada compra con tu enlace.', 'Hi, ' + a.name.split(' ')[0] + '. You earn ' + money(s.commission) + ' for each purchase with your link.');
+    $('#dLink').textContent = a.link;
+    $('#dWa').href = 'https://wa.me/?text=' + encodeURIComponent(T('Mira TIME, mi calendario favorito para organizar la semana: ', 'Check out TIME, my favorite calendar to organize the week: ') + a.link);
+    $('#sClicks').textContent = a.clicks; $('#sSales').textContent = s.sales; $('#sPending').textContent = money(s.pending); $('#sPaid').textContent = money(s.paid);
+    var pt = $('#payText'), pb = $('#payBtn');
+    if (!data.payoutsConfigured) { pt.textContent = T('Los pagos automáticos se activarán muy pronto.', 'Automatic payouts will be activated very soon.'); pb.hidden = true; }
+    else if (a.ready) { pt.textContent = T('✓ Tu cuenta de pago está lista. Los ' + money(s.commission) + ' llegan solos, ' + s.holdDays + ' días después de cada venta.', '✓ Your payout account is ready. The ' + money(s.commission) + ' arrives automatically, ' + s.holdDays + ' days after each sale.'); pb.hidden = true; }
+    else { pt.textContent = a.hasAccount ? T('Te falta terminar de conectar tu cuenta con Stripe para recibir el dinero.', 'You still need to finish connecting your Stripe account to get paid.') : T('Para recibir tus pagos, conecta tu cuenta con Stripe. Es una sola vez y toma unos minutos.', 'To get paid, connect your account with Stripe. One time, a few minutes.'); pb.hidden = false; pb.textContent = a.hasAccount ? T('Terminar de conectar mi cuenta', 'Finish connecting my account') : T('Conectar mi cuenta de pago', 'Connect my payout account'); }
+    var rows = $('#rows'); rows.innerHTML = '';
+    s.list.forEach(function (c) {
+      var tr = document.createElement('tr'), d = new Date(c.date).toLocaleDateString(es() ? 'es-US' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+      var label = { paid: T('Pagado', 'Paid'), pending: T('Pendiente', 'Pending'), canceled: T('Cancelada', 'Cancelled'), blocked: T('No cuenta', 'Not counted') }[c.status] || c.status;
+      [d, money(c.amount)].forEach(function (t) { var td = document.createElement('td'); td.textContent = t; tr.appendChild(td); });
+      var td = document.createElement('td'), sp = document.createElement('span'); sp.className = 'tag ' + c.status; sp.textContent = label; td.appendChild(sp); tr.appendChild(td); rows.appendChild(tr);
+    });
+    $('#tbl').hidden = !s.list.length; $('#noSales').hidden = !!s.list.length;
+  }
+  api({ action: 'me', k: k }).then(function (j) {
+    if (!j.ok) { $('#dash').innerHTML = '<h1>' + T('Enlace no válido', 'Invalid link') + '</h1><p class="lead">' + T('Usa el enlace del correo que te enviamos, o regístrate otra vez para recibir uno nuevo.', 'Use the link from the email we sent you, or sign up again to get a new one.') + '</p><a class="btn" href="afiliados.html">' + T('Registrarme', 'Sign up') + '</a>'; return; }
+    data = j; draw();
+  }).catch(function () {});
+  document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('.langsw')) setTimeout(draw, 0); });
+  $('#dCopy').addEventListener('click', function () {
+    var t = $('#dLink').textContent, b = $('#dCopy');
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () { b.textContent = T('¡Copiado!', 'Copied!'); setTimeout(function () { b.innerHTML = '<span data-es>Copiar</span><span data-en>Copy</span>'; }, 1800); }).catch(function () {});
+  });
+  $('#payBtn').addEventListener('click', function () {
+    var b = $('#payBtn'), er = $('#payErr'); er.hidden = true; b.disabled = true;
+    api({ action: 'onboard', k: k }).then(function (j) {
+      b.disabled = false;
+      if (j.ok && j.url) location.href = j.url; else show(er, T('No pudimos abrir Stripe ahora. Inténtalo en unos minutos.', 'We could not open Stripe right now. Try again in a few minutes.'), 'err');
+    }).catch(function () { b.disabled = false; show(er, T('Sin conexión. Inténtalo otra vez.', 'No connection. Try again.'), 'err'); });
+  });
+  if (/[?&]done=1/.test(location.search)) { api({ action: 'me', k: k }).then(function (j) { if (j.ok) { data = j; draw(); } }); }
+})();
+</script>
+</body>
+</html>

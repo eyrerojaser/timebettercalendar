@@ -118,16 +118,18 @@
   <footer>
     <span>TIME · Better Calendar · Eyre Digital Studio</span><br>
     <a href="mailto:edigitalstudio25@gmail.com">edigitalstudio25@gmail.com</a>
-    <br><a href="reembolsos.html"><span data-es>Política de reembolsos</span><span data-en>Refund policy</span></a> · <a href="terminos.html"><span data-es>Términos y condiciones</span><span data-en>Terms and conditions</span></a> · <a href="privacidad.html"><span data-es>Política de privacidad</span><span data-en>Privacy policy</span></a>
+    <br><a href="afiliados.html"><span data-es>Gana $5 recomendando TIME</span><span data-en>Earn $5 recommending TIME</span></a> · <a href="reembolsos.html"><span data-es>Política de reembolsos</span><span data-en>Refund policy</span></a> · <a href="terminos.html"><span data-es>Términos y condiciones</span><span data-en>Terms and conditions</span></a> · <a href="privacidad.html"><span data-es>Política de privacidad</span><span data-en>Privacy policy</span></a>
   </footer>
 </div>
+<script src="ref.js"></script>
 <script src="i18n.js"></script>
 <script>
 (function () {
   // El enlace de compra viene de la variable BUY_URL de Netlify (la misma que usa la app).
   fetch('/api/license?a=info', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) {
     if (!j || !j.buyUrl) return;
-    document.querySelectorAll('.js-buy').forEach(function (a) { a.href = j.buyUrl; });
+    var u = window.timeRef ? window.timeRef.buyUrl(j.buyUrl) : j.buyUrl;
+    document.querySelectorAll('.js-buy').forEach(function (a) { a.href = u; });
   }).catch(function () {});
 })();
 </script>
