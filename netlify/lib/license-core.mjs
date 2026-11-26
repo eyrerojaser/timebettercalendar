@@ -238,6 +238,24 @@ async function diagnose(store, deps, origin) {
   return d;
 }
 
+/* ---------------- Correo de regalo ---------------- */
+function giftMail(name, code, lang, origin) {
+  const en = lang === 'en';
+  const first = String(name || '').trim().split(/\s+/)[0];
+  const pc = prettyCode(code);
+  const subject = en ? 'A gift for you: TIME · Better Calendar' : 'Un regalo para ti: TIME · Better Calendar';
+  const hi = en ? `Hi${first ? ' ' + first : ''}!` : `¡Hola${first ? ' ' + first : ''}!`;
+  const intro = en ? 'I am giving you TIME · Better Calendar so you can try it. Here is your access code:' : 'Te regalo TIME · Better Calendar para que lo pruebes. Este es tu código de acceso:';
+  const how = en
+    ? 'Open the app, enter this code once and you are in. It works on up to 4 devices.'
+    : 'Abre la app, escribe este código una vez y listo. Funciona en hasta 4 dispositivos.';
+  const link = origin ? `${origin}/?code=${code}` : '';
+  const linkTxt = en ? 'Or open this link to activate it automatically:' : 'O abre este enlace para activarla automáticamente:';
+  const text = `${hi}\n\n${intro}\n\n${pc}\n\n${how}${link ? `\n\n${linkTxt}\n${link}` : ''}\n\nEyre Digital Studio`;
+  const html = `<div style="font-family:Arial,sans-serif;color:#3A2A22;max-width:480px"><p>${hi}</p><p>${intro}</p><p style="font:700 24px monospace;letter-spacing:2px;background:#FCF3EC;border:2px dashed #8C3520;padding:14px;text-align:center;color:#8C3520">${pc}</p><p>${how}</p>${link ? `<p>${linkTxt}<br><a href="${link}">${link}</a></p>` : ''}<p style="color:#8A7367">Eyre Digital Studio</p></div>`;
+  return { subject, text, html };
+}
+
 /* ---------------- Correo de recuperación ---------------- */
 function recoveryMail(codes, lang, origin) {
   const en = lang === 'en';
@@ -277,7 +295,7 @@ export async function handleLicense(req, store, deps) {
         if (r) list.push({
           code: prettyCode(c), name: r.name, email: r.email, created: r.created, devices: (r.devices || []).length,
           revoked: !!r.revoked, status: r.revoked ? (r.status && r.status !== 'active' ? r.status : 'revoked') : 'active',
-          amount: r.amount, currency: r.currency
+          amount: r.amount, currency: r.currency, gift: !!r.gift
         });
       }
       list.sort((x, y) => y.created - x.created);
@@ -289,6 +307,25 @@ export async function handleLicense(req, store, deps) {
         const res = await syncFromStripe(store, deps, now);
         if (res.error) return json({ error: res.error }, res.error === 'not_configured' ? 503 : 502);
         return json({ ok: true, ...res });
+      }
+      if (body && body.action === 'gift') {
+        const email = clean(body.email, 160).toLowerCase(), name = clean(body.name, 100), lang = body.lang === 'en' ? 'en' : 'es';
+        if (!EMAIL_OK.test(email)) return json({ error: 'bad_email' }, 400);
+        let code = '', created = false;
+        const ref = await store.get(`email:${await sha256(email)}`, { type: 'json' });       // si ya le regalaste una a ese correo, se reenvía la misma
+        for (const c of (ref && ref.codes) || []) { const r = await store.get(`code:${c}`, { type: 'json' }); if (r && r.gift && !r.revoked) { code = c; break; } }
+        if (!code) {
+          const sid = 'gift_' + makeCode().toLowerCase() + now.toString(36);
+          const r = await ensureLicense(store, { id: sid, customer_details: { name, email }, amount_total: 0, currency: 'usd', created: Math.floor(now / 1000) }, now);
+          code = r.code; created = true;
+          const rec = await store.get(`code:${code}`, { type: 'json' });
+          if (rec) { rec.gift = true; await store.setJSON(`code:${code}`, rec); }
+        }
+        let sent = false;
+        if (deps.sendMail && deps.mailConfigured && deps.mailConfigured()) {
+          try { await deps.sendMail({ to: email, ...giftMail(name, code, lang, url.origin) }); sent = true; } catch (e) { console.error('gift_mail_failed', e && e.message); }
+        }
+        return json({ ok: true, code: prettyCode(code), created, sent, link: `${url.origin}/?code=${code}` });
       }
       const code = normalizeCode(body && body.code);
       const rec = CODE_OK.test(code) ? await store.get(`code:${code}`, { type: 'json' }) : null;

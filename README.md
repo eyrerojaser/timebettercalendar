@@ -117,3 +117,11 @@ Cada persona se registra en `afiliados.html`, recibe por correo su enlace (`/r/C
 7. Vuelve a publicar el sitio y haz una compra de prueba con un enlace de afiliada.
 
 Pagos: una función diaria (`affiliate-payout`) paga las comisiones que ya cumplieron los días de espera. Todo queda guardado en el almacén `calendar-affiliates`.
+
+## Regalar TIME (influencers y pruebas)
+
+En el panel de compras (`/admin.html`), arriba, está la tarjeta **Regalar TIME**: escribes nombre y correo, tocas «Regalar y enviar» y la persona recibe por correo su código de acceso (y un enlace que lo activa solo). Aparece en la lista con la etiqueta «Regalo» y no cuenta como venta. Si le regalas dos veces al mismo correo, se reenvía el mismo código. Puedes desactivarlo con el botón «Desactivar», igual que una compra. Si el correo no está configurado, el panel te muestra el código para que se lo mandes tú.
+
+## Panel de afiliada como app aparte
+
+`afiliados.html` se instala en el teléfono como una app propia llamada «Afiliada» (icono rojizo con «$5»), separada de TIME. Usa su propio manifiesto (`/afiliados.webmanifest`, lo genera la función `affiliate-manifest` con la llave de cada afiliada, para que la app abra directo su panel) y un service worker mínimo (`afiliados-sw.js`). Además, el panel recuerda a la afiliada en ese teléfono.

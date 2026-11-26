@@ -82,6 +82,17 @@
       <button class="btn ghost" id="outBtn">Cerrar sesión</button>
     </div>
     <p class="count" id="syncMsg" role="status" style="margin:-6px 0 12px"></p>
+    <div class="card" id="giftCard" style="max-width:none;margin:0 0 14px;padding:16px">
+      <h2 style="font-size:17px">Regalar TIME</h2>
+      <p style="margin:0 0 6px">Para influencers o personas que quieras que la prueben gratis. Se crea un código y se le envía por correo.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
+        <div><label for="gfName">Nombre</label><input id="gfName" type="text" maxlength="100" autocomplete="off"></div>
+        <div><label for="gfEmail">Correo</label><input id="gfEmail" type="email" maxlength="160" autocomplete="off"></div>
+      </div>
+      <label style="display:flex;gap:8px;align-items:center;font-weight:700"><input id="gfEn" type="checkbox" style="width:18px;height:18px"> Enviar el correo en inglés</label>
+      <button class="btn" id="gfGo" style="width:auto;padding:0 22px;height:42px">Regalar y enviar</button>
+      <p class="count" id="gfMsg" role="status" style="margin:12px 0 0"></p>
+    </div>
     <div id="buysWrap"><p class="empty">Cargando…</p></div>
     <div id="tableWrap" hidden></div>
     <details class="pass-toggle">
@@ -116,7 +127,7 @@
 
   let buys = [], flags = {};
   const STATUS = { active: ['Activo', 'var(--ok)'], refunded: ['Reembolsado', 'var(--bad)'], dispute: ['Disputa', 'var(--bad)'], revoked: ['Revocado', 'var(--bad)'] };
-  const money = p => p.amount != null ? (p.amount / 100).toFixed(2) + ' ' + esc(String(p.currency || '').toUpperCase()) : '';
+  const money = p => p.gift ? 'Regalo' : p.amount != null ? (p.amount / 100).toFixed(2) + ' ' + esc(String(p.currency || '').toUpperCase()) : '';
   let diag = null;
   function diagHtml() {
     if (!diag) return '';
@@ -157,7 +168,7 @@
     buys = j.purchases || []; flags = { webhook: j.webhook, mail: j.mail }; diag = j.diag || null; renderBuys();
   }
   function toCSV() {
-    const rows = [['Nombre', 'Correo', 'Código', 'Fecha de compra', 'Importe', 'Moneda', 'Estado', 'Dispositivos']].concat(buys.map(p => [p.name, p.email, p.code, new Date(p.created).toISOString(), p.amount != null ? (p.amount / 100).toFixed(2) : '', String(p.currency || '').toUpperCase(), p.status, p.devices]));
+    const rows = [['Nombre', 'Correo', 'Código', 'Fecha de compra', 'Importe', 'Moneda', 'Estado', 'Dispositivos']].concat(buys.map(p => [p.name, p.email, p.code, new Date(p.created).toISOString(), p.gift ? 'Regalo' : p.amount != null ? (p.amount / 100).toFixed(2) : '', String(p.currency || '').toUpperCase(), p.status, p.devices]));
     return rows.map(r => r.map(v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"').join(',')).join('\r\n');
   }
   $('#csvBtn').addEventListener('click', () => {
@@ -182,6 +193,19 @@
     b.disabled = true;
     await fetch('/api/license?admin=1', { method: 'POST', headers: { 'content-type': 'application/json', 'x-admin-key': key }, body: JSON.stringify({ action: b.dataset.act, code: b.dataset.code }) });
     loadBuys();
+  });
+
+  $('#gfGo').addEventListener('click', async () => {
+    const m = $('#gfMsg'), b = $('#gfGo'), email = $('#gfEmail').value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { m.textContent = 'Escribe un correo válido.'; return; }
+    b.disabled = true; m.textContent = 'Creando el código…';
+    try {
+      const r = await fetch('/api/license?admin=1', { method: 'POST', headers: { 'content-type': 'application/json', 'x-admin-key': key }, body: JSON.stringify({ action: 'gift', name: $('#gfName').value.trim(), email, lang: $('#gfEn').checked ? 'en' : 'es' }) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) m.textContent = 'No se pudo crear el regalo. Inténtalo de nuevo.';
+      else { m.textContent = (j.sent ? '✓ Enviado a ' + email + '. ' : 'El código se creó, pero el correo NO se envió (revisa la configuración del correo). Mándaselo tú: ') + 'Código: ' + j.code + (j.created ? '' : ' (ya tenía uno, se reenvió el mismo)'); $('#gfName').value = ''; $('#gfEmail').value = ''; await loadBuys(); }
+    } catch (e) { m.textContent = 'Sin conexión. Inténtalo otra vez.'; }
+    b.disabled = false;
   });
 
   function show(id) { ['setupCard', 'loginCard', 'panel'].forEach(x => $('#' + x).hidden = x !== id); }

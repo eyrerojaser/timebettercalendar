@@ -120,7 +120,7 @@ function welcomeMail(aff, token, origin, lang) {
 }
 async function tryMail(deps, msg) {
   if (!deps.mail || !deps.mail.configured()) return false;
-  try { await deps.mail.send(msg); return true; } catch (e) { return false; }
+  try { await deps.mail.send(msg); return true; } catch (e) { console.error('affiliate_mail_failed', e && e.message); return false; }
 }
 
 /* ---------------- Comisiones ---------------- */

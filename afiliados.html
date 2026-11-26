@@ -6,7 +6,13 @@
 <title>Afiliadas · TIME Better Calendar</title>
 <meta name="description" content="Gana $5 por cada persona que compre TIME, Better Calendar con tu enlace. Pago automático.">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" id="mf" href="/afiliados.webmanifest">
+<link rel="apple-touch-icon" href="icons/aff-apple-touch.png">
+<link rel="icon" type="image/png" href="icons/aff-192.png">
+<meta name="theme-color" content="#8C3520">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Afiliada">
 <style>
   @font-face { font-family:'Playfair Display'; font-weight:700; font-display:swap; src:url(fonts/playfair-display-latin-700-normal.woff2) format('woff2'); }
   @font-face { font-family:'Nunito'; font-weight:400; font-display:swap; src:url(fonts/nunito-latin-400-normal.woff2) format('woff2'); }
@@ -124,6 +130,13 @@
       <button class="btn" type="button" id="payBtn" hidden></button>
       <p class="msg err" id="payErr" hidden></p>
     </div>
+    <div class="card" id="instCard" hidden style="margin-top:14px">
+      <h2 style="font-size:22px"><span data-es>Ten tu panel como app</span><span data-en>Keep your panel as an app</span></h2>
+      <p style="color:var(--soft);margin:0 0 12px"><span data-es>Instálala en tu teléfono y ábrela con un toque, con el nombre «Afiliada».</span><span data-en>Install it on your phone and open it with one tap, named “Affiliate”.</span></p>
+      <button class="btn" type="button" id="instBtn" hidden><span data-es>Instalar app</span><span data-en>Install app</span></button>
+      <p id="instHelp" hidden style="margin:0;color:var(--soft);font-weight:700"><span data-es>En iPhone: toca Compartir (el cuadro con la flecha) y luego «Agregar a pantalla de inicio».</span><span data-en>On iPhone: tap Share (the square with an arrow), then “Add to Home Screen”.</span></p>
+      <p id="instAnd" style="margin:0;color:var(--soft);font-weight:700"><span data-es>En Android: abre el menú del navegador (⋮) y elige «Instalar app» o «Agregar a pantalla de inicio».</span><span data-en>On Android: open the browser menu (⋮) and choose “Install app” or “Add to Home Screen”.</span></p>
+    </div>
     <section>
       <h2 style="font-size:22px"><span data-es>Tus ventas</span><span data-en>Your sales</span></h2>
       <p id="noSales" style="color:var(--soft)"><span data-es>Todavía no hay ventas. ¡Comparte tu enlace!</span><span data-en>No sales yet. Share your link!</span></p>
@@ -165,8 +178,18 @@
   });
 
   // ----- Panel privado -----
+  var store = { get: function () { try { return localStorage.getItem('aff-k'); } catch (e) { return null; } }, set: function (v) { try { localStorage.setItem('aff-k', v); } catch (e) {} }, del: function () { try { localStorage.removeItem('aff-k'); } catch (e) {} } };
   var k = (/[?&]k=([a-f0-9]{48})/.exec(location.search) || [])[1];
+  if (k) store.set(k); else if (/^[a-f0-9]{48}$/.test(store.get() || '') && !/[?&]join=1/.test(location.search)) k = store.get();
   if (!k) return;
+  $('#mf').href = '/afiliados.webmanifest?k=' + k + (es() ? '' : '&l=en');
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('/afiliados-sw.js', { scope: '/afiliados.html' }).catch(function () {});
+  var deferred = null;
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; $('#instCard').hidden = false; $('#instBtn').hidden = false; $('#instHelp').hidden = true; $('#instAnd').hidden = true; });
+  var isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  if (!isStandalone) { $('#instCard').hidden = false; if (isIOS) { $('#instHelp').hidden = false; $('#instAnd').hidden = true; } }
+  $('#instBtn').addEventListener('click', function () { if (deferred) { deferred.prompt(); deferred = null; $('#instBtn').hidden = true; } });
   $('#pub').hidden = true; $('#dash').hidden = false;
   var data = null;
   function draw() {
@@ -190,7 +213,7 @@
     $('#tbl').hidden = !s.list.length; $('#noSales').hidden = !!s.list.length;
   }
   api({ action: 'me', k: k }).then(function (j) {
-    if (!j.ok) { $('#dash').innerHTML = '<h1>' + T('Enlace no válido', 'Invalid link') + '</h1><p class="lead">' + T('Usa el enlace del correo que te enviamos, o regístrate otra vez para recibir uno nuevo.', 'Use the link from the email we sent you, or sign up again to get a new one.') + '</p><a class="btn" href="afiliados.html">' + T('Registrarme', 'Sign up') + '</a>'; return; }
+    if (!j.ok) { store.del(); $('#dash').innerHTML = '<h1>' + T('Enlace no válido', 'Invalid link') + '</h1><p class="lead">' + T('Usa el enlace del correo que te enviamos, o regístrate otra vez para recibir uno nuevo.', 'Use the link from the email we sent you, or sign up again to get a new one.') + '</p><a class="btn" href="afiliados.html">' + T('Registrarme', 'Sign up') + '</a>'; return; }
     data = j; draw();
   }).catch(function () {});
   document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('.langsw')) setTimeout(draw, 0); });
