@@ -125,3 +125,7 @@ En el panel de compras (`/admin.html`), arriba, está la tarjeta **Regalar TIME*
 ## Panel de afiliada como app aparte
 
 `afiliados.html` se instala en el teléfono como una app propia llamada «Afiliada» (icono rojizo con «$5»), separada de TIME. Usa su propio manifiesto (`/afiliados.webmanifest`, lo genera la función `affiliate-manifest` con la llave de cada afiliada, para que la app abra directo su panel) y un service worker mínimo (`afiliados-sw.js`). Además, el panel recuerda a la afiliada en ese teléfono.
+
+## Panel de administración (`/admin.html`)
+
+Tiene su propio icono («PANEL», con los colores de la app) y manifiesto (`admin.webmanifest`), así que se puede instalar en el teléfono como una app aparte llamada «Panel TIME».

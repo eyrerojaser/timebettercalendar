@@ -5,56 +5,111 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="color-scheme" content="light dark">
-<title>Panel · TIME</title>
+<title>Panel TIME</title>
+<link rel="manifest" href="/admin.webmanifest">
+<link rel="icon" type="image/png" href="icons/admin-192.png">
+<link rel="apple-touch-icon" href="icons/admin-apple-touch.png">
+<meta name="theme-color" content="#8C1A4A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Panel TIME">
 <style>
-  @font-face { font-family: 'Great Vibes'; font-weight: 400; font-style: normal; font-display: swap; src: url(fonts/great-vibes-latin-400-normal.woff2) format('woff2'); }
+  @font-face { font-family: 'Playfair'; font-weight: 700; font-style: normal; font-display: swap; src: url(fonts/playfair-display-latin-700-normal.woff2) format('woff2'); }
   @font-face { font-family: 'Nunito'; font-weight: 400; font-style: normal; font-display: swap; src: url(fonts/nunito-latin-400-normal.woff2) format('woff2'); }
   @font-face { font-family: 'Nunito'; font-weight: 700; font-style: normal; font-display: swap; src: url(fonts/nunito-latin-700-normal.woff2) format('woff2'); }
   @font-face { font-family: 'Nunito'; font-weight: 800; font-style: normal; font-display: swap; src: url(fonts/nunito-latin-800-normal.woff2) format('woff2'); }
-  :root { --bg: #FCF3EC; --surface: #ffffff; --ink: #3A2A22; --ink-soft: #8A7367; --accent: #A9502D; --line: rgba(169,80,45,.18); --ok: #4E8F63; --bad: #B0453D; }
+  :root { --bg:#F7EFE8; --surface:#fff; --ink:#2F211A; --ink-soft:#80695C; --accent:#8C3520; --accent-2:#A9502D; --tint:#F6E6DB; --line:#E9D8CC; --ok:#2E7D4F; --ok-bg:#E3F2E8; --bad:#B0453D; --bad-bg:#F8E3E0; --warn:#A8690A; --warn-bg:#FBEEDA; --shadow:0 1px 2px rgba(60,30,15,.05),0 6px 20px rgba(60,30,15,.06); }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #241A16; --surface: #2F231D; --ink: #F3E7DE; --ink-soft: #C7B3A6; --accent: #E8955F; --line: rgba(232,149,95,.24); }
+    :root { --bg:#1E1512; --surface:#2A1E18; --ink:#F3E7DE; --ink-soft:#C0A99B; --accent:#E8955F; --accent-2:#E8955F; --tint:#3A2A22; --line:#45342B; --ok:#7AD39A; --ok-bg:#1F3A2A; --bad:#FF9A86; --bad-bg:#442622; --warn:#F0B35A; --warn-bg:#40301A; --shadow:none; }
   }
-  * { box-sizing: border-box; }
-  html, body { height: 100%; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Nunito', system-ui, sans-serif; padding: env(safe-area-inset-top,0) 16px env(safe-area-inset-bottom,0); }
-  .wrap { max-width: 780px; margin: 0 auto; padding: 28px 0 60px; }
-  h1 { font-family: 'Great Vibes', cursive; font-weight: 400; font-size: 44px; color: var(--accent); margin: 0 0 4px; }
-  p.sub { margin: 0 0 26px; color: var(--ink-soft); font-size: 14.5px; }
-  .card { max-width: 420px; margin: 40px auto; padding: 26px 22px; border-radius: 24px; background: var(--surface); border: 1px solid var(--line); }
-  .card h2 { margin: 0 0 6px; font-size: 20px; }
-  .card p { margin: 0 0 16px; color: var(--ink-soft); font-size: 14px; line-height: 1.4; }
-  label { display: block; font-size: 13px; font-weight: 800; margin: 12px 0 6px; }
-  input { width: 100%; height: 46px; padding: 0 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; }
-  input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
-  button { font: inherit; font-weight: 800; cursor: pointer; }
-  .btn { width: 100%; height: 48px; margin-top: 18px; border: none; border-radius: 99px; background: var(--accent); color: #fff; }
-  .btn.ghost { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
-  .btn:disabled { opacity: .55; cursor: default; }
-  .err { min-height: 18px; margin: 10px 0 0; font-size: 13px; font-weight: 800; color: var(--bad); }
-  .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 18px; }
-  .toolbar .btn { width: auto; height: 40px; margin: 0; padding: 0 18px; font-size: 14px; }
-  .count { font-weight: 800; color: var(--ink-soft); font-size: 14px; }
-  table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 18px; overflow: hidden; border: 1px solid var(--line); }
-  th, td { text-align: left; padding: 12px 14px; font-size: 14px; border-bottom: 1px solid var(--line); }
-  th { font-size: 12px; text-transform: uppercase; letter-spacing: .03em; color: var(--ink-soft); }
-  tr:last-child td { border-bottom: none; }
-  td.email { overflow-wrap: anywhere; }
-  .empty { padding: 40px 16px; text-align: center; color: var(--ink-soft); }
-  .pass-toggle { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
-  .pass-toggle summary { cursor: pointer; font-size: 13.5px; font-weight: 800; color: var(--accent); }
-  #tableWrap { overflow-x: auto; }
-  .hidden { display: none !important; }
+  * { box-sizing:border-box; }
+  html, body { min-height:100%; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:'Nunito',system-ui,sans-serif; line-height:1.45; padding:0 16px env(safe-area-inset-bottom,0); }
+  .wrap { max-width:960px; margin:0 auto; padding:0 0 60px; }
+  .top { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:calc(18px + env(safe-area-inset-top,0)) 0 18px; }
+  .brand { display:flex; align-items:center; gap:12px; }
+  .logo { width:42px; height:42px; border-radius:11px; display:block; }
+  .brand h1 { margin:0; font:700 22px/1.1 'Playfair',serif; color:var(--ink); }
+  .brand p { margin:2px 0 0; color:var(--ink-soft); font-size:13px; }
+  h2 { margin:0; font-size:17px; }
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:18px; box-shadow:var(--shadow); }
+  .card.narrow { max-width:420px; margin:40px auto; padding:26px 22px; }
+  .card.narrow h2 { font-size:20px; margin-bottom:6px; }
+  .card.narrow p { margin:0 0 16px; color:var(--ink-soft); font-size:14px; }
+  label { display:block; font-size:13px; font-weight:800; margin:12px 0 6px; }
+  input[type=text], input[type=email], input[type=password] { width:100%; height:46px; padding:0 14px; border-radius:12px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font:inherit; }
+  input:focus { outline:2px solid var(--accent); outline-offset:1px; }
+  button { font:inherit; font-weight:800; cursor:pointer; }
+  .btn { width:100%; height:48px; margin-top:18px; border:none; border-radius:12px; background:var(--accent); color:#fff; }
+  .btn:hover { filter:brightness(1.07); }
+  .btn.ghost { background:transparent; color:var(--accent); border:1.5px solid var(--line); }
+  .btn.ghost:hover { border-color:var(--accent); }
+  .btn.sm { width:auto; height:36px; margin:0; padding:0 14px; font-size:13.5px; border-radius:10px; }
+  .btn:disabled { opacity:.55; cursor:default; }
+  .err { min-height:18px; margin:10px 0 0; font-size:13px; font-weight:800; color:var(--bad); }
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
+  .stat { padding:16px; }
+  .stat span { display:block; color:var(--ink-soft); font-size:12.5px; font-weight:800; text-transform:uppercase; letter-spacing:.04em; }
+  .stat b { display:block; margin-top:4px; font:700 28px 'Playfair',serif; color:var(--accent); }
+  .status { display:flex; align-items:center; gap:10px; padding:12px 16px; margin-bottom:16px; cursor:pointer; list-style:none; }
+  .status::-webkit-details-marker { display:none; }
+  .dot { width:10px; height:10px; border-radius:50%; flex:none; }
+  .dot.ok { background:var(--ok); } .dot.warn { background:var(--warn); } .dot.bad { background:var(--bad); }
+  details.conn { padding:0; margin-bottom:16px; }
+  details.conn summary { padding:14px 18px; font-weight:800; display:flex; align-items:center; gap:10px; cursor:pointer; list-style:none; }
+  details.conn summary::-webkit-details-marker { display:none; }
+  details.conn summary small { margin-left:auto; color:var(--ink-soft); font-weight:700; }
+  .conn-body { padding:0 18px 16px; display:grid; gap:8px; font-size:14px; }
+  .conn-row { display:flex; gap:10px; align-items:flex-start; }
+  .conn-row .i { flex:none; width:20px; font-weight:800; text-align:center; }
+  .notice { padding:14px 16px; margin-bottom:12px; border-radius:14px; background:var(--warn-bg); color:var(--ink); border:1px solid var(--line); font-size:14px; }
+  .section-head { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; margin:22px 0 12px; }
+  .section-head p { margin:0; color:var(--ink-soft); font-size:13.5px; }
+  .actions { display:flex; flex-wrap:wrap; gap:8px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .msg { margin:12px 0 0; font-size:14px; font-weight:700; color:var(--ink-soft); min-height:18px; }
+  table { width:100%; border-collapse:separate; border-spacing:0; }
+  thead th { text-align:left; padding:12px 14px; font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); background:var(--tint); border-bottom:1px solid var(--line); }
+  thead th:first-child { border-top-left-radius:14px; } thead th:last-child { border-top-right-radius:14px; }
+  tbody td { padding:14px; font-size:14px; border-bottom:1px solid var(--line); vertical-align:middle; }
+  tbody tr:last-child td { border-bottom:none; }
+  tbody tr:hover td { background:color-mix(in srgb, var(--tint) 45%, transparent); }
+  .who { display:flex; align-items:center; gap:12px; min-width:0; }
+  .av { width:38px; height:38px; border-radius:50%; background:var(--tint); color:var(--accent); display:grid; place-items:center; font-weight:800; flex:none; }
+  .who b { display:block; } .who small { color:var(--ink-soft); overflow-wrap:anywhere; font-size:13px; }
+  tbody td:first-child { min-width:250px; }
+  @media (max-width:760px) { tbody td:first-child { min-width:0; } }
+  code { font:700 13px ui-monospace,Menlo,monospace; background:var(--tint); padding:4px 8px; border-radius:8px; white-space:nowrap; }
+  .pill { display:inline-block; padding:3px 10px; border-radius:99px; font-size:12.5px; font-weight:800; white-space:nowrap; }
+  .pill.ok { background:var(--ok-bg); color:var(--ok); } .pill.bad { background:var(--bad-bg); color:var(--bad); } .pill.gift { background:var(--tint); color:var(--accent); }
+  .muted { color:var(--ink-soft); }
+  .row-actions { display:flex; gap:6px; flex-wrap:wrap; }
+  .empty { padding:40px 16px; text-align:center; color:var(--ink-soft); }
+  .pass-toggle { margin-top:26px; padding:16px 18px; }
+  .pass-toggle summary { cursor:pointer; font-size:14px; font-weight:800; color:var(--accent); }
+  .hidden { display:none !important; }
+  @media (max-width:760px) {
+    .stats { grid-template-columns:1fr 1fr; } .grid2 { grid-template-columns:1fr; }
+    table, tbody, tr, td { display:block; width:100%; } thead { display:none; }
+    tbody tr { border:1px solid var(--line); border-radius:14px; padding:12px 14px; margin-bottom:10px; background:var(--surface); }
+    tbody td { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:8px 0; border-bottom:1px solid var(--line); text-align:right; }
+    tbody td:first-child { text-align:left; } tbody td:last-child { border-bottom:none; }
+    tbody td[data-l]::before { content:attr(data-l); color:var(--ink-soft); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.04em; }
+    tbody tr:hover td { background:transparent; }
+    .tablecard { padding:0 !important; background:transparent !important; border:none !important; box-shadow:none !important; }
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>Panel de compras</h1>
-  <p class="sub">Compradores de TIME: datos, código de activación, fecha y estado.</p>
+  <header class="top">
+    <div class="brand"><img class="logo" src="icons/admin-192.png" alt="" width="42" height="42"><div><h1>Panel de administración</h1><p>TIME · Better Calendar</p></div></div>
+    <button class="btn ghost sm hidden" id="outBtn">Cerrar sesión</button>
+  </header>
 
-  <div class="card" id="setupCard" hidden>
+  <div class="card narrow" id="setupCard" hidden>
     <h2>Crea tu contraseña</h2>
-    <p>Es la primera vez que abres este panel. Elige una contraseña para entrar la próxima vez — no se puede recuperar si la olvidas, así que guárdala bien.</p>
+    <p>Es la primera vez que abres este panel. Elige una contraseña para entrar la próxima vez. No se puede recuperar si la olvidas, así que guárdala bien.</p>
     <label for="spPass">Nueva contraseña</label>
     <input id="spPass" type="password" autocomplete="new-password">
     <label for="spPass2">Repítela</label>
@@ -63,9 +118,9 @@
     <button class="btn" id="spGo">Crear y entrar</button>
   </div>
 
-  <div class="card" id="loginCard" hidden>
+  <div class="card narrow" id="loginCard" hidden>
     <h2>Entrar</h2>
-    <p>Escribe tu contraseña para ver la lista.</p>
+    <p>Escribe tu contraseña para ver el panel.</p>
     <label for="lgPass">Contraseña</label>
     <input id="lgPass" type="password" autocomplete="current-password">
     <p class="err" id="lgErr"></p>
@@ -73,36 +128,41 @@
   </div>
 
   <div id="panel" hidden>
+    <div class="stats" id="stats"></div>
     <div id="notices"></div>
-    <div class="toolbar">
-      <span class="count" id="count"></span>
-      <button class="btn ghost" id="syncBtn">Sincronizar con Stripe</button>
-      <button class="btn ghost" id="refreshBtn">Actualizar</button>
-      <button class="btn ghost" id="csvBtn">Exportar CSV</button>
-      <button class="btn ghost" id="outBtn">Cerrar sesión</button>
-    </div>
-    <p class="count" id="syncMsg" role="status" style="margin:-6px 0 12px"></p>
-    <div class="card" id="giftCard" style="max-width:none;margin:0 0 14px;padding:16px">
-      <h2 style="font-size:17px">Regalar TIME</h2>
-      <p style="margin:0 0 6px">Para influencers o personas que quieras que la prueben gratis. Se crea un código y se le envía por correo.</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
+
+    <div class="card" id="giftCard">
+      <h2>Regalar TIME</h2>
+      <p class="muted" style="margin:4px 0 0;font-size:14px">Para influencers o personas que quieras que la prueben gratis. Se crea un código y se les envía por correo.</p>
+      <div class="grid2">
         <div><label for="gfName">Nombre</label><input id="gfName" type="text" maxlength="100" autocomplete="off"></div>
         <div><label for="gfEmail">Correo</label><input id="gfEmail" type="email" maxlength="160" autocomplete="off"></div>
       </div>
-      <label style="display:flex;gap:8px;align-items:center;font-weight:700"><input id="gfEn" type="checkbox" style="width:18px;height:18px"> Enviar el correo en inglés</label>
-      <button class="btn" id="gfGo" style="width:auto;padding:0 22px;height:42px">Regalar y enviar</button>
-      <p class="count" id="gfMsg" role="status" style="margin:12px 0 0"></p>
+      <label style="display:flex;gap:8px;align-items:center;font-weight:700;margin-top:14px"><input id="gfEn" type="checkbox" style="width:18px;height:18px;accent-color:var(--accent)"> Enviar el correo en inglés</label>
+      <button class="btn sm" id="gfGo" style="margin-top:14px;height:42px;padding:0 22px">Regalar y enviar</button>
+      <p class="msg" id="gfMsg" role="status"></p>
     </div>
-    <div id="buysWrap"><p class="empty">Cargando…</p></div>
+
+    <div class="section-head">
+      <div><h2>Compradores</h2><p id="count"></p></div>
+      <div class="actions">
+        <button class="btn sm" id="syncBtn">Sincronizar con Stripe</button>
+        <button class="btn ghost sm" id="refreshBtn">Actualizar</button>
+        <button class="btn ghost sm" id="csvBtn">Exportar CSV</button>
+      </div>
+    </div>
+    <p class="msg" id="syncMsg" role="status" style="margin:-4px 0 12px"></p>
+    <div class="card tablecard" id="buysCard" style="padding:0;overflow:hidden"><div id="buysWrap"><p class="empty">Cargando…</p></div></div>
     <div id="tableWrap" hidden></div>
-    <details class="pass-toggle">
+
+    <details class="card pass-toggle">
       <summary>Cambiar mi contraseña</summary>
       <label for="cpCur">Contraseña actual</label>
       <input id="cpCur" type="password" autocomplete="current-password">
       <label for="cpNew">Contraseña nueva</label>
       <input id="cpNew" type="password" autocomplete="new-password">
       <p class="err" id="cpErr"></p>
-      <button class="btn ghost" id="cpGo" style="margin-top:14px">Cambiar contraseña</button>
+      <button class="btn ghost sm" id="cpGo" style="margin-top:6px;height:42px">Cambiar contraseña</button>
     </details>
   </div>
 </div>
@@ -127,39 +187,56 @@
 
   let buys = [], flags = {};
   const STATUS = { active: ['Activo', 'var(--ok)'], refunded: ['Reembolsado', 'var(--bad)'], dispute: ['Disputa', 'var(--bad)'], revoked: ['Revocado', 'var(--bad)'] };
-  const money = p => p.gift ? 'Regalo' : p.amount != null ? (p.amount / 100).toFixed(2) + ' ' + esc(String(p.currency || '').toUpperCase()) : '';
+  const money = p => p.amount != null ? (p.amount / 100).toFixed(2) + ' ' + esc(String(p.currency || '').toUpperCase()) : '';
   let diag = null;
   function diagHtml() {
     if (!diag) return '';
-    const ok = v => v ? '<b style="color:var(--ok)">✓</b>' : '<b style="color:var(--bad)">✗</b>';
     const when = x => x && x.at ? fmt(x.at) : 'nunca';
-    const rd = { ok: ['✓', 'Bien: lleva a gracias.html con el session_id.'], wrong: ['✗', 'Está redirigiendo a otra dirección: ' + esc(diag.redirectUrl) + '. Debe ser exactamente: ' + esc(diag.expectedRedirect)], no_redirect: ['✗', 'El enlace muestra la página de Stripe y no te regresa a tu sitio. En Stripe → Payment Links → tu enlace → After payment elige «Redirect customers to your website» y pega: ' + esc(diag.expectedRedirect)], unknown: ['?', 'No pude comprobarlo desde aquí. Abre Stripe → Payment Links → tu enlace → After payment y confirma que la dirección sea: ' + esc(diag.expectedRedirect) + '. (Para que se compruebe solo: pon STRIPE_PAYMENT_LINK = plink_… en Netlify y da a tu llave permiso de lectura en «Payment Links».)'] }[diag.redirect] || ['?', ''];
-    return '<div class="card" style="max-width:none;margin:0 0 12px;padding:14px 16px"><b>Estado de la conexión</b><br>'
-      + ok(diag.stripeKey) + ' Llave de Stripe (STRIPE_SECRET_KEY)<br>'
-      + ok(diag.webhookSecret) + ' Webhook de Stripe — último aviso recibido: ' + when(diag.lastWebhook) + '<br>'
-      + ok(diag.buyUrl) + ' Enlace de compra (BUY_URL)<br>'
-      + ok(diag.mail) + ' Correo para recuperar códigos<br>'
-      + '<b>' + rd[0] + '</b> Redirección del pago: ' + rd[1] + '<br>'
-      + 'Última vez que alguien abrió gracias.html con una compra real: ' + when(diag.lastRedeem) + '</div>';
+    const rdMsg = { ok: 'Bien: lleva a gracias.html con el session_id.', wrong: 'Está redirigiendo a otra dirección: ' + esc(diag.redirectUrl) + '. Debe ser exactamente: ' + esc(diag.expectedRedirect), no_redirect: 'El enlace muestra la página de Stripe y no te regresa a tu sitio. En Stripe → Payment Links → tu enlace → After payment elige «Redirect customers to your website» y pega: ' + esc(diag.expectedRedirect), unknown: 'No se pudo comprobar desde aquí. Si ya lo configuraste en Stripe, puedes ignorarlo.' }[diag.redirect] || '';
+    const rows = [
+      [diag.stripeKey, 'Llave de Stripe', ''],
+      [diag.webhookSecret, 'Webhook de Stripe', 'Último aviso recibido: ' + when(diag.lastWebhook)],
+      [diag.buyUrl, 'Enlace de compra', ''],
+      [diag.mail, 'Correo para recuperar códigos', ''],
+      [diag.redirect === 'ok' ? true : diag.redirect === 'unknown' ? null : false, 'Redirección del pago', rdMsg],
+      [null, 'Última compra real vista en la página de gracias', when(diag.lastRedeem)]
+    ];
+    const bad = rows.filter(r => r[0] === false).length;
+    const state = bad ? 'bad' : 'ok';
+    const title = bad ? 'Hay ' + bad + (bad === 1 ? ' cosa' : ' cosas') + ' por revisar' : 'Todo conectado';
+    const icon = v => v === true ? '<span class="i" style="color:var(--ok)">✓</span>' : v === false ? '<span class="i" style="color:var(--bad)">✗</span>' : '<span class="i muted">•</span>';
+    return '<details class="card conn"' + (bad ? ' open' : '') + '><summary><span class="dot ' + state + '"></span>Estado de la conexión: ' + title + '<small>ver detalles</small></summary><div class="conn-body">'
+      + rows.map(r => '<div class="conn-row">' + icon(r[0]) + '<div><b>' + r[1] + '</b>' + (r[2] ? '<br><span class="muted">' + r[2] + '</span>' : '') + '</div></div>').join('')
+      + '</div></details>';
+  }
+  function renderStats() {
+    const sales = buys.filter(p => !p.gift), gifts = buys.filter(p => p.gift), active = buys.filter(p => p.status === 'active');
+    const rev = sales.filter(p => p.status === 'active' && p.amount != null).reduce((t, p) => t + p.amount, 0);
+    const card = (l, v) => '<div class="card stat"><span>' + l + '</span><b>' + v + '</b></div>';
+    $('#stats').innerHTML = card('Ventas', sales.length) + card('Ingresos', '$' + (rev / 100).toFixed(2).replace(/\.00$/, '')) + card('Regalos', gifts.length) + card('Activas', active.length);
   }
   function renderBuys() {
-    $('#count').textContent = buys.length + (buys.length === 1 ? ' compra' : ' compras');
+    $('#count').textContent = buys.length + (buys.length === 1 ? ' persona con acceso' : ' personas con acceso');
+    renderStats();
     let n = '';
-    if (flags.webhook === false) n += '<div class="card" style="max-width:none;margin:0 0 12px;padding:14px 16px"><b>Falta conectar el webhook de Stripe.</b> Sin él, las compras solo se guardan cuando la persona abre la página de gracias, y los reembolsos no desactivan el código solos. Mira el paso 5 del README.</div>';
-    if (flags.mail === false) n += '<div class="card" style="max-width:none;margin:0 0 12px;padding:14px 16px"><b>Falta configurar el correo.</b> Sin él, el botón «Recuperar código por correo» no puede enviar nada. Mira el paso 6 del README.</div>';
+    if (flags.webhook === false) n += '<div class="notice"><b>Falta conectar el webhook de Stripe.</b> Sin él, las compras solo se guardan cuando la persona abre la página de gracias, y los reembolsos no desactivan el código solos. Mira el paso 5 del README.</div>';
+    if (flags.mail === false) n += '<div class="notice"><b>Falta configurar el correo.</b> Sin él, el botón «Recuperar código por correo» no puede enviar nada. Mira el paso 6 del README.</div>';
     n += diagHtml();
     $('#notices').innerHTML = n;
     if (!buys.length) { $('#buysWrap').innerHTML = '<p class="empty">Todavía no hay compras. Si ya vendiste, toca «Sincronizar con Stripe».</p>'; return; }
-    let h = '<table><thead><tr><th>Cliente</th><th>Código</th><th>Fecha de compra</th><th>Estado</th><th>Disp.</th><th></th></tr></thead><tbody>';
+    let h = '<table><thead><tr><th>Cliente</th><th>Código</th><th>Fecha</th><th>Importe</th><th>Estado</th><th>Disp.</th><th></th></tr></thead><tbody>';
     buys.forEach(p => {
       const st = STATUS[p.status] || STATUS.active;
-      h += `<tr><td>${esc(p.name) || '<span style="color:var(--ink-soft)">(sin nombre)</span>'}<br><span class="email">${esc(p.email)}</span></td>`
-        + `<td><code>${esc(p.code)}</code></td><td>${fmt(p.created)}<br><span style="color:var(--ink-soft)">${money(p)}</span></td>`
-        + `<td><b style="color:${st[1]}">${st[0]}</b></td><td>${p.devices}/4</td>`
-        + `<td><button class="btn ghost" style="height:34px;margin:0;font-size:13px;padding:0 12px;width:auto" data-act="${p.revoked ? 'restore' : 'revoke'}" data-code="${esc(p.code)}">${p.revoked ? 'Restaurar' : 'Desactivar'}</button>`
-        + `<br><button class="btn ghost" style="height:34px;margin:6px 0 0;font-size:13px;padding:0 12px;width:auto" data-act="reset_devices" data-code="${esc(p.code)}">Liberar dispositivos</button></td></tr>`;
+      const bad = p.status !== 'active';
+      const nm = p.name || p.email || '?';
+      h += `<tr><td><div class="who"><div class="av">${esc(nm.trim().charAt(0).toUpperCase())}</div><div><b>${esc(p.name) || '<span class="muted">(sin nombre)</span>'}</b><small>${esc(p.email)}</small></div></div></td>`
+        + `<td data-l="Código"><code>${esc(p.code)}</code></td><td data-l="Fecha">${fmt(p.created)}</td>`
+        + `<td data-l="Importe">${p.gift ? '<span class="pill gift">Regalo</span>' : '<b>' + money(p) + '</b>'}</td>`
+        + `<td data-l="Estado"><span class="pill ${bad ? 'bad' : 'ok'}">${st[0]}</span></td><td data-l="Dispositivos">${p.devices}/4</td>`
+        + `<td><div class="row-actions"><button class="btn ghost sm" data-act="${p.revoked ? 'restore' : 'revoke'}" data-code="${esc(p.code)}">${p.revoked ? 'Restaurar' : 'Desactivar'}</button>`
+        + `<button class="btn ghost sm" data-act="reset_devices" data-code="${esc(p.code)}">Liberar dispositivos</button></div></td></tr>`;
     });
-    $('#buysWrap').innerHTML = '<div style="overflow-x:auto">' + h + '</tbody></table></div>';
+    $('#buysWrap').innerHTML = h + '</tbody></table>';
   }
   async function loadBuys() {
     const r = await fetch('/api/license?admin=1', { cache: 'no-store', headers: { 'x-admin-key': key } });
@@ -208,7 +285,7 @@
     b.disabled = false;
   });
 
-  function show(id) { ['setupCard', 'loginCard', 'panel'].forEach(x => $('#' + x).hidden = x !== id); }
+  function show(id) { ['setupCard', 'loginCard', 'panel'].forEach(x => $('#' + x).hidden = x !== id); $('#outBtn').classList.toggle('hidden', id !== 'panel'); }
 
   async function boot() {
     if (key) {
